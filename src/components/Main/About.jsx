@@ -1,20 +1,13 @@
 // import React, { useState } from 'react' 
 
-export default function About(props) {
-// let myStyle = {
-//  color : props.mode ==='dark'?  '#042743': 'black',
-//   backgroundColor: props.mode==='dark'? 'white': '#042743',
-//    border :'2px solid ', 
-//    borderColor : props.mode ==='dark'? 'white': '#0b1949'
-// }
+export default function About({darkMode}) {
 
- 
-   
-    return (
-       <div className="container my-3" >
-        <h1 className="my-3 text-black mx-3 text-4xl content-center" >About College</h1>
+   return (
+    <div className={`${darkMode ? 'bg-{#091040} text-white' : 'bg-white text-black'} p-4`}>
+    
+        <h1 className='my-3 text-red-900 mx-3 text-4xl  content-center' >About College</h1>
          <div className="college-container">
-    <p className='About text-xl text-black'>
+    <p className='About text-xl text-blue-800'>
    
 🏫 दरबारी लाल शर्मा इंटर कॉलेज, रिठौरा, बरेली
 <br></br>

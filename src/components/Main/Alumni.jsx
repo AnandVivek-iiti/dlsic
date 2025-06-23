@@ -1,70 +1,100 @@
+import image from '../assets/image.png'
 
-     export default function Alumni (){
-        return (
-            <>
-      {/* Alumni Section */}
-      <section id="alumni" className="p-8 bg-gray-100">
-        <h2 className="text-2xl font-bold mb-4 text-center">Our Proud Alumni</h2>
-        <p className="text-center max-w-3xl mx-auto mb-8">
-          Our alumni are shining in diverse fields across India and abroad. Their journey began here — and continues to inspire our students.
-        </p>
-        <div className="flex flex-wrap justify-center gap-6">
-          <div className="bg-white rounded-lg shadow-md p-4 w-80 text-center">
-            <img src="https://source.unsplash.com/400x300/?success,businessman" alt="Alumni Success" className="w-full h-48 object-cover rounded" />
-            <h3 className="text-xl font-semibold mt-4">Ravi Sharma - Entrepreneur</h3>
-            <p className="my-2">Founder of a leading tech startup, Ravi always remembers the discipline and support from his DLS days.</p>
-          </div>
-          <div className="bg-white rounded-lg shadow-md p-4 w-80 text-center">
-            <img src="https://source.unsplash.com/400x300/?doctor,healthcare" alt="Doctor Alumni" className="w-full h-48 object-cover rounded" />
-            <h3 className="text-xl font-semibold mt-4">Dr. Neha Verma - Surgeon</h3>
-            <p className="my-2">Practicing in Delhi, she credits her academic foundation at DLS Inter College for her success.</p>
-          </div>
-        </div>
-      </section>
+const alumniData = [
+ 
+  {
+    name: 'Sovran Raj',
+    batch: 'Batch of 2023',
+    role: 'Student at IIIT Jabalpur',
+    quote: 'DLS gave me the foundation I needed to dream big.',
+    image,
+  },
+  {
+    name: 'Anurag Pandey',
+    batch: 'Batch of 2023',
+    role: 'Indian Navi',
+    quote: 'The discipline and guidance at DLS shaped my journey.',
+    image,
+  },
+  {
+    name: 'Sovran Raj',
+    batch: 'Batch of 2023',
+    role: 'Student at IIIT Jabalpur',
+    quote: 'DLS gave me the foundation I needed to dream big.',
+    image,
+  },
+  {
+    name: 'Anand Vivek',
+    batch: 'Batch of 2024',
+    role: 'Student at IIT Indore',
+    quote: 'DLS helped me grow as a leader and learner.',
+    image,
+  },
+  {
+    name: 'Sovran Raj',
+    batch: 'Batch of 2023',
+    role: 'Student at IIIT Jabalpur',
+    quote: 'DLS gave me the foundation I needed to dream big.',
+    image,
+  },
+  {
+    name: 'Anand Vivek',
+    batch: 'Batch of 2024',
+    role: 'Student at IIT Indore',
+    quote: 'DLS helped me grow as a leader and learner.',
+    image,
+  },
+  {
+    name: 'Sovran Raj',
+    batch: 'Batch of 2023',
+    role: 'Student at IIIT Jabalpur',
+    quote: 'DLS gave me the foundation I needed to dream big.',
+    image,
+  },
+  {
+    name: 'Anand Vivek',
+    batch: 'Batch of 2024',
+    role: 'Student at IIT Indore',
+    quote: 'DLS helped me grow as a leader and learner.',
+    image,
 
-      {/* Contact Section */}
-      <section id="contact" className="p-8 bg-white">
-        <h2 className="text-2xl font-bold mb-4 text-center">Contact Us</h2>
-        <p className="text-center max-w-3xl mx-auto mb-8">
-          We’d love to hear from you. Reach out with any questions or feedback.
-        </p>
-        <div className="flex flex-wrap gap-6 justify-center">
-          <div className="w-full md:w-1/2 space-y-4">
-            <p><strong>Address:</strong><br />DLS Inter College, Rithora, Bareilly, Uttar Pradesh</p>
-            <p><strong>Phone:</strong><br />+91-XXXXXXXXXX</p>
-            <p><strong>Email:</strong><br />dlscollege@example.com</p>
-            <iframe
-              src="https://www.google.com/maps?q=rithora+bareilly&output=embed"
-              width="100%"
-              height="200"
-              className="rounded border-0"
-              loading="lazy"
-              title="Map"
-            ></iframe>
-          </div>
-          <div className="w-full md:w-1/2">
-            <form className="space-y-4">
-              <div>
-                <label className="block mb-1">Name:</label>
-                <input type="text" className="w-full p-2 border rounded" />
-              </div>
-              <div>
-                <label className="block mb-1">Email:</label>
-                <input type="email" className="w-full p-2 border rounded" />
-              </div>
-              <div>
-                <label className="block mb-1">Message:</label>
-                <textarea className="w-full p-2 border rounded" rows="4"></textarea>
-              </div>
-              <button type="submit" className="bg-blue-700 text-white py-2 px-6 rounded">Send</button>
-            </form>
-          </div>
-        </div>
-      </section>
+  },
+];
 
-      {/* Footer */}
-      <footer className="text-center p-4 bg-gray-200 mt-8">
-        © 2025 DLS Inter College, Rithora Bareilly | All Rights Reserved
-      </footer>
-      </>
-     ) }
+export default function AlumniSection() {
+  return (
+    <section className="py-20 bg-gradient-to-br from-[#f8fafc] to-[#e0e7ff]">
+      <h2 className="text-4xl text-center font-bold text-indigo-800 mb-3">🎓 DLS Alumni</h2>
+      <p className="text-center text-gray-600 max-w-xl mx-auto text-lg mb-12">
+        Our proud alumni are making a difference across industries and nations. Here's what some of them have to say.
+      </p>
+
+      <div className="flex flex-wrap justify-center gap-8 px-4">
+        {alumniData.map((alumni, index) => (
+          <div
+            key={index}
+            className="bg-white rounded-[22px] w-[300px] min-h-[360px] p-6 shadow-[0_8px_32px_rgba(43,54,126,0.1)] text-center 
+                       transition-all duration-300 hover:scale-105 hover:-translate-y-2"
+          >
+            <img
+              src={alumni.image}
+              alt={alumni.name}
+              className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-indigo-200 shadow"
+            />
+            <h3 className="text-xl font-semibold text-indigo-800">{alumni.name}</h3>
+            <p className="text-sm text-gray-500 italic">{alumni.batch}</p>
+            <p className="text-sm text-gray-600 mt-1">{alumni.role}</p>
+            <p className="text-sm text-gray-700 mt-4 px-2 font-medium">“{alumni.quote}”</p>
+            <button
+              type="button"
+              className="mt-6 bg-gradient-to-r from-indigo-800 to-indigo-500 text-white px-6 py-2 rounded-full text-sm font-semibold 
+                         hover:scale-105 hover:-translate-y-1 transition-transform"
+            >
+              Read More
+            </button>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}

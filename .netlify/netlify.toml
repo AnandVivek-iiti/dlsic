@@ -1,3 +1,5 @@
+functionsDirectory = "C:\\Users\\ANAND VIVEK IITI\\DLSICR\\netlify\\functions"
+functionsDirectoryOrigin = "config-v1"
 plugins = []
 headers = []
 redirects = []
@@ -7,11 +9,11 @@ redirects = []
 [functions."*"]
 
 [build]
-publish = "C:\\Users\\ANAND VIVEK IITI\\OneDrive\\Desktop\\DLSIC\\DLSICR\\dist"
-publishOrigin = "ui"
-commandOrigin = "ui"
-base = "C:\\Users\\ANAND VIVEK IITI\\OneDrive\\Desktop\\DLSIC\\DLSICR"
+publish = "C:\\Users\\ANAND VIVEK IITI\\DLSICR\\dist"
+publishOrigin = "config"
+commandOrigin = "config"
 command = "npm run build"
+functions = "C:\\Users\\ANAND VIVEK IITI\\DLSICR\\netlify\\functions"
 
 [build.environment]
 

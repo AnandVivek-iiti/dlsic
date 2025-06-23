@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
+import UploadNotes from './components/Main/student/UploadNotes';
+import NotesList from './components/Main/student/NotesList';
 
 import Header1 from './components/Header/Header1';
 import Home from './components/Home';
@@ -8,7 +10,7 @@ import Login from './components/Header/Login';
 import Signup from './components/Header/Signup';
 import About from './components/Main/About';
 import Alumni from './components/Main/Alumni';
-import Student from './components/Main/student/Student';
+import Student from './components/Main/student/Students';
 import Acedemic from './components/Main/Acedemic';
 import ClassSelector from './components/Main/student/ClassSelector';
 import SubjectSelector from './components/Main/student/SubjectSelector';
@@ -54,6 +56,10 @@ function App() {
           <Route path="/ClassSelector" element={<ClassSelector darkMode={darkMode} />} />
           <Route path="/subject/:classId" element={<SubjectSelector darkMode={darkMode} />} />
           <Route path="/topics/:classId/:subject" element={<TopicList darkMode={darkMode} />} />
+       <Route path="/upload-notes" element={<UploadNotes darkMode={darkMode} />} />
+<Route path="/view-notes" element={<NotesList darkMode={darkMode} />} />
+
+
         </Routes>
       </div>
     

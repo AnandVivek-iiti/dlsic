@@ -1,3 +1,4 @@
+// server.js
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -10,11 +11,15 @@ import { User } from './models/userSchema.js';
 const app = express();
 const port = 3000;
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 app.use(express.json());
-app.use('/uploads', express.static(path.join(process.cwd(), 'server/uploads'))); // for public access to PDFs
+app.use('/uploads', express.static(path.resolve('server/uploads')));
+const res = await axios.post('http://localhost:3000/api/upload', formData);
 
-// Set up multer storage for PDFs
+// Multer config
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const dir = 'server/uploads';
@@ -27,7 +32,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// MongoDB connection
+// Connect MongoDB
 async function main() {
   try {
     await mongoose.connect('mongodb://localhost:27017/todo', {
@@ -36,15 +41,13 @@ async function main() {
     });
     console.log('✅ Connected to MongoDB');
 
-    // ---- Signup ----
+    // ----- Signup -----
     app.post('/api/signup', async (req, res) => {
       const { name, email, password } = req.body;
 
       try {
         const existingUser = await User.findOne({ email });
-        if (existingUser) {
-          return res.status(409).json({ message: 'User already exists' });
-        }
+        if (existingUser) return res.status(409).json({ message: 'User already exists' });
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ name, email, password: hashedPassword });
@@ -57,7 +60,7 @@ async function main() {
       }
     });
 
-    // ---- Login ----
+    // ----- Login -----
     app.post('/api/login', async (req, res) => {
       const { email, password } = req.body;
 
@@ -75,14 +78,14 @@ async function main() {
       }
     });
 
-    // ---- Upload Notes ----
+    // ----- Upload Notes -----
     app.post('/api/upload', upload.single('pdf'), (req, res) => {
       const { title, subject } = req.body;
       const file = req.file;
+
       if (!file) return res.status(400).json({ message: 'No file uploaded' });
 
       const fileUrl = `http://localhost:${port}/uploads/${file.filename}`;
-
       const newEntry = {
         title,
         subject,
@@ -98,10 +101,10 @@ async function main() {
       notes.push(newEntry);
       fs.writeFileSync(notesPath, JSON.stringify(notes, null, 2));
 
-      res.json({ message: 'Note uploaded', data: newEntry });
+      res.json({ message: 'Note uploaded successfully!', data: newEntry });
     });
 
-    // ---- Fetch Notes ----
+    // ----- Fetch Notes -----
     app.get('/api/notes', (req, res) => {
       const notesPath = './server/notes.json';
       const notes = fs.existsSync(notesPath)
@@ -111,13 +114,13 @@ async function main() {
       res.json(notes);
     });
 
-    // ---- Start Server ----
+    // ----- Start Server -----
     app.listen(port, () => {
       console.log(`🚀 Server running at http://localhost:${port}`);
     });
 
   } catch (err) {
-    console.error('❌ DB Connection Error:', err);
+    console.error('❌ MongoDB connection error:', err);
   }
 }
 
