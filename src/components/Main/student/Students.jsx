@@ -2,9 +2,8 @@ import { useState } from 'react';
 import ClassSelector from './ClassSelector';
 import SubjectSelector from './SubjectSelector';
 import TopicList from './TopicList';
-import UploadNotes from './UploadNotes';
-import NotesList from './NotesList';
 import BackButton from './BackButton';
+import DoubtSolver from './DoubtSolver';
 
 const studentCards = [
   {
@@ -33,7 +32,7 @@ const studentCards = [
     title: 'Student Support',
     items: ['Mentor & counselor help', 'Feedback & concerns', 'Wellbeing sessions'],
     btn: 'Get Support',
-    action: null,
+    action: 'doubtSolver',
   },
   {
     icon: '💡',
@@ -54,10 +53,8 @@ const studentCards = [
 export default function Student() {
   const [selectedClass, setSelectedClass] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null);
-  const [showUpload, setShowUpload] = useState(false);
-  const [showMaterialFlow, setShowMaterialFlow] = useState(false); // control Study Material flow
-
-  
+  const [showMaterialFlow, setShowMaterialFlow] = useState(false);
+  const [showDoubtSolver, setShowDoubtSolver] = useState(false);
 
   return (
     <section id="student" className="py-8 bg-gradient-to-br from-indigo-100 to-slate-50 shadow-2xl">
@@ -66,8 +63,8 @@ export default function Student() {
         Everything a DLS student needs in one place — from timetables and learning materials to support and progress tracking.
       </p>
 
-      {/* IF user hasn't clicked "Access Materials" */}
-      {!showMaterialFlow ? (
+      {/* Show dashboard cards if nothing is active */}
+      {!showMaterialFlow && !showDoubtSolver ? (
         <div className="flex flex-wrap justify-center gap-8 mb-16">
           {studentCards.map((card, idx) => (
             <div
@@ -85,6 +82,8 @@ export default function Student() {
                 onClick={() => {
                   if (card.action === 'studyMaterial') {
                     setShowMaterialFlow(true);
+                  } else if (card.action === 'doubtSolver') {
+                    setShowDoubtSolver(true);
                   }
                 }}
                 className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-full text-sm font-semibold"
@@ -94,8 +93,8 @@ export default function Student() {
             </div>
           ))}
         </div>
-      ) : (
-        // ✅ Full Study Material Flow
+      ) : showMaterialFlow ? (
+        // ✅ Show Study Material Flow
         <div className="p-4 max-w-3xl mx-auto bg-white rounded shadow">
           {!selectedClass ? (
             <ClassSelector onSelectClass={setSelectedClass} />
@@ -111,28 +110,18 @@ export default function Student() {
                 <h2 className="text-xl font-semibold text-[#981F4D]">
                   Class {selectedClass} - {selectedSubject}
                 </h2>
-                <button
-                  onClick={() => setShowUpload((prev) => !prev)}
-                  className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 text-sm"
-                >
-                  {showUpload ? 'Hide Upload' : 'Upload New Note'}
-                </button>
               </div>
-
               <TopicList subject={selectedSubject} classLevel={selectedClass} />
-              {showUpload && (
-                <div className="mt-6">
-                  <UploadNotes />
-                </div>
-              )}
-              <div className="mt-8">
-                <NotesList subject={selectedSubject} />
-              </div>
-             
             </>
           )}
         </div>
-      )}
+      ) : showDoubtSolver ? (
+        // ✅ Show Doubt Solver Chat
+        <div className="p-4 max-w-3xl mx-auto bg-white rounded shadow">
+          <BackButton onBack={() => setShowDoubtSolver(false)} />
+          <DoubtSolver />
+        </div>
+      ) : null}
     </section>
   );
 }

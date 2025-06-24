@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import UploadNotes from './components/Main/student/UploadNotes';
-import NotesList from './components/Main/student/NotesList';
+ import DoubtSolver from './components/Main/student/DoubtSolver';
 
 import Header1 from './components/Header/Header1';
 import Home from './components/Home';
@@ -16,6 +15,7 @@ import ClassSelector from './components/Main/student/ClassSelector';
 import SubjectSelector from './components/Main/student/SubjectSelector';
 import TopicList from './components/Main/student/TopicList';
 import Footer1 from './components/Footer/Footer1'
+import Profile from './components/Main/student/StuedentProfile';
 function App() {
   const [darkMode, setDarkMode] = useState(false);
 
@@ -53,16 +53,16 @@ function App() {
           <Route path="/Alumni" element={<Alumni darkMode={darkMode} />} />
           <Route path="/Student" element={<Student darkMode={darkMode} />} />
           <Route path="/Acedemic" element={<Acedemic darkMode={darkMode} />} />
+           {/* <Route path="/Profile" element={<Profile darkMode={darkMode} />} /> */}
           <Route path="/ClassSelector" element={<ClassSelector darkMode={darkMode} />} />
           <Route path="/subject/:classId" element={<SubjectSelector darkMode={darkMode} />} />
           <Route path="/topics/:classId/:subject" element={<TopicList darkMode={darkMode} />} />
-       <Route path="/upload-notes" element={<UploadNotes darkMode={darkMode} />} />
-<Route path="/view-notes" element={<NotesList darkMode={darkMode} />} />
-
+          
+<Route path="/doubts" element={<DoubtSolver />} />
 
         </Routes>
       </div>
-    
+    <Profile/>
     <Footer1/>
    </div>
   );
