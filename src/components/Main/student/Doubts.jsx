@@ -22,7 +22,7 @@ export default function DoubtSolver() {
         },
         {
           headers: {
-            Authorization: `Bearer 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`, // Replace with your real key
+            Authorization: `api`, // Replace with your real key
             "Content-Type": "application/json",
           },
         }
