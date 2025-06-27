@@ -21,7 +21,8 @@ export default function NavBar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center space-x-4">
-            <img src={saraswatiLogo} alt="Logo" className="h-16 w-16" />
+         <img src={saraswatiLogo} alt="Logo" className="h-16 w-16 rounded-full" />
+
             <h1 className="text-lg text-black sm:text-2xl font-extrabold">
               DLS Inter College
             </h1>
