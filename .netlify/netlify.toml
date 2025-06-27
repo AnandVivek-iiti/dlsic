@@ -1,4 +1,4 @@
-functionsDirectory = "C:\\Users\\ANAND VIVEK IITI\\DLSICR\\dlsic\\netlify\\functions"
+functionsDirectory = "C:\\Users\\ANAND VIVEK IITI\\DLSICR\\netlify\\functions"
 functionsDirectoryOrigin = "config-v1"
 plugins = []
 headers = []
@@ -9,11 +9,11 @@ redirects = []
 [functions."*"]
 
 [build]
-publish = "C:\\Users\\ANAND VIVEK IITI\\DLSICR\\dlsic\\dist"
+publish = "C:\\Users\\ANAND VIVEK IITI\\DLSICR\\dist"
 publishOrigin = "config"
 commandOrigin = "config"
 command = "npm run build"
-functions = "C:\\Users\\ANAND VIVEK IITI\\DLSICR\\dlsic\\netlify\\functions"
+functions = "C:\\Users\\ANAND VIVEK IITI\\DLSICR\\netlify\\functions"
 
 [build.environment]
 

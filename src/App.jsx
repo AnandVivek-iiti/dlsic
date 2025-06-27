@@ -13,7 +13,7 @@ import StudentDashboard from './components/Main/student/Students'; // renamed to
 import Acedemic from './components/Main/Acedemic';
 import StudentProfile from './components/Main/student/StudentProfile'; // Fixed typo in path
 import StudyResources from './components/Main/student/StudyResources';
-import DoubtSolver from './components/Main/student/Doubts'; // Fixed path to match case
+import Doubts from './components/Main/student/DoubtSolver'; // Fixed path to match case
 import Footer1 from './components/Footer/Footer1';
 import Profile from './components/Main/student/StudentProfile'; // Fixed typo in path
 
@@ -65,7 +65,7 @@ function App() {
           <Route path="/Profile" element={<Profile darkMode={darkMode} />} />
           <Route path="/student/profile" element={<StudentProfile profile={dummyProfile} darkMode={darkMode} />} />
           <Route path="/student/materials" element={<StudyResources darkMode={darkMode} />} />
-          <Route path="/student/doubts" element={<DoubtSolver darkMode={darkMode} />} />
+          <Route path="/student/doubts" element={<Doubts darkMode={darkMode} />} />
           <Route path="*" element={<div className="text-center mt-10 text-gray-500">404 - Not Found</div>} />
         </Routes>
       </div>

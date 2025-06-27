@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DoubtSolver from './Doubts';
+import DoubtSolver from './DoubtSolver';
 import StudentProfile from './StudentProfile';
 import StudentResources from './StudyResources';
 
@@ -27,7 +27,7 @@ export default function Student() {
     const last = localStorage.getItem("student_last_section");
     if (last === 'material') {
       setShowMaterialFlow(true);
-    } else if (last === 'doubts') {
+    } else if (last === 'doubtSolver') {
       setShowDoubtSolver(true);
     } else if (last === 'profile') {
       setShowProfileView(true);

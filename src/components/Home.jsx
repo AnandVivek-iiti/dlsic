@@ -118,7 +118,35 @@ export default function Home() {
             </button>
           </>
         )}
-      </div>
+        </div>
+
+<div className="college-container py-7">
+       <div className="max-w-3xl mx-auto p-6 bg-white rounded-2xl shadow-md text-gray-800 leading-relaxed py-10">
+      <h1 className="text-2xl font-bold mb-4 text-center">Darbari Lal Sharma Inter College</h1>
+      <p>
+        Darbari Lal Sharma Inter College is not a college; it is a place where students and teachers are friends. 
+        Teachers play a very significant role in shaping the future of students. And teachers of Darbari Lal Sharma Inter College 
+        help students unlock their potential. Teachers are very supportive. Their advice is incredible. They help students by giving books, 
+        fee remission, and guidance for career.
+      </p>
+      <p className="mt-3 italic">
+        "Desh ka nirmaan chhatron avm pathkon se nahi, desh ke nagrik se hota hai."
+      </p>
+      <p className="mt-3">
+        This is a famous quote in hand. So the same goes for school — school is built by students and teachers. Anyone who wants 
+        to live a memorable school life with lots of fun and learning and real care given by teachers can take their admission in this school.
+      </p>
+      <p className="mt-3">
+        If we deep dive into the history of the school, the founder of our school, Mr. Darbari Lal Sharma, a freedom fighter and 
+        social reformer, was a great man by his profession. The aim of our founder was to provide the best education for students at a very low cost. 
+        So DLS is one of the oldest and best educational institutes. The school is valued on discipline.
+      </p>
+      <p className="mt-3">
+        And if we look at our alumni and students, they are very hardworking and successful in their lives. The school provides 
+        valuable connections of alumni. Our alumni are IITians, doctors, IIMians, Indian Navy, and much more. We are proud of our alumni and teachers.
+      </p>
+    </div>
+  </div>
     </>
   );
 }
