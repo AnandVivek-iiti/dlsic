@@ -16,7 +16,7 @@ import StudyResources from './components/Main/student/StudyResources';
 import Doubts from './components/Main/student/DoubtSolver'; // Fixed path to match case
 import Footer1 from './components/Footer/Footer1';
 import Profile from './components/Main/student/StudentProfile'; // Fixed typo in path
-
+import AcedemicDetails from './components/Main/student/AcedemicDetail'; // Importing AcademicDetails 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
 
@@ -67,13 +67,18 @@ function App() {
           <Route path="/student/materials" element={<StudyResources darkMode={darkMode} />} />
           <Route path="/student/doubts" element={<Doubts darkMode={darkMode} />} />
           <Route path="*" element={<div className="text-center mt-10 text-gray-500">404 - Not Found</div>} />
+            <Route path="/academic-details" element={<AcedemicDetails darkMode={darkMode} />} />
+
         </Routes>
       </div>
 
       {/* Footer */}
       <Footer1 />
     </div>
+   
+
   );
+ 
 }
 
 export default App;

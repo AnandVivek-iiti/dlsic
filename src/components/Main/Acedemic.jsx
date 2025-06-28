@@ -1,4 +1,6 @@
-
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import AcademicDetail from './student/AcedemicDetail';
 
 const academicData = [
   {
@@ -9,7 +11,7 @@ const academicData = [
       'Modern, well-equipped laboratories',
       'Expert faculty & competitive exam guidance',
     ],
-    link: 'academic-details.html?stream=science',
+    link: '/academic-details?stream=science',
   },
   {
     icon: '💼',
@@ -19,7 +21,7 @@ const academicData = [
       'Project-based & practical learning',
       'Real-world simulations & workshops',
     ],
-    link: 'academic-details.html?stream=commerce',
+    link: '/academic-details?stream=commerce',
   },
   {
     icon: '🎨',
@@ -29,7 +31,7 @@ const academicData = [
       'Focus on creativity & critical analysis',
       'Co-curricular activities for holistic growth',
     ],
-    link: 'academic-details.html?stream=arts',
+    link: '/academic-details?stream=arts',
   },
   {
     icon: '🏅',
@@ -40,7 +42,7 @@ const academicData = [
       'Smart classrooms & topper mentorship',
       'Scholarships & rewards for meritorious students',
     ],
-    link: 'academic-details.html?stream=excellence',
+    action: 'academic-details',
   },
   {
     icon: '🧑‍🏫',
@@ -50,7 +52,7 @@ const academicData = [
       'Positive, disciplined learning environment',
       'Personalized attention & mentorship',
     ],
-    link: 'academic-details.html?stream=faculty',
+    link: '/academic-details',
   },
   {
     icon: '🧪',
@@ -60,13 +62,27 @@ const academicData = [
       'Digital & traditional library resources',
       'Focus on practical knowledge',
     ],
-    link: 'academic-details.html?stream=labs',
+    link: '/academic-details',
   },
 ];
 
 const AcademicSection = () => {
+  const [showDetail, setShowDetail] = useState(false);
+
+  const handleCardClick = (action) => {
+    if (action === 'academic-details') {
+      localStorage.setItem('student_last_section', 'academic-details');
+      setShowDetail(true); // show AcademicDetail component
+    }
+  };
+
+  // Render AcademicDetail if toggled
+  if (showDetail) {
+    return <AcademicDetail />;
+  }
+
   return (
-    <section className=" bg-gradient-to-br from-indigo-100 to-slate-50 shadow-2xl">
+    <section className="bg-gradient-to-br from-indigo-100 to-slate-50 shadow-2xl">
       <h2 className="text-4xl text-center font-bold text-indigo-800 mb-2 tracking-wide">
         📘 Our Academic Excellence
       </h2>
@@ -80,7 +96,7 @@ const AcademicSection = () => {
         {academicData.map((item, index) => (
           <div
             key={index}
-            className="bg-white w-[320px] min-h-[340px] p-8 rounded-[22px] shadow-xl flex flex-col items-start transform transition-transform duration-300 hover:scale-[1.04] hover:-translate-y-2 hover:rotate-y-2 hover:z-10 relative"
+            className="bg-white w-[320px] min-h-[340px] p-8 rounded-[22px] shadow-xl flex flex-col items-start transform transition-transform duration-300 hover:scale-[1.04] hover:-translate-y-2 hover:z-10 relative"
           >
             <span className="text-4xl text-indigo-800 drop-shadow-md mb-3">{item.icon}</span>
             <h3 className="text-xl font-semibold text-indigo-800 mb-3">{item.title}</h3>
@@ -89,13 +105,23 @@ const AcademicSection = () => {
                 <li key={i}>{point}</li>
               ))}
             </ul>
-            <a
-              href={item.link}
-              className="self-end relative mx-auto inline-block bg-gradient-to-r from-blue-800 to-blue-400 text-white font-semibold text-base px-6 py-2 rounded-full shadow-md transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:rotate-[-1deg] overflow-hidden"
-            >
-              <span className="relative z-10 mx-auto">See More</span>
-              <span className="absolute inset-0 w-[60%] skew-x-[-25deg] bg-white/20 left-[-60%] transition-all duration-500 hover:left-[110%]" />
-            </a>
+
+            {item.link ? (
+              <Link
+                to={item.link}
+                className="self-end relative mx-auto inline-block bg-gradient-to-r from-blue-800 to-blue-400 text-white font-semibold text-base px-6 py-2 rounded-full shadow-md transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:rotate-[-1deg] overflow-hidden"
+              >
+                <span className="relative z-10 mx-auto">See More</span>
+                <span className="absolute inset-0 w-[60%] skew-x-[-25deg] bg-white/20 left-[-60%] transition-all duration-500 hover:left-[110%]" />
+              </Link>
+            ) : (
+              <button
+                onClick={() => handleCardClick(item.action)}
+                className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-full text-sm font-semibold"
+              >
+                See More
+              </button>
+            )}
           </div>
         ))}
       </div>

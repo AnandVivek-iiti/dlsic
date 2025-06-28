@@ -8,16 +8,10 @@ const generateResources = (className) => ([
     icon: '📘',
     label: `NCERT Book - ${className}`,
     color: 'bg-blue-500',
-    viewLink: '#',      // Replace with actual view link
-    downloadLink: '#',  // Replace with actual download link
+    viewLink: 'https://ncert.nic.in/textbook.php',      // Replace with actual view link
+    downloadLink: 'https://ncert.nic.in/textbook.php',  // Replace with actual download link
   },
-  {
-    icon: '📕',
-    label: `Exemplar Book - ${className}`,
-    color: 'bg-red-500',
-    viewLink: '#',
-    downloadLink: '#',
-  },
+
   {
     icon: '📒',
     label: 'Notes - Coming Soon',

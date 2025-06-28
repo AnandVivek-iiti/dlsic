@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import './login.css';
 import { Link ,useNavigate} from 'react-router-dom';
 
@@ -66,7 +66,15 @@ const handleLogin = async (e) => {
               value={logininfo.email}
               onChange={change}
             />
-
+ <label htmlFor="InputPhone">Phone</label>
+            <input
+              type="tel"
+              className="phone"
+              id="InputPhone"
+              name="phone"
+              value={logininfo.phone}
+              onChange={change}
+            />
             <label htmlFor="InputPassword">PASSWORD</label>
             <input
               type="password"
@@ -81,7 +89,7 @@ const handleLogin = async (e) => {
   <button type="submit" className="loginsubmitbutton" onClick={handleLogin} >login</button>
   </div>
   <p>Doesnot have acount?</p>
-<Link to='/signup'>Signup</Link>
+<Link to='/Signup'>Signup</Link>
  
 </form>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { getMediaUrl } from "./mediaUtils";
 import { FaUser, FaGraduationCap, FaIdCard, FaEdit } from "react-icons/fa";
-
+import image from "../../assets/saraswati.png"; // Placeholder image
 const StudentProfile = ({ profile }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfile, setEditedProfile] = useState(profile);
@@ -26,15 +26,20 @@ const StudentProfile = ({ profile }) => {
           {/* Profile Image */}
           <div className="mb-4 md:mb-0 md:mr-6">
             <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-[#1360AB] text-2xl overflow-hidden">
-              {profile.profileImage ? (
-                <img
-                  src={getMediaUrl(profile.profileImage)}
-                  alt="Profile"
-                  className="w-full h-full rounded-full object-cover"
-                />
-              ) : (
-                <FaUser />
-              )}
+             {profile.profileImage ? (
+  <img
+    src={profile.profileImage}
+    alt="Profile"
+    className="w-full h-full rounded-full object-cover"
+  />
+) : (
+  <img
+    src={image}
+    alt="Placeholder"
+    className="w-full h-full rounded-full object-cover"
+  />
+)}
+
             </div>
           </div>
 
