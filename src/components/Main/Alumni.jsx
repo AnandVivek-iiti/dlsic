@@ -1,63 +1,66 @@
-import image from '../assets/image.png'
+import AV from '../assets/AV.png';
+import SR from '../assets/SR.png';
+import AP from '../assets/AP.png';
+import AS from '../assets/AS.png';
+import IMG from '../assets/image.png';
+import M from '../assets/M.png';
 
 const alumniData = [
- 
   {
     name: 'Sovran Raj',
     batch: 'Batch of 2023',
     role: 'Student at IIIT Jabalpur',
     quote: 'DLS gave me the foundation I needed to dream big.',
-    image,
+    image: SR,
   },
   {
     name: 'Anurag Pandey',
     batch: 'Batch of 2023',
-    role: 'Indian Navi',
+    role: 'Indian Navy Officer',
     quote: 'The discipline and guidance at DLS shaped my journey.',
-    image,
+    image: AP,
   },
   {
-    name: 'Sovran Raj',
+    name: 'Ashish Sharma',
     batch: 'Batch of 2023',
-    role: 'Student at IIIT Jabalpur',
+    role: 'NEET Qualifier',
     quote: 'DLS gave me the foundation I needed to dream big.',
-    image,
+    image: AS,
+  },
+  {
+    name: 'Vikas Yadav',
+    batch: 'Batch of 2023',
+    role: 'Indian Army',
+    quote: 'DLS gave me the foundation I needed to dream big.',
+    image: IMG,
   },
   {
     name: 'Anand Vivek',
     batch: 'Batch of 2024',
     role: 'Student at IIT Indore',
     quote: 'DLS helped me grow as a leader and learner.',
-    image,
+    image: AV,
+  },
+  {
+    name: 'Mohit',
+    batch: 'Batch of 2024',
+    role: 'Student at SLIET Panjab, and preparing for DRDO.',
+    quote: 'DLS helped me grow as a leader and learner.',
+    image: M,
   },
   {
     name: 'Sovran Raj',
     batch: 'Batch of 2023',
     role: 'Student at IIIT Jabalpur',
     quote: 'DLS gave me the foundation I needed to dream big.',
-    image,
+    image: SR,
   },
   {
     name: 'Anand Vivek',
     batch: 'Batch of 2024',
     role: 'Student at IIT Indore',
     quote: 'DLS helped me grow as a leader and learner.',
-    image,
-  },
-  {
-    name: 'Sovran Raj',
-    batch: 'Batch of 2023',
-    role: 'Student at IIIT Jabalpur',
-    quote: 'DLS gave me the foundation I needed to dream big.',
-    image,
-  },
-  {
-    name: 'Anand Vivek',
-    batch: 'Batch of 2024',
-    role: 'Student at IIT Indore',
-    quote: 'DLS helped me grow as a leader and learner.',
-    image,
-
+    image: AV,
   },
 ];
 
