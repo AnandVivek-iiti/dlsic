@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AcademicDetail from './AcademicDetails';
 import Faculty from './FacultyList';
-import Lab from './LabLibrary';
+import Lab from './LabLabrary';
 import Streams from './Streams';
 
 const academicData = [
