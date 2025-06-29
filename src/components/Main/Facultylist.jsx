@@ -88,51 +88,6 @@ const Faculty = () => {
       role: "Hindi & sanskrit lecturer",
       img: "faculty5.jpg"
     },
-    {
-      name: "Mr. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mr. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mr. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mr. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mr. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mr. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mr. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mr. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mr. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
   ];
 
   return (
