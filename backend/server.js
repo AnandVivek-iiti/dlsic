@@ -7,10 +7,11 @@ import cors from "cors";
 // require("dotenv").config();
 import dotenv from 'dotenv';
 dotenv.config();
-
+import jwt from 'jsonwebtoken';
 import { User } from './models/UserSchema.js'; // or adjust path as needed
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
 const JWT_SECRET = process.env.JWT_SECRET;
 // ⚠️ move to env var in production!
 
@@ -104,8 +105,21 @@ app.get('/api/profile', authMiddleware, async (req, res) => {
   }
 });
 
+export const verifyToken = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) return res.status(401).json({ message: "Token missing" });
+
+  const token = authHeader.split(' ')[1];
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ message: "Token invalid" });
+
+    req.user = user; // Attach user payload to request
+    next();
+  });
+};
 // PUT profile
-app.put('/api/profile', authMiddleware, async (req, res) => {
+app.put('/api/profile', verifyToken, async (req, res) => {
   try {
     const { username, email, phone, profileImage } = req.body;
     const user = await User.findByIdAndUpdate(

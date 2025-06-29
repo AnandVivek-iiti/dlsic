@@ -46,7 +46,7 @@ export default function Register() {
       const data = await res.json();
       alert(data.message || "Signup successful!");
 
-localStorage.setItem("token", data.token);
+localStorage.setItem("token", res.token);
 
       if (res.ok) {
         // Clear form
