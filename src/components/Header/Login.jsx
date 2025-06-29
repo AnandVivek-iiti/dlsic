@@ -32,7 +32,7 @@ export default function Login() {
         alert(data.message || 'Login successful!');
         setLoginInfo({ email: "", password: "" });
         navigate('/'); 
-        localStorage.setItem("token", res.token);
+        localStorage.setItem("token", data.token);
 
       } else {
         alert(data.message || 'Login failed');

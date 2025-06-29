@@ -7,11 +7,10 @@ import cors from "cors";
 // require("dotenv").config();
 import dotenv from 'dotenv';
 dotenv.config();
-import jwt from 'jsonwebtoken';
 import { User } from './models/UserSchema.js'; // or adjust path as needed
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
+import profileRoutes from './routes/profile.js';
 const JWT_SECRET = process.env.JWT_SECRET;
 // ⚠️ move to env var in production!
 
@@ -28,6 +27,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/todo')
   .catch(err => console.error(err));
  // Connect to MongoDB
 
+app.use('/api/profile', profileRoutes);
 // Signup route
 app.post('/api/signup', async (req, res) => {
   const { username, email, phone, password, profileImage } = req.body;
@@ -92,6 +92,11 @@ const authMiddleware = (req, res, next) => {
     next();
   });
 };
+ app.use((req, res, next) => {
+  console.log("🔍 Incoming request:", req.method, req.url);
+  console.log("Headers:", req.headers);
+  next();
+});
 
 // GET profile
 app.get('/api/profile', authMiddleware, async (req, res) => {
@@ -152,6 +157,7 @@ app.post("/api/ask", async (req, res) => {
         },
       }
     );
+   
 
     const answer = result.data.choices[0].message.content.trim();
     res.json({ answer });
@@ -161,6 +167,8 @@ app.post("/api/ask", async (req, res) => {
   }
 });
 
+// const token = req.headers.authorization.split(" ")[1];
+// const user = jwt.verify(token, process.env.JWT_SECRET);
 
 app.get('/', (req, res) => {
   res.send('Backend is running!');
