@@ -109,9 +109,8 @@ export default function Student() {
               key={idx}
               className="bg-white w-[320px] min-h-[360px] p-8 rounded-[22px] shadow-md flex flex-col items-start transform transition duration-300 hover:scale-105 hover:-translate-y-2"
             >
-              <span className="text-[2.5rem] text-indigo-800 mb-3">{card.icon}</span>
-              <h3 className="text-xl font-semibold text-indigo-800 mb-3">{card.title}</h3>
-              <ul className="list-disc text-gray-700 text-sm pl-5 mb-6 space-y-1">
+              <span className="text-4xl text-indigo-800 drop-shadow-md mb-2">{item.icon}</span>
+              <h3 className="text-xl font-semibold text-indigo-800 mb-3">{item.title}</h3>
                 {card.items.map((item, i) => (
                   <li key={i}>{item}</li>
                 ))}
