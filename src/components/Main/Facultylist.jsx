@@ -1,132 +1,135 @@
-const FacultySection = () => {
+import { useState } from 'react';
+
+
+const Faculty = () => {
   const facultyList = [
     {
-      name: "डॉ. सीमा गुप्ता",
-      role: "Physics Lecturer",
+      name: "Mr. आशीष कुमार सिंह",
+      role: "Principal & English lecturer",
       img: "faculty1.jpg"
     },
     {
-      name: "प्रो. अनुराग मिश्रा",
-      role: "Mathematics HOD",
+      name: "Dr. हरमीत सिंह",
+      role: "SubPrincipal & Hindi lecturer",
       img: "faculty2.jpg"
     },
     {
-      name: "Ms. रितु सिंह",
-      role: "Biology Expert",
+      name: "Mr. राजेश कुमार द्विवेदी",
+      role: "Hindi & Sanskrit expert",
       img: "faculty3.jpg"
     },
     {
-      name: "Mr. आशीष वर्मा",
-      role: "Chemistry Mentor",
+      name: "Dr. राजेश गंगवार",
+      role: "English / Communication expert and lecturer",
       img: "faculty4.jpg"
     },
     {
-      name: "Mrs. नेहा सक्सेना",
+      name: "Mr. रघुवीर शरण",
+      role: "Physics & Mathematics expert",
+      img: "faculty5.jpg"
+    },
+    {
+      name: "Mr. रावेन्द प्रताप सिंह",
+      role: "Biology & Chemistry lecturer",
+      img: "faculty5.jpg"
+    },
+    {
+      name: "Mr. अतुल कुमार मौर्य",
+      role: "Agriculture lecturer",
+      img: "faculty5.jpg"
+    },
+    {
+      name: "Mr. रमेश चंद्र",
+      role: "Mathematics lecturer",
+      img: "faculty5.jpg"
+    },
+    {
+      name: "Mr. अमरेश कुमार",
+      role: "Biology & Chemistry lecturer",
+      img: "faculty5.jpg"
+    },
+    {
+      name: "Mr. जयदीप सिंह",
+      role: "Physics & Mathematics lecturer",
+      img: "faculty5.jpg"
+    },
+    {
+      name: "Mr. सुरेश चंद्र",
+      role: "Economics & Commerce lecturer",
+      img: "faculty5.jpg"
+    },
+    {
+      name: "Mr. राजपाल सिंह",
+      role: "sociology & Political Science lecturer",
+      img: "faculty5.jpg"
+    },
+    {
+      name: "Mr. रामसिंह",
+      role: "Mathematics lecturer",
+      img: "faculty5.jpg"
+    },
+    {
+      name: "Mr. राजेश कुमार गंगवार",
       role: "English & Communication",
       img: "faculty5.jpg"
     },
     {
-      name: "Mrs. नेहा सक्सेना",
+      name: "Dr. सर्वेश कुमार",
+      role: "History social science ecturer",
+      img: "faculty5.jpg"
+    },
+    {
+      name: "Mrs. कुशुम गंगवार",
+      role: "History & Geography lecturer",
+      img: "faculty5.jpg"
+    },
+    {
+      name: "Mrs. ग्रिजेश गंगवार",
+      role: "Hindi & sanskrit lecturer",
+      img: "faculty5.jpg"
+    },
+    {
+      name: "Mr. नेहा सक्सेना",
       role: "English & Communication",
       img: "faculty5.jpg"
     },
     {
-      name: "Mrs. नेहा सक्सेना",
+      name: "Mr. नेहा सक्सेना",
       role: "English & Communication",
       img: "faculty5.jpg"
     },
     {
-      name: "Mrs. नेहा सक्सेना",
+      name: "Mr. नेहा सक्सेना",
       role: "English & Communication",
       img: "faculty5.jpg"
     },
     {
-      name: "Mrs. नेहा सक्सेना",
+      name: "Mr. नेहा सक्सेना",
       role: "English & Communication",
       img: "faculty5.jpg"
     },
     {
-      name: "Mrs. नेहा सक्सेना",
+      name: "Mr. नेहा सक्सेना",
       role: "English & Communication",
       img: "faculty5.jpg"
     },
     {
-      name: "Mrs. नेहा सक्सेना",
+      name: "Mr. नेहा सक्सेना",
       role: "English & Communication",
       img: "faculty5.jpg"
     },
     {
-      name: "Mrs. नेहा सक्सेना",
+      name: "Mr. नेहा सक्सेना",
       role: "English & Communication",
       img: "faculty5.jpg"
     },
     {
-      name: "Mrs. नेहा सक्सेना",
+      name: "Mr. नेहा सक्सेना",
       role: "English & Communication",
       img: "faculty5.jpg"
     },
     {
-      name: "Mrs. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mrs. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mrs. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mrs. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mrs. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mrs. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mrs. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mrs. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mrs. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mrs. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mrs. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mrs. नेहा सक्सेना",
-      role: "English & Communication",
-      img: "faculty5.jpg"
-    },
-    {
-      name: "Mrs. नेहा सक्सेना",
+      name: "Mr. नेहा सक्सेना",
       role: "English & Communication",
       img: "faculty5.jpg"
     },
@@ -181,5 +184,6 @@ const FacultySection = () => {
   );
 };
 
-export default FacultySection;
+export default Faculty;
+
 
