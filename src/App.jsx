@@ -7,7 +7,6 @@ import Header1 from './components/Header/Header1';
 import Home from './components/Home';
 import Login from './components/Header/Login';
 import Signup from './components/Header/Signup';
-import About from './components/Main/About';
 import Alumni from './components/Main/Alumni';
 import StudentDashboard from './components/Main/student/Students'; // renamed to avoid conflict
 import Acedemic from './components/Main/Acedemic';
@@ -58,7 +57,6 @@ function App() {
           <Route path="/Home" element={<Home darkMode={darkMode} />} />
           <Route path="/login" element={<Login darkMode={darkMode} />} />
           <Route path="/" element={<Signup darkMode={darkMode} />} />
-          <Route path="/About" element={<About darkMode={darkMode} />} />
           <Route path="/Alumni" element={<Alumni darkMode={darkMode} />} />
           <Route path="/Student" element={<StudentDashboard darkMode={darkMode} />} />
           <Route path="/Acedemic" element={<Acedemic darkMode={darkMode} />} />

@@ -1,73 +1,101 @@
-import React, { useState } from "react";
-import { getMediaUrl } from "./mediaUtils";
-import { FaUser, FaGraduationCap, FaIdCard, FaEdit } from "react-icons/fa";
-import image from "../../assets/saraswati.png"; // Placeholder image
-const StudentProfile = ({ profile }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedProfile, setEditedProfile] = useState(profile);
+import React, { useState, useEffect } from "react";
+import { FaUser, FaPhone, FaEnvelope, FaEdit } from "react-icons/fa";
+import image from "../../assets/saraswati.png";
 
-  if (!profile) return null;
+const StudentProfile = () => {
+  const [profile, setProfile] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedProfile, setEditedProfile] = useState(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await fetch('/api/profile', {
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem("token")}`
+  }
+});
+
+        const data = await res.json();
+        if (res.ok) {
+          setProfile(data);
+          setEditedProfile(data);
+        } else {
+          alert(data.message || "Failed to load profile");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Error fetching profile");
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditedProfile({ ...editedProfile, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would update the parent or backend.
-    setIsEditing(false);
+    try {
+       const res = await fetch('/api/profile', {
+  method: "PUT",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${localStorage.getItem("token")}`
+  },
+  body: JSON.stringify(editedProfile),
+});
+
+
+      const data = await res.json();
+      if (res.ok) {
+        alert(data.message || "Profile updated");
+        setProfile(editedProfile);
+        setIsEditing(false);
+      } else {
+        alert(data.message || "Update failed");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error updating profile");
+    }
   };
+
+  if (!profile) {
+    return <div className="text-center mt-10 text-gray-600">Loading profile...</div>;
+  }
 
   return (
     <>
       <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100 flex flex-col md:flex-row items-center justify-between w-full max-w-4xl mx-auto mt-6">
         <div className="flex flex-col md:flex-row items-center w-full">
-          {/* Profile Image */}
           <div className="mb-4 md:mb-0 md:mr-6">
-            <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-[#1360AB] text-2xl overflow-hidden">
-             {profile.profileImage ? (
-  <img
-    src={profile.profileImage}
-    alt="Profile"
-    className="w-full h-full rounded-full object-cover"
-  />
-) : (
-  <img
-    src={image}
-    alt="Placeholder"
-    className="w-full h-full rounded-full object-cover"
-  />
-)}
-
+            <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center overflow-hidden">
+              {profile.profileImage ? (
+                <img src={profile.profileImage} alt="Profile" className="w-full h-full object-cover" />
+              ) : (
+                <img src={image} alt="Placeholder" className="w-full h-full object-cover" />
+              )}
             </div>
           </div>
 
-          {/* Info */}
           <div className="flex-1 text-center md:text-left">
-            <h2 className="text-xl font-bold text-gray-800">{editedProfile.name}</h2>
+            <h2 className="text-xl font-bold text-gray-800">{profile.username}</h2>
             <div className="flex flex-col md:flex-row md:items-center text-sm text-gray-600 mt-1 space-y-1 md:space-y-0 md:space-x-4">
-              <span className="flex items-center justify-center md:justify-start">
-                <FaIdCard className="mr-1" /> {editedProfile.rollNumber}
+              <span className="flex items-center">
+                <FaEnvelope className="mr-1" /> {profile.email}
               </span>
-              <span className="flex items-center justify-center md:justify-start">
-                <FaGraduationCap className="mr-1" /> {editedProfile.degree}
+              <span className="flex items-center">
+                <FaPhone className="mr-1" /> {profile.phone}
               </span>
-            </div>
-          </div>
-
-          {/* Tags */}
-          <div className="mt-4 md:mt-0 flex space-x-2">
-            <div className="bg-blue-50 px-3 py-1 rounded-full text-xs text-[#1360AB]">
-              {editedProfile.year} Year
-            </div>
-            <div className="bg-green-50 px-3 py-1 rounded-full text-xs text-green-600">
-              {editedProfile.hostelName}
             </div>
           </div>
         </div>
 
-        {/* Edit Button */}
         <button
           onClick={() => setIsEditing(true)}
           className="mt-4 md:mt-0 text-blue-600 hover:text-blue-800 transition flex items-center gap-1 text-sm"
@@ -76,7 +104,6 @@ const StudentProfile = ({ profile }) => {
         </button>
       </div>
 
-      {/* Modal */}
       {isEditing && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 w-[90%] max-w-md shadow-lg">
@@ -84,42 +111,34 @@ const StudentProfile = ({ profile }) => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <input
                 type="text"
-                name="name"
-                value={editedProfile.name}
+                name="username"
+                value={editedProfile.username || ""}
                 onChange={handleChange}
-                placeholder="Name"
+                placeholder="Username"
+                className="w-full border rounded px-3 py-2"
+              />
+              <input
+                type="email"
+                name="email"
+                value={editedProfile.email || ""}
+                onChange={handleChange}
+                placeholder="Email"
+                className="w-full border rounded px-3 py-2"
+              />
+              <input
+                type="tel"
+                name="phone"
+                value={editedProfile.phone || ""}
+                onChange={handleChange}
+                placeholder="Phone"
                 className="w-full border rounded px-3 py-2"
               />
               <input
                 type="text"
-                name="rollNumber"
-                value={editedProfile.rollNumber}
+                name="profileImage"
+                value={editedProfile.profileImage || ""}
                 onChange={handleChange}
-                placeholder="Roll Number"
-                className="w-full border rounded px-3 py-2"
-              />
-              <input
-                type="text"
-                name="degree"
-                value={editedProfile.degree}
-                onChange={handleChange}
-                placeholder="Degree"
-                className="w-full border rounded px-3 py-2"
-              />
-              <input
-                type="text"
-                name="year"
-                value={editedProfile.year}
-                onChange={handleChange}
-                placeholder="Year"
-                className="w-full border rounded px-3 py-2"
-              />
-              <input
-                type="text"
-                name="hostelName"
-                value={editedProfile.hostelName}
-                onChange={handleChange}
-                placeholder="Hostel Name"
+                placeholder="Profile Image URL (optional)"
                 className="w-full border rounded px-3 py-2"
               />
 

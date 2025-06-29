@@ -4,7 +4,6 @@ import saraswatiLogo from '../assets/Saraswati.png';
 
 const navigation = [
   { name: 'Home', path: '/Home' },
-  { name: 'About', path: '/About' },
   { name: 'Signup', path: '/' },
   { name: 'Acedemic', path: '/Acedemic' },
   { name: 'Student', path: '/Student' },

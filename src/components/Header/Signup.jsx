@@ -1,5 +1,4 @@
 import { useState } from "react";
-import './Signup.css';
 export default function Register() {
   const [formData, setFormData] = useState({
     username: "",
@@ -13,7 +12,6 @@ export default function Register() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
    const [preview, setPreview] = useState(null);
 
   const handleImageChange = (e) => {
@@ -47,6 +45,8 @@ export default function Register() {
 
       const data = await res.json();
       alert(data.message || "Signup successful!");
+
+localStorage.setItem("token", data.token);
 
       if (res.ok) {
         // Clear form

@@ -1,8 +1,20 @@
 import mongoose from 'mongoose';
 import express from 'express';
-import cors from 'cors';
+// const axios = require("axios");
+// const cors = require("cors");
+import axios from "axios";
+import cors from "cors";
+// require("dotenv").config();
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { User } from './models/UserSchema.js'; // or adjust path as needed
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+const JWT_SECRET = process.env.JWT_SECRET;
+// ⚠️ move to env var in production!
+
+
 
 const app = express();
 const port = 5000;
@@ -62,10 +74,86 @@ app.post('/api/login', async (req, res) => {
     } catch (err) {
       console.error(err);
         res.status(500).json({ message: 'Something went wrong' });
+          
     }
+
 });
+
+// Middleware to verify token
+const authMiddleware = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) return res.status(401).json({ message: "No token provided" });
+
+  const token = authHeader.split(' ')[1];
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(401).json({ message: "Invalid token" });
+    req.userId = decoded.id;
+    next();
+  });
+};
+
+// GET profile
+app.get('/api/profile', authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select('-password');
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// PUT profile
+app.put('/api/profile', authMiddleware, async (req, res) => {
+  try {
+    const { username, email, phone, profileImage } = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      { username, email, phone, profileImage },
+      { new: true }
+    ).select('-password');
+    res.json({ message: "Profile updated", user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Update failed" });
+  }
+});
+// doubt solver
+
+app.post("/api/ask", async (req, res) => {
+  const question = req.body.question;
+
+  try {
+    const result = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-3.5-turbo",
+        messages: [{ role: "user", content: question }],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const answer = result.data.choices[0].message.content.trim();
+    res.json({ answer });
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+    res.status(500).json({ error: "GPT API error" });
+  }
+});
+
+
 app.get('/', (req, res) => {
   res.send('Backend is running!');
+});
+
+app.get('/api/ask', (req, res) => {
+  res.send('Ask your doubt!');
 });
 
 app.get('/api/ping', (req, res) => {

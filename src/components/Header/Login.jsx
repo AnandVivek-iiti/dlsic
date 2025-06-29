@@ -1,100 +1,105 @@
-import  { useState } from 'react';
-import './login.css';
-import { Link ,useNavigate} from 'react-router-dom';
+import { useState } from 'react';
+import {  useNavigate } from 'react-router-dom';
 
-function Login() {
-const navigate = useNavigate();
-    
-const [logininfo,setlogininfo]=useState({
-    email:"",
-    password:""
-})
-  const change = (e) => {
+export default function Login() {
+  const navigate = useNavigate();
+  
+
+  const [loginInfo, setLoginInfo] = useState({
+    email: "",
+    password: ""
+  });
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setlogininfo((prev) => ({
+    setLoginInfo((prev) => ({
       ...prev,
       [name]: value
     }));
   };
 
-const handleLogin = async (e) => {
-  
- 
-
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:3000/api/login', {
+      const res = await fetch('http://localhost:5000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(logininfo)
+        body: JSON.stringify(loginInfo)
       });
 
       const data = await res.json();
-    
-      if (res.ok) {
-    
-        alert(data.message || 'Login successful!');
-        setlogininfo({ email: "", password: "" });
 
-        navigate('/'); // Or whatever route you want to go to
+      if (res.ok) {
+        alert(data.message || 'Login successful!');
+        setLoginInfo({ email: "", password: "" });
+        navigate('/'); 
       } else {
         alert(data.message || 'Login failed');
       }
-
-     // no name needed here
     } catch (err) {
       console.error(err);
       alert('Something went wrong. Please try again.');
     }
-};
- 
+  };
+
   return (
-    <div className="login">
-      <div className="logincontainer">
-       
-        <p>
-          USER LOGIN
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-400 to-purple-400 px-4 py-10">
+      {/* Outer Title */}
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-white">Welcome Back</h2>
+        <p className="text-white mt-1 text-sm">
+          Login to access your student portal.
         </p>
-       <form>
-  <div className='loginform'>
-            <label htmlFor="InputEmail1">EMAIL ADDRESS</label>
+      </div>
+
+      {/* Form Card */}
+      <div className="w-full max-w-md bg-white rounded-lg shadow-lg px-8 py-6">
+        <h2 className="text-2xl font-bold text-indigo-600 text-center mb-6">Login</h2>
+        <form className="space-y-4" onSubmit={handleLogin}>
+          <div>
+            <label className="block text-gray-700 font-semibold mb-1">Email:</label>
             <input
               type="email"
-              className="email"
-              id="InputEmail1"
               name="email"
-              value={logininfo.email}
-              onChange={change}
+              placeholder="Enter your email"
+              value={loginInfo.email}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-indigo-300"
+              required
             />
- <label htmlFor="InputPhone">Phone</label>
-            <input
-              type="tel"
-              className="phone"
-              id="InputPhone"
-              name="phone"
-              value={logininfo.phone}
-              onChange={change}
-            />
-            <label htmlFor="InputPassword">PASSWORD</label>
+          </div>
+
+          <div>
+            <label className="block text-gray-700 font-semibold mb-1">Password:</label>
             <input
               type="password"
-              className="password"
-              id="InputPassword"
               name="password"
-              value={logininfo.password}
-              onChange={change}
+              placeholder="Enter your password"
+              value={loginInfo.password}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-indigo-300"
+
+              required
             />
-  
- 
-  <button type="submit" className="loginsubmitbutton" onClick={handleLogin} >login</button>
-  </div>
-  <p>Doesnot have acount?</p>
-<Link to='/Signup'>Signup</Link>
- 
-</form>
+          </div>
+         
+
+       
+
+          <button
+            type="submit"
+            className="w-full mt-2 bg-indigo-500 text-white font-semibold py-2 rounded-md hover:bg-indigo-600 transition"
+          >
+            Login
+          </button>
+        </form>
+
+        <p className="mt-4 text-center text-sm text-gray-600">
+          Don't have an account?{" "}
+          <a href='/signup' className="text-indigo-500 hover:underline">
+            Create Account
+          </a>
+        </p>
       </div>
     </div>
-  )
+  );
 }
-
-export default Login
