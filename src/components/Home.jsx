@@ -1,7 +1,7 @@
 import { useState } from "react";
 import image from "./assets/image.png";
 // import sars from './assets/saraswati.png';
-const images = [image, sars, image, image];
+const images = [image, image, image, image];
 
 export default function Home() {
   const [current, setCurrent] = useState(0);
