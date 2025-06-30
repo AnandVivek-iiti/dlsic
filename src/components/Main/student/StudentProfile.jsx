@@ -50,6 +50,7 @@ const StudentProfile = () => {
   body: JSON.stringify(editedProfile),
 });
 
+console.log("Token:", localStorage.getItem("token"));
 
       const data = await res.json();
       if (res.ok) {

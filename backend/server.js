@@ -44,7 +44,13 @@ app.post('/api/signup', async (req, res) => {
 
         const newUser = new User({ username, email, phone, password: hashedPassword, profileImage }); // Store hashed password
         await newUser.save();
-
+// ✅ Generate JWT Token
+    const token = jwt.sign(
+      { userId: newUser._id, email: newUser.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '2h' }
+    );
+console.log(token);
         res.status(201).json({ message: 'User registered successfully!' });
     } catch (err) {
         if (err.name === 'ValidationError') {
@@ -114,7 +120,7 @@ export const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ message: "Token missing" });
 
-  const token = authHeader.split(' ')[1];
+  const token = authHeader.split(" ")[1];
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) return res.status(403).json({ message: "Token invalid" });
@@ -167,8 +173,7 @@ app.post("/api/ask", async (req, res) => {
   }
 });
 
-// const token = req.headers.authorization.split(" ")[1];
-// const user = jwt.verify(token, process.env.JWT_SECRET);
+
 
 app.get('/', (req, res) => {
   res.send('Backend is running!');

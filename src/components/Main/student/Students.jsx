@@ -7,34 +7,30 @@ import StudentResources from './StudyResources';
 export default function Student() {
   const navigate = useNavigate();
 
-  // State
   const [showMaterialFlow, setShowMaterialFlow] = useState(false);
   const [showDoubtSolver, setShowDoubtSolver] = useState(false);
   const [showProfileView, setShowProfileView] = useState(false);
 
-  // Dummy student profile data
   const dummyProfile = {
     name: "Anand Vivek",
     rollNumber: "ME24B999",
     degree: "BTech Mechanical Engineering",
     year: "1st",
     hostelName: "Himalaya",
-    profileImage: "https://via.placeholder.com/150", // Add default image
+    profileImage: "https://via.placeholder.com/150",
   };
 
-  // Restore last visited section
   useEffect(() => {
     const last = localStorage.getItem("student_last_section");
-    if (last === 'material') {
-      setShowMaterialFlow(true);
-    } else if (last === 'doubtSolver') {
-      setShowDoubtSolver(true);
-    } else if (last === 'profile') {
-      setShowProfileView(true);
-    }
+  //   if (last === 'material') {
+  //     setShowMaterialFlow(true);
+  //   } else if (last === 'doubts') {
+  //     setShowDoubtSolver(true);
+  //   } else if (last === 'profile') {
+  //     setShowProfileView(true);
+  //   }
   }, []);
 
-  // Dashboard card config
   const studentCards = [
     {
       icon: '🗓',
@@ -80,18 +76,17 @@ export default function Student() {
     },
   ];
 
-  // Handler for card clicks
   const handleCardClick = (action) => {
     if (action === 'material') {
       setShowMaterialFlow(true);
-      localStorage.setItem("student_last_section", 'material');
+      // localStorage.setItem("student_last_section", 'material');
     } else if (action === 'doubts') {
       setShowDoubtSolver(true);
-      localStorage.setItem("student_last_section", 'doubts');
-    } else if (action === 'profile') {
+    //   localStorage.setItem("student_last_section", 'doubts');
+     } else if (action === 'profile') {
       setShowProfileView(true);
-      localStorage.setItem("student_last_section", 'profile');
-    }
+    //   localStorage.setItem("student_last_section", 'profile');
+     }
   };
 
   return (
@@ -109,8 +104,9 @@ export default function Student() {
               key={idx}
               className="bg-white w-[320px] min-h-[360px] p-8 rounded-[22px] shadow-md flex flex-col items-start transform transition duration-300 hover:scale-105 hover:-translate-y-2"
             >
-              <span className="text-4xl text-indigo-800 drop-shadow-md mb-2">{item.icon}</span>
-              <h3 className="text-xl font-semibold text-indigo-800 mb-3">{item.title}</h3>
+              <span className="text-4xl text-indigo-800 drop-shadow-md mb-2">{card.icon}</span>
+              <h3 className="text-xl font-semibold text-indigo-800 mb-3">{card.title}</h3>
+              <ul className="mb-4 list-disc list-inside text-gray-700">
                 {card.items.map((item, i) => (
                   <li key={i}>{item}</li>
                 ))}
@@ -125,7 +121,7 @@ export default function Student() {
           ))}
         </div>
       ) : showMaterialFlow ? (
-        <div className="p-4 max-auto max-w-3xl mx-auto bg-white rounded shadow">
+        <div className="p-4 mx-auto max-w-3xl bg-white rounded shadow">
           <button
             className="mt-4 text-indigo-600 underline"
             onClick={() => {
@@ -138,7 +134,7 @@ export default function Student() {
           <StudentResources />
         </div>
       ) : showDoubtSolver ? (
-        <div className="p-4 max-auto mx-auto bg-white rounded shadow">
+        <div className="p-4 mx-auto bg-white rounded shadow">
           <button
             className="mb-4 text-indigo-600 underline"
             onClick={() => {

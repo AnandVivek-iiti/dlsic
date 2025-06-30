@@ -1,6 +1,6 @@
 import express from 'express';
 import { verifyToken } from '../middlewares/authMiddleware.js'; // ✅ correct path
-
+import { User } from '../models/UserSchema.js';
 
 const router = express.Router();
 

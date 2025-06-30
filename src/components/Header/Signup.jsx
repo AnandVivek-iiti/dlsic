@@ -1,18 +1,23 @@
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"; // ✅ needed for navigation
+
 export default function Register() {
+  const navigate = useNavigate(); // ✅ fix
   const [formData, setFormData] = useState({
     username: "",
-    phone : "",
+    phone: "",
     email: "",
     password: "",
     confirmPassword: "",
-    profileImage: "", // 🌟 New field
+    profileImage: "",
   });
+
+  const [preview, setPreview] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-   const [preview, setPreview] = useState(null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -35,42 +40,25 @@ export default function Register() {
     }
 
     try {
-     const { confirmPassword, ...payload } = formData;
+      const { confirmPassword, ...payload } = formData;
 
-    const res = await fetch('/api/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+      const res = await axios.post('/api/signup', payload); // ✅ use axios only
 
-      const data = await res.json();
-      alert(data.message || "Signup successful!");
-
-localStorage.setItem("token", data.token);
-
-      if (res.ok) {
-        // Clear form
-        setFormData({
-          username: "",
-          email: "",
-          phone: "",
-          password: "",
-          confirmPassword: "",
-          profileImage: "",
-        });
-        // You can navigate to login or home
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token); // ✅ save token
+        alert("Signup successful!");
+        navigate("/student"); // ✅ navigate to student portal
       } else {
-        alert(data.message || "Signup failed");
+        alert(res.data.message || "Signup failed");
       }
     } catch (err) {
-      console.error(err);
-      alert("Signup failed");
+      console.error("Signup error:", err.response?.data || err.message);
+      alert(err.response?.data?.message || "Signup failed");
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-400 to-purple-400 px-4 py-10">
-      {/* Outer Title */}
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-white">Create a New Account</h2>
         <p className="text-white mt-1 text-sm">
@@ -78,122 +66,103 @@ localStorage.setItem("token", data.token);
         </p>
       </div>
 
-      {/* Form Card */}
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg px-8 py-6">
         <h2 className="text-2xl font-bold text-indigo-600 text-center mb-6">Register</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-gray-700 font-semibold items-end">Username:</label>
+            <label className="block text-gray-700 font-semibold">Username:</label>
             <input
               type="text"
               name="username"
               placeholder="Enter your username"
               value={formData.username}
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-indigo-300"
+              className="w-full px-4 py-2 rounded-md border"
               required
             />
           </div>
 
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">Email:</label>
+            <label className="block text-gray-700 font-semibold">Email:</label>
             <input
               type="email"
               name="email"
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-indigo-300"
+              className="w-full px-4 py-2 rounded-md border"
               required
             />
           </div>
-               <div>
-            <label className="block text-gray-700 font-semibold mb-1">Phone:</label>
+
+          <div>
+            <label className="block text-gray-700 font-semibold">Phone:</label>
             <input
               type="tel"
               name="phone"
               placeholder="Enter your phone number"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-indigo-300"
+              className="w-full px-4 py-2 rounded-md border"
               required
             />
           </div>
 
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">Password:</label>
+            <label className="block text-gray-700 font-semibold">Password:</label>
             <input
               type="password"
               name="password"
               placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-indigo-300"
+              className="w-full px-4 py-2 rounded-md border"
               required
             />
           </div>
 
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">Confirm Password:</label>
+            <label className="block text-gray-700 font-semibold">Confirm Password:</label>
             <input
               type="password"
               name="confirmPassword"
               placeholder="Confirm your password"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-indigo-300"
+              className="w-full px-4 py-2 rounded-md border"
               required
             />
           </div>
 
-         <div className="flex flex-col items-center space-y-3">
-  <label className="block text-gray-700 font-semibold mb-1">
-    Profile Image:
-  </label>
-  
-  <label className="cursor-pointer w-24 h-24 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-full overflow-hidden hover:border-blue-500 transition">
-    {formData.profileImage ? (
-      <img
-        src={formData.profileImage}
-        alt="Preview"
-        className="w-full h-full object-cover"
-      />
-    ) : (
-      <span className="text-sm text-gray-400">Click to upload</span>
-    )}
-    <input
-      type="file"
-      accept="image/*"
-      onChange={handleImageChange}
-      className="hidden"
-    />
-  </label>
+          <div className="flex flex-col items-center space-y-3">
+            <label className="block text-gray-700 font-semibold">Profile Image:</label>
+            <label className="cursor-pointer w-24 h-24 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-full overflow-hidden hover:border-blue-500 transition">
+              {formData.profileImage ? (
+                <img src={formData.profileImage} alt="Preview" className="w-full h-full object-cover" />
+              ) : (
+                <span className="text-sm text-gray-400">Click to upload</span>
+              )}
+              <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+            </label>
+            {formData.profileImage && (
+              <button
+                type="button"
+                onClick={() => setFormData((prev) => ({ ...prev, profileImage: "" }))}
+                className="text-sm text-red-500 hover:underline"
+              >
+                Remove Image
+              </button>
+            )}
+          </div>
 
-  {formData.profileImage && (
-    <button
-      type="button"
-      onClick={() => {
-        setFormData((prev) => ({ ...prev, profileImage: "" }));
-      }}
-      className="text-sm text-red-500 hover:underline"
-    >
-      Remove Image
-    </button>
-  )}
-</div>
-
-
-          <button
-            type="submit"
-            className="w-full mt-2 bg-indigo-500 text-white font-semibold py-2 rounded-md hover:bg-indigo-600 transition"
-          >
+          <button type="submit" className="w-full bg-indigo-500 text-white font-semibold py-2 rounded-md hover:bg-indigo-600 transition">
             Register
           </button>
         </form>
 
         <p className="mt-4 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <a href='login'  className="text-indigo-500 hover:underline">
+          <a href="/login" className="text-indigo-500 hover:underline">
             Login
           </a>
         </p>

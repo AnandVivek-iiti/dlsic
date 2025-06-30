@@ -3,17 +3,22 @@ import jwt from 'jsonwebtoken';
 export const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
+  // ✅ Check if Authorization header exists
   if (!authHeader) {
     return res.status(401).json({ message: "No token provided" });
   }
 
+  // ✅ Extract token from "Bearer <token>"
   const token = authHeader.split(" ")[1];
 
   try {
+    // ✅ Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Now you can access user info from token
-    next();
+    req.user = decoded;  // ✅ Attach decoded user info
+    next();              // ✅ Continue
   } catch (err) {
-    return res.status(403).json({ message: "Token invalid" });
+    console.error("JWT Error:", err.message);
+
+    return res.status(403).json({ message: "Token invalid" }); // ⚠️ 403 = Forbidden
   }
 };
