@@ -3,17 +3,24 @@ import { verifyToken } from '../middlewares/authMiddleware.js'; // ✅ correct p
 import { User } from '../models/UserSchema.js';
 
 const router = express.Router();
+router.get('/', verifyToken, async (req, res) => {
+  const userId = req.user.userId;
+  try {
+    const user = await User.findById(userId).select('-password'); // exclude password
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
 
-router.get('/', verifyToken, (req, res) => {
-  const userId = req.user.userId; // You get this from token payload
+    res.json({
+  username: user.username,
+  email: user.email,
+  phone: user.phone,
+  profileImage: user.profileImage || '',
+});
 
-  // You can fetch real user from DB using userId if needed
-  res.json({
-    username: "Anand Vivek",
-    email: "anand@iiti.ac.in",
-    phone: "9876543210",
-    profileImage: "",
-  });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
 });
 
 export default router;

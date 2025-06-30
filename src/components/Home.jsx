@@ -1,6 +1,6 @@
 import { useState } from "react";
 import image from "./assets/image.png";
-import sars from './assets/saraswati.png';
+// import sars from './assets/saraswati.png';
 const images = [image, sars, image, image];
 
 export default function Home() {

@@ -21,6 +21,7 @@ const StudentProfile = () => {
         if (res.ok) {
           setProfile(data);
           setEditedProfile(data);
+          alert(data.message || "Profile loaded successfully");
         } else {
           alert(data.message || "Failed to load profile");
         }

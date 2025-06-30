@@ -12,20 +12,25 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import profileRoutes from './routes/profile.js';
 const JWT_SECRET = process.env.JWT_SECRET;
-// ⚠️ move to env var in production!
-
-
+import { verifyToken } from './middlewares/authMiddleware.js'; // Import the verifyToken middleware
+// ⚠️ move to env var in production
+import doubtRoutes from './routes/doubtRoutes.js';
+import mentorRoutes from './routes/mentorRoutes.js';
 
 const app = express();
-const port = 5000;
-
+// const port =" 0.0.0.0";
+const PORT =  5000; // Use environment variable or default to 5000
 app.use(cors());
 app.use(express.json({ limit: '5mb' }));
 // Connect to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/todo')
+mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/todo')
+
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
  // Connect to MongoDB
+
+app.use('/api/doubts', doubtRoutes);
+app.use('/api/mentors', mentorRoutes);
 
 app.use('/api/profile', profileRoutes);
 // Signup route
@@ -51,7 +56,8 @@ app.post('/api/signup', async (req, res) => {
       { expiresIn: '2h' }
     );
 console.log(token);
-        res.status(201).json({ message: 'User registered successfully!' });
+        res.status(201).json({ message: 'User registered successfully!', token });
+
     } catch (err) {
         if (err.name === 'ValidationError') {
             return res.status(400).json({message : err.message });
@@ -76,8 +82,14 @@ app.post('/api/login', async (req, res) => {
             return res.status(401).json({ message: "Invalid credentials" });
         }
 
+const token = jwt.sign(
+  { userId: user._id, email: user.email },
+  process.env.JWT_SECRET,
+  { expiresIn: '2h' }
+);
 
-        res.json({ message: 'Login successful!' });
+res.json({ message: 'Login successful!', token });
+
     } catch (err) {
       console.error(err);
         res.status(500).json({ message: 'Something went wrong' });
@@ -94,7 +106,8 @@ const authMiddleware = (req, res, next) => {
   const token = authHeader.split(' ')[1];
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (err) return res.status(401).json({ message: "Invalid token" });
-    req.userId = decoded.id;
+  req.userId = decoded.userId;
+
     next();
   });
 };
@@ -104,8 +117,8 @@ const authMiddleware = (req, res, next) => {
   next();
 });
 
-// GET profile
-app.get('/api/profile', authMiddleware, async (req, res) => {
+// GET profile (protected)
+app.get('/api/profile', verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select('-password');
     if (!user) return res.status(404).json({ message: "User not found" });
@@ -116,20 +129,7 @@ app.get('/api/profile', authMiddleware, async (req, res) => {
   }
 });
 
-export const verifyToken = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return res.status(401).json({ message: "Token missing" });
-
-  const token = authHeader.split(" ")[1];
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ message: "Token invalid" });
-
-    req.user = user; // Attach user payload to request
-    next();
-  });
-};
-// PUT profile
+// PUT profile (protected)
 app.put('/api/profile', verifyToken, async (req, res) => {
   try {
     const { username, email, phone, profileImage } = req.body;
@@ -179,14 +179,12 @@ app.get('/', (req, res) => {
   res.send('Backend is running!');
 });
 
-app.get('/api/ask', (req, res) => {
-  res.send('Ask your doubt!');
-});
 
 app.get('/api/ping', (req, res) => {
   res.json({ message: 'Backend is working fine!' });
 });
 
-   app.listen(port, () => {
-        console.log(`Server running at http://localhost:${port}`);
+   app.listen(PORT,  () => {
+        console.log(`Server running at http://localhost:${PORT}`);
     });
+

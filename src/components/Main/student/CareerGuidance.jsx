@@ -114,7 +114,7 @@ const CareerClassSection = () => {
   }, []);
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-900 to-black text-white relative z-10">
+    <section className=" bg-gradient-to-br from-gray-900 to-black text-white relative z-10 py-16">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold mb-2">🎓 Career Guidance by Class</h2>
         <p className="text-gray-300">Click a card to explore stream-wise career suggestions</p>

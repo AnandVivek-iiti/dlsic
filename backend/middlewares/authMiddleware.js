@@ -10,7 +10,7 @@ export const verifyToken = (req, res, next) => {
 
   // ✅ Extract token from "Bearer <token>"
   const token = authHeader.split(" ")[1];
-
+console.log("Token:", token); // Debugging line to check token
   try {
     // ✅ Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
