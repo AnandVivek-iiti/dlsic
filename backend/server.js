@@ -19,7 +19,7 @@ import mentorRoutes from './routes/mentorRoutes.js';
 
 const app = express();
 // const port =" 0.0.0.0";
-const PORT =  5000; // Use environment variable or default to 5000
+const PORT = process.env.PORT || 5000; // Use environment variable or default to 5000
 app.use(cors());
 app.use(express.json({ limit: '5mb' }));
 // Connect to MongoDB
