@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import StudentResources from './StudyResources';
-import DoubtSolver from './Doubtform';
-import Doubtlist from './DoubtList';
-import Mentor from './MentorDashboard';
+import DoubtSolver from './DoubtSolver';
+// import DoubtSolver from './Doubtform';
+// import Doubtlist from './DoubtList';
+// import Mentor from './MentorDashboard';
 import StudentProfile from './StudentProfile';
 import TimeTable from './TimeTable';
 import 'vanilla-tilt';

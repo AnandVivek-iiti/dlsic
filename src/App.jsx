@@ -12,7 +12,7 @@ import StudentDashboard from './components/Main/student/Students'; // renamed to
 import Acedemic from './components/Main/Acedemic';
 import StudentProfile from './components/Main/student/StudentProfile'; // Fixed typo in path
 import StudyResources from './components/Main/student/StudyResources';
-import Doubts from './components/Main/student/Doubtform'; // Fixed path to match case
+import Doubts from './components/Main/student/DoubtSolver'; // Fixed path to match case
 import Footer1 from './components/Footer/Footer1';
 import Profile from './components/Main/student/StudentProfile'; // Fixed typo in path
 import AcedemicDetails from './components/Main/student/AcedemicDetail'; // Importing AcademicDetails 
