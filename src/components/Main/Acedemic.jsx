@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AcademicDetail from './AcademicDetails';
-import Faculty from './FacultyList';
+import Faculty from './Facultylist';
 import Lab from './LabLabrary';
 import Streams from './Streams';
 
