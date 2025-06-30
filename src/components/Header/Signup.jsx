@@ -42,7 +42,7 @@ export default function Register() {
     try {
       const { confirmPassword, ...payload } = formData;
 
-      const res = await axios.post('https://dlsic-avsr.onrender.com/api/signup', payload); // ✅ use axios only
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/signup`, payload); // ✅ use axios only
 
       if (res.data.token) {
         localStorage.setItem("token", res.data.token); // ✅ save token
