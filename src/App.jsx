@@ -15,7 +15,7 @@ import StudyResources from './components/Main/student/StudyResources';
 import Doubts from './components/Main/student/DoubtSolver'; // Fixed path to match case
 import Footer1 from './components/Footer/Footer1';
 import Profile from './components/Main/student/StudentProfile'; // Fixed typo in path
-import AcedemicDetails from './components/Main/student/AcedemicDetail'; // Importing AcademicDetails 
+import AcedemicDetails from './components/Main/AcademicDetails';// Importing AcademicDetails 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
 

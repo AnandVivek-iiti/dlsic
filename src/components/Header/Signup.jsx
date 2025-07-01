@@ -47,7 +47,7 @@ export default function Register() {
       if (res.data.token) {
         localStorage.setItem("token", res.data.token); // ✅ save token
         alert("Signup successful!");
-        navigate("/student"); // ✅ navigate to student portal
+        navigate("/"); // ✅ navigate to home page
       } else {
         alert(res.data.message || "Signup failed");
       }

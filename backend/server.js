@@ -22,11 +22,11 @@ const app = express();
 const PORT = process.env.PORT || 5000; // Use environment variable or default to 5000
 app.use(cors(
   {
-    origin: 'https://dlsic.vercel.app/', // Replace with your frontend URL
+    origin: 'https://dlsic.vercel.app/', 
   }
 ));
 app.use(express.json({ limit: '5mb' }));
-// Connect to MongoDB
+
 mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/todo')
 
   .then(() => console.log('MongoDB connected'))
