@@ -7,20 +7,34 @@ import AP from '../assets/AP.png';
 import AS from '../assets/AS.png';
 import IMG from '../assets/image.png';
 import M from '../assets/M.png';
+import TG from '../assets/TG.png';
 
 const alumniData = [
   {
     name: { en: 'Sovran Raj', hi: 'सोवरन राज' },
     batch: { en: 'Batch of 2023', hi: '2023 बैच' },
-    role: { en: 'Student at IIIT Jabalpur', hi: 'आईआईआईटी जबलपुर के छात्र' },
+    role: { en: 'Student at IIIT Jabalpur', hi: 'आईआईआईटी जबलपुर  में छात्र' },
     quote: {
       en: 'DLS gave me the foundation I needed to dream big.',
       hi: 'DLS ने मुझे बड़ा सपना देखने की नींव दी।',
     },
     achievements: ['AI Hackathon Finalist', 'Techfest Winner at IIIT'],
     image: SR,
-    cardColor: 'from-purple-500 to-pink-500',
-    popupColor: 'bg-gradient-to-br from-purple-800 to-pink-700',
+    cardColor: 'from-red-500 to-pink-500',
+    popupColor: 'bg-gradient-to-br from-red-800 to-pink-700',
+  },
+  {
+    name: { en: 'Taniya Gupta', hi: 'तानिया गुप्ता' },
+    batch: { en: 'Batch of 2023', hi: '2023 बैच' },
+    role: { en: 'Student at bareilly college', hi: 'बरेली कॉलेज में छात्र' },
+    quote: {
+      en: 'DLS gave me the foundation I needed to dream big.',
+      hi: 'DLS ने मुझे बड़ा सपना देखने की नींव दी।',
+    },
+    achievements: ['Data Analytics internship at Intership studio', 'College Topper'],
+    image: TG,
+    cardColor: 'from-red-500 to-yellow-500',
+    popupColor: 'bg-gradient-to-br from-yellow-800 to-red-700',
   },
   {
     name: { en: 'Anurag Pandey', hi: 'अनुराग पांडेय' },
@@ -43,10 +57,10 @@ const alumniData = [
       en: 'DLS gave me the foundation I needed to dream big.',
       hi: 'DLS ने मुझे बड़ा सपना देखने की नींव दी।',
     },
-    achievements: ['Scored 680 in NEET', 'Top 1000 AIR'],
+    achievements: ['Scored 530 in NEET', 'Top 19k AIR'],
     image: AS,
-    cardColor: 'from-green-500 to-emerald-500',
-    popupColor: 'bg-gradient-to-br from-green-800 to-emerald-700',
+    cardColor: 'from-green-500 to-indigo-500',
+    popupColor: 'bg-gradient-to-br from-green-800 to-indigo-700',
   },
   {
     name: { en: 'Vikas Yadav', hi: 'विकास यादव' },
@@ -71,8 +85,8 @@ const alumniData = [
     },
     achievements: ['IIT Techfest Organizer', 'Coding Club President'],
     image: AV,
-    cardColor: 'from-indigo-500 to-blue-500',
-    popupColor: 'bg-gradient-to-br from-indigo-800 to-blue-700',
+    cardColor: 'from-indigo-300 to-blue-500',
+    popupColor: 'bg-gradient-to-br from-indigo-800 to-blue-500',
   },
   {
     name: { en: 'Mohit', hi: 'मोहित' },
@@ -191,4 +205,3 @@ export default function AlumniSection() {
     </section>
   );
 }
-
