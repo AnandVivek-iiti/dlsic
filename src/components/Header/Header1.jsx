@@ -8,6 +8,7 @@ const navigation = [
   { name: 'Acedemic', path: '/Acedemic' },
   { name: 'Student', path: '/Student' },
   { name: 'Alumni', path: '/Alumni' },
+  {name:'contact' , path : '/contact'}
 ];
 
 export default function NavBar() {

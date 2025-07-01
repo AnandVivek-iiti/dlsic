@@ -16,6 +16,8 @@ import Doubts from './components/Main/student/DoubtSolver'; // Fixed path to mat
 import Footer1 from './components/Footer/Footer1';
 import Profile from './components/Main/student/StudentProfile'; // Fixed typo in path
 import AcedemicDetails from './components/Main/AcademicDetails';// Importing AcademicDetails 
+import contact  from './components/Main/Contact'
+import { Contact } from 'lucide-react';
 function App() {
   const [darkMode, setDarkMode] = useState(false);
 
@@ -60,6 +62,7 @@ function App() {
           <Route path="/Alumni" element={<Alumni darkMode={darkMode} />} />
           <Route path="/Student" element={<StudentDashboard darkMode={darkMode} />} />
           <Route path="/Acedemic" element={<Acedemic darkMode={darkMode} />} />
+           <Route path="/Contact" element={<Contact />} />
           <Route path="/Profile" element={<Profile darkMode={darkMode} />} />
           <Route path="/student/profile" element={<StudentProfile profile={dummyProfile} darkMode={darkMode} />} />
           <Route path="/student/materials" element={<StudyResources darkMode={darkMode} />} />
