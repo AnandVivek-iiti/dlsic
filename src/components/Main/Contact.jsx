@@ -1,64 +1,96 @@
-export default function Contact (){
-    return(
-        <div>
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaTelegram, FaInstagram } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { Typewriter } from 'react-simple-typewriter';
 
-      {/* Contact Section */}
-      <section id="contact" className="p-8 bg-white">
-        <h2 className="text-2xl font-bold mb-4 text-center">Contact Us</h2>
-        <p className="text-center max-w-3xl mx-auto mb-8">
-          We’d love to hear from you. Reach out with any questions or feedback.
-        </p>
-        <div className="flex flex-wrap gap-6 justify-center">
-          <div className="w-full md:w-1/2 space-y-4">
-            <p>
-              <strong>Address:</strong><br />
-              DLS Inter College, Rithora, Bareilly, Uttar Pradesh
-            </p>
-            <p>
-              <strong>Phone:</strong><br />
-              +91-XXXXXXXXXX
-            </p>
-            <p>
-              <strong>Email:</strong><br />
-              dlscollege@example.com
-            </p>
-            <iframe
-              src="https://www.google.com/maps?q=rithora+bareilly&output=embed"
-              width="100%"
-              height="200"
-              className="rounded border-0"
-              loading="lazy"
-              title="Map"
-            ></iframe>
-          </div>
+const ContactSection = () => {
+  return (
+    <div className="relative bg-[#0e0e1c] text-white py-16 px-6 overflow-hidden">
+      {/* Typewriter Heading */}
+      <motion.h2
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="text-4xl font-extrabold text-center mb-12 glow"
+      >
+        <Typewriter
+          words={['Get in Touch', 'We\'re Here to Help', 'Contact DLS Inter College']}
+          loop={true}
+          cursor
+          cursorStyle="_"
+          typeSpeed={70}
+          deleteSpeed={40}
+          delaySpeed={2000}
+        />
+      </motion.h2>
 
-          <div className="w-full md:w-1/2">
-            <form className="space-y-4">
-              <div>
-                <label className="block mb-1 font-semibold">Name:</label>
-                <input type="text" className="w-full p-2 border rounded" placeholder="Your Name" />
-              </div>
-              <div>
-                <label className="block mb-1 font-semibold">Email:</label>
-                <input type="email" className="w-full p-2 border rounded" placeholder="you@example.com" />
-              </div>
-              <div>
-                <label className="block mb-1 font-semibold">Message:</label>
-                <textarea className="w-full p-2 border rounded" rows="4" placeholder="Write your message..."></textarea>
-              </div>
-              <button type="submit" className="bg-blue-700 text-white py-2 px-6 rounded hover:bg-blue-800 transition">
-                Send
-              </button>
-            </form>
-          </div>
+      {/* Contact Grid */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        className="relative z-10 grid md:grid-cols-3 gap-10 backdrop-blur-xl bg-white/5 p-8 rounded-xl border border-white/10 shadow-2xl"
+      >
+        {/* Info Card */}
+        <div className="space-y-4 text-sm md:text-base">
+          <h3 className="text-2xl font-bold text-cyan-400 glow">📍 Contact Info</h3>
+          <p className="flex items-center gap-3"><FaPhoneAlt className="text-cyan-300" /> +91 9876543210</p>
+          <p className="flex items-center gap-3"><FaEnvelope className="text-pink-400" /> info@dlsintercollege.ac.in</p>
+          <p className="flex items-center gap-3"><FaMapMarkerAlt className="text-yellow-300" /> Rithora, Bareilly, UP</p>
         </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="text-center p-4 bg-gray-200 mt-8">
-        © 2025 DLS Inter College, Rithora Bareilly | All Rights Reserved
-      </footer>
-   </div>
-        
-    )
-}
+        {/* Contact Form */}
+        <form className="space-y-4">
+          <input type="text" placeholder="Your Name" className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:ring-2 focus:ring-cyan-400" />
+          <input type="email" placeholder="Your Email" className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:ring-2 focus:ring-cyan-400" />
+          <textarea rows="3" placeholder="Your Message" className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:ring-2 focus:ring-cyan-400"></textarea>
+          <button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold px-4 py-2 rounded-lg neon-glow">
+            🚀 Send Message
+          </button>
+        </form>
+
+        {/* Map Card (Working) */}
+        <div className="rounded-lg overflow-hidden border border-white/10 shadow-lg h-[300px]">
+          <iframe
+            title="DLS Location"
+            width="100%"
+            height="100%"
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed/v1/place?q=DLS+Inter+College+Rithora+Bareilly&key=YOUR_API_KEY"
+            className="w-full h-full border-0"
+          ></iframe>
+        </div>
+      </motion.div>
+
+      {/* Floating Buttons */}
+      <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+        <a
+          href="https://wa.me/919876543210"
+          target="_blank"
+          className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition-all duration-300"
+        >
+          <FaWhatsapp size={22} />
+        </a>
+        <a
+          href="https://t.me/Av"
+          target="_blank"
+          className="bg-blue-400 hover:bg-blue-500 text-white p-3 rounded-full shadow-lg transition-all duration-300"
+        >
+          <FaTelegram size={22} />
+        </a>
+        <a
+          href="https://instagram.com/your_insta"
+          target="_blank"
+          className="bg-pink-500 hover:bg-pink-600 text-white p-3 rounded-full shadow-lg transition-all duration-300"
+        >
+          <FaInstagram size={22} />
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default ContactSection;
