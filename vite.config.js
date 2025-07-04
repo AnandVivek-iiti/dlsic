@@ -9,7 +9,8 @@ export default defineConfig({
     proxy: {
       '/api': {
          target: 'https://dlsic-avsr.onrender.com',
-
+  build: { outDir: 'dist' },
+  base: '/',
         changeOrigin: true,
         secure: false,
       },
