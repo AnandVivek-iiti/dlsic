@@ -4,7 +4,7 @@ import AcademicDetail from './AcademicDetails';
 import Faculty from './Facultylist';
 import Lab from './LabLabrary';
 import Streams from './Streams';
-          
+
 const academicData = [
   {
     icon: '📚',
@@ -15,8 +15,7 @@ const academicData = [
       'Expert faculty & competitive exam guidance',
     ],
     action: 'Streams',
-     cardColor: 'from-red-500 to-pink-500',
-    popupColor: 'bg-gradient-to-br from-red-800 to-pink-700',
+    cardColor: 'from-yellow-100 to-yellow-50 border-yellow-300 text-yellow-700',
   },
   {
     icon: '🏅',
@@ -28,6 +27,7 @@ const academicData = [
       'Scholarships & rewards for meritorious students',
     ],
     action: 'academic-details',
+    cardColor: 'from-blue-100 to-blue-50 border-blue-300 text-blue-700',
   },
   {
     icon: '🧑‍🏫',
@@ -38,6 +38,7 @@ const academicData = [
       'Personalized attention & mentorship',
     ],
     action: 'faculty',
+    cardColor: 'from-green-100 to-green-50 border-green-300 text-green-700',
   },
   {
     icon: '🧪',
@@ -48,6 +49,7 @@ const academicData = [
       'Focus on practical knowledge',
     ],
     action: 'lab', // ✅ changed from link to action for internal render
+    cardColor:   'from-pink-100 to-pink-50 border-pink-300 text-pink-700',
   },
 ];
 
@@ -85,18 +87,11 @@ const AcademicSection = () => {
       </p>
 
       <div className="flex flex-wrap justify-center gap-8">
-          {academicData.map((academic, index) => (
-            <motion.div
-              key={index}
-              onClick={() => setSelectedAlumni(alumni)}
-              whileHover={{ scale: 1.05, y: -6 }}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`cursor-pointer bg-gradient-to-br ${alumni.cardColor}
-                text-white rounded-2xl shadow-lg w-[300px] min-h-[360px] p-6 text-center
-                hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transform transition duration-300`}
-            >
+        {academicData.map((item, index) => (
+          <div
+            key={index}
+            className={`cursor-pointer bg-gradient-to-br ${item.cardColor}} w-[320px] min-h-[360px] p-8 rounded-[22px] shadow-xl flex flex-col transform transition-transform duration-300 hover:scale-[1.04] hover:-translate-y-2 hover:z-10 relative`}
+          >
             <div className="w-full flex flex-col items-center text-center">
               <span className="text-4xl text-indigo-800 drop-shadow-md mb-2">{item.icon}</span>
               <h3 className="text-xl font-semibold text-indigo-800 mb-3">{item.title}</h3>

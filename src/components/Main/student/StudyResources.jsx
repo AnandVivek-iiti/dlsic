@@ -215,7 +215,7 @@ export default function StudyResources() {
   };
 
   return (
-    <div className="p-6 bg-gradient-to-br from-white via-blue-50 to-blue-100 rounded-2xl shadow-lg">
+    <div className=" bg-gradient-to-br from-white via-blue-50 to-blue-100 rounded-2xl shadow-lg">
       <h2 className="text-2xl font-bold text-center text-blue-700 mb-6">📘 Study Material</h2>
 
       <div className="flex flex-wrap justify-center gap-3 mb-6">

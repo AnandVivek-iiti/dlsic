@@ -110,7 +110,7 @@ export default function Student() {
 
   if (currentView === 'material') {
     return (
-      <section className="py-16 px-4">
+      <section className="py-2 px-1">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
           <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button>
           <StudentResources />
@@ -121,7 +121,7 @@ export default function Student() {
 
   if (currentView === 'doubts') {
     return (
-      <section className="py-16 px-4">
+      <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
           <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button>
           <DoubtSolver />
@@ -132,7 +132,7 @@ export default function Student() {
 
   if (currentView === 'profile') {
     return (
-      <section className="py-16 px-4">
+      <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
           <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button>
           <StudentProfile profile={dummyProfile} />
@@ -143,7 +143,7 @@ export default function Student() {
 
   if (currentView === 'TimeTable') {
     return (
-      <section className="py-16 px-4">
+      <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
           <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button>
           <TimeTable />
@@ -154,7 +154,7 @@ export default function Student() {
 
   if (currentView === 'CareerGuidance') {
     return (
-      <section className="py-16 px-4">
+      <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
           <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button>
           <CareerGuidance />
@@ -165,8 +165,8 @@ export default function Student() {
 
   if (currentView === 'NoticeLinks') {
     return (
-      <section className="py-16 px-4">
-        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
+      <section className="py-0 px-0">
+        <div className="max-w-auto mx-auto bg-white rounded-xl shadow-lg p-6">
           <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button>
           <NoticeLinks />
         </div>

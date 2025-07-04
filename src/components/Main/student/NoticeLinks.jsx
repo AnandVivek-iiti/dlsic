@@ -75,24 +75,24 @@ const links = [
 
 const NoticeLinks = () => {
   return (
-    <section className="py-20 bg-gradient-to-br from-indigo-900 via-purple-900 to-black text-white relative z-10 min-h-screen">
-      <div className="text-center mb-16">
-        <h2 className="text-5xl font-extrabold mb-3 drop-shadow-lg">
+    <section className=" bg-gradient-to-br from-indigo-900 via-purple-900 to-black text-white relative max-w-auto">
+      <div className="text-center ">
+        <h2 className="text-3xl font-extrabold mb-3 drop-shadow-lg">
           📎 Notices & Important Links
         </h2>
-        <p className="text-indigo-300 max-w-xl mx-auto text-lg font-medium">
+        <p className="text-indigo-300 max-w-auto mx-auto text-lg font-medium">
           Stay updated with all the latest announcements and essential resources
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-12 px-6 max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-12  max-w-auto mx-auto">
         {/* Notices */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-indigo-700 shadow-[0_0_20px_rgba(139,92,246,0.4)]"
+          className="bg-white/10 backdrop-blur-xl rounded-3xl p-8  border border-indigo-700 shadow-[0_0_20px_rgba(139,92,246,0.4)]"
         >
           <h3 className="text-3xl font-semibold mb-8 text-indigo-300 tracking-wide">
             📄 Latest Notices
@@ -104,7 +104,7 @@ const NoticeLinks = () => {
                 className="p-6 rounded-xl bg-gradient-to-r from-indigo-800 to-purple-900 border border-indigo-600 hover:from-purple-700 hover:to-indigo-800 transition-transform transform hover:scale-[1.03] shadow-lg cursor-pointer"
               >
                 <div className="flex justify-between items-start">
-                  <div className="max-w-[70%]">
+                  <div className="max-w-[90%]">
                     <h4 className="text-white text-xl font-semibold mb-1">
                       {n.title}
                     </h4>

@@ -1113,9 +1113,8 @@ export default function TimeTable() {
   })();
 
   return (
-    <div className="overflow-x-auto animate-fade-up animate-duration-[1200ms] animate-ease-in-out p-4">
-      {/* Class Selector */}
-      <div className="flex flex-wrap justify-center mb-6 gap-4">
+    <div className="container">
+     <div className="flex flex-wrap justify-center mb-6 gap-4">
         {classOptions.map((cls) => (
           <button
             key={cls}
@@ -1134,6 +1133,9 @@ export default function TimeTable() {
         ))}
       </div>
 
+    <div className="overflow-x-auto animate-fade-up animate-duration-[1200ms] animate-ease-in-out p-4">
+      {/* Class Selector */}
+ 
       {/* Stream Selector for Class 11 & 12 */}
       {(selectedClass === 11 || selectedClass === 12) && (
         <div className="flex flex-wrap justify-center mb-6 gap-4">
@@ -1195,6 +1197,7 @@ export default function TimeTable() {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 }
