@@ -16,7 +16,7 @@ export default function Footer() {
             <h2 className="text-orange-400 font-bold text-lg mb-2">
               DLS Inter College
             </h2>
-            <p>Rithora, Bareilly, Uttar Pradesh - 243123</p>
+            <p>Rithora, Bareilly, Uttar Pradesh - 243122</p>
             <p>Phone: +91-8273113731 / </p>
             <p>Email: info@dlsintercollege.in</p>
           </div>
@@ -87,10 +87,10 @@ export default function Footer() {
           <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-600">
             <FaInstagram />
           </a>
-          <a href="https://telegram.org/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400">
+          <a href="https://t.me/AvSovu" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400">
             <FaTelegram />
           </a>
-          <a href="https://www.whatsapp.com/" target="_blank" rel="noopener noreferrer" className="hover:text-green-500">
+          <a href="https://whatsapp.com/channel/0029VacupYgHFxP2LhjNao1S" target="_blank" rel="noopener noreferrer" className="hover:text-green-500">
             <FaWhatsapp />
           </a>
         </div>
