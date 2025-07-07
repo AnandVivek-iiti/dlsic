@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 const router = express.Router();
-const JWT_SECRET = 'your_jwt_secret_key'; // ⚠ Move to env variable!
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // SIGNUP
 router.post('/signup', async (req, res) => {

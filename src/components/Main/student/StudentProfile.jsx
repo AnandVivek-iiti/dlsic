@@ -11,7 +11,7 @@ const StudentProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/profile`, {
+        const res = await fetch("/api/profile", {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -24,8 +24,8 @@ const StudentProfile = () => {
         } else {
           alert(data.message || 'Failed to load profile');
         }
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.error(err);
         alert('Error fetching profile');
       }
     };

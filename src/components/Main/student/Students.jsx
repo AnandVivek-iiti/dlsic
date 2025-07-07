@@ -10,7 +10,7 @@ import 'vanilla-tilt';
 import CareerGuidance from './CareerGuidance';
 import NoticeLinks from './NoticeLinks';
 
-export default function Student() {
+export default function Student({ darkMode, setDarkMode },props) {
   const [currentView, setCurrentView] = useState(null);
 
   const dummyProfile = {
@@ -38,6 +38,8 @@ export default function Student() {
       ],
       btn: 'View Timetable',
       action: 'TimeTable',
+    cardColor: 'from-yellow-100 to-yellow-50 border-yellow-300 text-yellow-700',
+
     },
     {
       icon: '📚',
@@ -49,6 +51,8 @@ export default function Student() {
       ],
       btn: 'Access Materials',
       action: 'material',
+    cardColor: 'from-pink-200 to-orange-100',
+
     },
     {
       icon: '📈',
@@ -60,6 +64,12 @@ export default function Student() {
       ],
       btn: 'Check Progress',
       action: 'profile',
+      cardColor:'from-gray-200 to-blue-50 border-blue-300 text-blue-700',
+
+
+
+
+
     },
     {
       icon: '🧠',
@@ -71,6 +81,8 @@ export default function Student() {
       ],
       btn: 'Get Support',
       action: 'doubts',
+    cardColor: 'from-green-100 to-green-50 border-green-300 text-green-700',
+
     },
     {
       icon: '💡',
@@ -82,6 +94,8 @@ export default function Student() {
       ],
       btn: 'Explore Careers',
       action: 'CareerGuidance',
+    cardColor: 'from-blue-100 to-blue-50 border-blue-300 text-blue-700',
+
     },
     {
       icon: '📌',
@@ -93,26 +107,25 @@ export default function Student() {
       ],
       btn: 'View Notices',
       action: 'NoticeLinks',
+    cardColor:   'from-pink-100 to-pink-50 border-pink-300 text-pink-700',
+    btnColor :  'from-pink-300 to-pink-200 border-pink-500 ',
+
     },
   ];
-
+    
   const handleCardClick = (action) => {
     if (action) {
       setCurrentView(action);
-      localStorage.setItem('student_last_section', action);
+      // localStorage.setItem('student_last_section', action);
     }
   };
-
-  const handleBack = () => {
-    setCurrentView(null);
-    localStorage.removeItem('student_last_section');
-  };
-
   if (currentView === 'material') {
     return (
       <section className="py-2 px-1">
-        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button>
+        <div className={`${
+            darkMode ? "bg-gray-300 text-black" : "bg-gray-600 text-white"
+          } max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6`}>
+          {/* <button  className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
           <StudentResources />
         </div>
       </section>
@@ -123,7 +136,7 @@ export default function Student() {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button>
+          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
           <DoubtSolver />
         </div>
       </section>
@@ -134,7 +147,7 @@ export default function Student() {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button>
+          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
           <StudentProfile profile={dummyProfile} />
         </div>
       </section>
@@ -145,7 +158,7 @@ export default function Student() {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button>
+          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
           <TimeTable />
         </div>
       </section>
@@ -156,7 +169,7 @@ export default function Student() {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button>
+          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
           <CareerGuidance />
         </div>
       </section>
@@ -166,8 +179,8 @@ export default function Student() {
   if (currentView === 'NoticeLinks') {
     return (
       <section className="py-0 px-0">
-        <div className="max-w-auto mx-auto bg-white rounded-xl shadow-lg p-6">
-          <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button>
+        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
+          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
           <NoticeLinks />
         </div>
       </section>
@@ -187,14 +200,14 @@ export default function Student() {
         {studentCards.map((item, index) => (
           <div
             key={index}
-            className="bg-white w-[320px] min-h-[360px] p-8 rounded-[22px] shadow-xl flex flex-col transform transition-transform duration-300 hover:scale-[1.04] hover:-translate-y-2 hover:z-10 relative"
+            className={`cursor-pointer bg-gradient-to-br ${item.cardColor} w-[320px] min-h-[360px] p-8 rounded-[22px] shadow-xl flex flex-col transform transition-transform duration-300 hover:scale-[1.04] hover:-translate-y-2 hover:z-10 relative`}
           >
             <div className="w-full flex flex-col items-center text-center">
               <span className="text-4xl text-indigo-800 drop-shadow-md mb-2">{item.icon}</span>
               <h3 className="text-xl font-semibold text-indigo-800 mb-3">{item.title}</h3>
             </div>
 
-            <ul className="list-disc pl-5 text-gray-700 mb-6 space-y-1 text-sm text-left">
+            <ul className="list-disc pl-5 text-gray-700 mb-6 space-y-1  text-left">
               {item.items.map((point, i) => (
                 <li key={i}>{point}</li>
               ))}
@@ -206,8 +219,8 @@ export default function Student() {
                 disabled={!item.action}
                 className={`text-sm font-semibold px-6 py-2 rounded-full transition-all duration-300 shadow-md
                   ${item.action
-                    ? 'bg-indigo-600 text-white hover:bg-indigo-500 hover:shadow-lg hover:scale-105'
-                    : 'bg-gray-300 text-white cursor-not-allowed'}`}
+                    ? `cursor-pointer bg-gradient-to-br text-black hover:bg-indigo-500 hover:shadow-2xl hover:scale-105`
+                    : 'bg-gray-300 text-white cursor-pointer'}`}
               >
                 {item.btn}
               </button>

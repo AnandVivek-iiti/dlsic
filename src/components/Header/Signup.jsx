@@ -1,9 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // ✅ needed for navigation
+import { useNavigate } from "react-router-dom";
 
-export default function Register() {
-  const navigate = useNavigate(); // ✅ fix
+export default function Register({ darkMode, setDarkMode },props) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     phone: "",
@@ -42,12 +42,15 @@ export default function Register() {
     try {
       const { confirmPassword, ...payload } = formData;
 
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/signup`, payload); // ✅ use axios only
+      const res = await axios.post("/api/signup", payload); // ✅ use axios only
 
       if (res.data.token) {
-        localStorage.setItem("token", res.data.token); // ✅ save token
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("personinfo", JSON.stringify(data.user));
+        props.setpersoninfo(data.user);
+        props.setissignup(true);
         alert("Signup successful!");
-        navigate("/"); // ✅ navigate to home page
+        navigate("/");
       } else {
         alert(res.data.message || "Signup failed");
       }
@@ -67,10 +70,14 @@ export default function Register() {
       </div>
 
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg px-8 py-6">
-        <h2 className="text-2xl font-bold text-indigo-600 text-center mb-6">Register</h2>
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <h2 className="text-2xl font-bold text-indigo-600 text-center mb-6">
+          Register
+        </h2>
+        <form className="space-y-4 text-left" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-gray-700 font-semibold">Username:</label>
+            <label className="block text-gray-700 font-semibold">
+              Username:
+            </label>
             <input
               type="text"
               name="username"
@@ -109,7 +116,9 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block text-gray-700 font-semibold">Password:</label>
+            <label className="block text-gray-700 font-semibold">
+              Password:
+            </label>
             <input
               type="password"
               name="password"
@@ -122,7 +131,9 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block text-gray-700 font-semibold">Confirm Password:</label>
+            <label className="block text-gray-700 font-semibold">
+              Confirm Password:
+            </label>
             <input
               type="password"
               name="confirmPassword"
@@ -135,19 +146,32 @@ export default function Register() {
           </div>
 
           <div className="flex flex-col items-center space-y-3">
-            <label className="block text-gray-700 font-semibold">Profile Image:</label>
+            <label className="block text-gray-700 font-semibold">
+              Profile Image:
+            </label>
             <label className="cursor-pointer w-24 h-24 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-full overflow-hidden hover:border-blue-500 transition">
               {formData.profileImage ? (
-                <img src={formData.profileImage} alt="Preview" className="w-full h-full object-cover" />
+                <img
+                  src={formData.profileImage}
+                  alt="Preview"
+                  className="w-full h-full object-cover"
+                />
               ) : (
                 <span className="text-sm text-gray-400">Click to upload</span>
               )}
-              <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+              />
             </label>
             {formData.profileImage && (
               <button
                 type="button"
-                onClick={() => setFormData((prev) => ({ ...prev, profileImage: "" }))}
+                onClick={() =>
+                  setFormData((prev) => ({ ...prev, profileImage: "" }))
+                }
                 className="text-sm text-red-500 hover:underline"
               >
                 Remove Image
@@ -155,7 +179,10 @@ export default function Register() {
             )}
           </div>
 
-          <button type="submit" className="w-full bg-indigo-500 text-white font-semibold py-2 rounded-md hover:bg-indigo-600 transition">
+          <button
+            type="submit"
+            className="w-full bg-indigo-500 text-white font-semibold py-2 rounded-md hover:bg-indigo-600 transition"
+          >
             Register
           </button>
         </form>

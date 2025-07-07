@@ -1,6 +1,5 @@
-import jwt from 'jsonwebtoken';
-
-export const verifyToken = (req, res, next) => {
+import jwt from 'jsonwebtoken'; 
+ export const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   // ✅ Check if Authorization header exists

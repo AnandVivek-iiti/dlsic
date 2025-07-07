@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, DownloadCloud, UploadCloud } from "lucide-react";
+
 
 const subjectColors = {
   English: "bg-purple-100",
@@ -181,6 +182,7 @@ const initialStudyMaterial = {
 
 };
 
+
 export default function StudyResources() {
   const [studyMaterial, setStudyMaterial] = useState(initialStudyMaterial);
   const [selectedClass, setSelectedClass] = useState(6);
@@ -193,8 +195,8 @@ export default function StudyResources() {
 
   const handleNoteUpload = () => {
     if (noteTitle && selectedClass && selectedSubject && noteFile) {
-      const fileURL = URL.createObjectURL(noteFile);
-      const newNote = { title: noteTitle, link: fileURL };
+      // const fileURL = URL.createObjectURL(noteFile);
+      const newNote = { title: noteTitle ,link :' /api/Notes'  };
 
       setStudyMaterial((prev) => {
         const updated = { ...prev };
@@ -212,6 +214,32 @@ export default function StudyResources() {
     } else {
       alert("❗ Please fill all fields before uploading.");
     }
+
+useEffect(() => {
+    const fetchNotes= async () => {
+      try {
+        const res = await fetch(' /api/Notes', {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setNoteFile(data);
+          alert(data.message || 'Notes uploaded successfully !!');
+        } else {
+          alert(data.message || 'Failed to upload notes');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error fetching Notes');
+      }
+    };
+    fetchNotes();
+  }, []);
+
+ 
   };
 
   return (
@@ -301,12 +329,21 @@ export default function StudyResources() {
     </div>
 
     <div className="col-span-2">
-      <input
-        type="file"
-        accept=".pdf"
-        onChange={(e) => setNoteFile(e.target.files[0])}
-        className="w-full border border-gray-300 p-2 rounded file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-      />
+     
+       <input
+              type="file"
+              accept=".pdf"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                  setNoteFile({ ...noteFile, noteFile: reader.result });
+                };
+                if (file) reader.readAsDataURL(file);
+              }}
+                      className="w-full border border-gray-300 p-2 rounded file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+
+            />
     </div>
 
     <div className="col-span-2">
@@ -323,4 +360,3 @@ export default function StudyResources() {
   );
 }
 
-// export default StudentResources;
