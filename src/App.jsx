@@ -27,21 +27,21 @@ function App() {
   const [personinfo, setpersoninfo] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
+ useEffect(() => {
+  if (darkMode) {
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+  }
+}, [darkMode]);
 
-  useEffect(() => {
-    const storedInfo = localStorage.getItem("personinfo");
-    if (storedInfo && storedInfo !== "undefined") {
-      setpersoninfo(JSON.parse(storedInfo));
-      setissignup(true);
-    }
-  }, []);
+useEffect(() => {
+  const storedTheme = localStorage.getItem("theme");
+  if (storedTheme === "dark") setDarkMode(true);
+}, []);
+
 
   return (
     <div className="w-full overflow-x-hidden">
