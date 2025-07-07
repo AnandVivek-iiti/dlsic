@@ -42,8 +42,7 @@ export default function Register(props) {
 
     try {
       const { confirmPassword, ...payload } = formData;
-
-      const res = await axios.post("/api/signup", payload);
+      await axios.post("/api/signup", payload);
 
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);

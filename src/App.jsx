@@ -18,6 +18,7 @@ import Profile from "./components/Main/student/StudentProfile";
 import AcedemicDetails from "./components/Main/AcademicDetails";
 import Contacts from "./components/Main/Contact";
 import set from "./components/Header/Set";
+// import HeroSlider from "./components/Heroslider";
 // import { Contact } from 'lucide-react';
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -151,6 +152,7 @@ useEffect(() => {
                 <Acedemic darkMode={darkMode} setDarkMode={setDarkMode} />
               }
             />
+
             <Route path="/Contact" element={<Contacts />} />
             <Route
               path="/profile"

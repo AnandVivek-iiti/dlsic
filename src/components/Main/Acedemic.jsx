@@ -1,55 +1,55 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import AcademicDetail from './AcademicDetails';
-import Faculty from './Facultylist';
-import Lab from './LabLabrary';
-import Streams from './Streams';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import AcademicDetail from "./AcademicDetails";
+import Faculty from "./Facultylist";
+import Lab from "./LabLabrary";
+import Streams from "./Streams";
 
 const academicData = [
   {
-    icon: '📚',
-    title: 'Streams',
+    icon: "📚",
+    title: "Streams",
     points: [
-      'Physics, Chemistry, Biology, Mathematics',
-      'Modern, well-equipped laboratories',
-      'Expert faculty & competitive exam guidance',
+      "Physics, Chemistry, Biology, Mathematics",
+      "Modern, well-equipped laboratories",
+      "Expert faculty & competitive exam guidance",
     ],
-    action: 'Streams',
-    cardColor: 'from-yellow-100 to-yellow-50 border-yellow-300 text-yellow-700',
+    action: "Streams",
+    cardColor: "from-yellow-100 to-yellow-50 border-yellow-300 text-yellow-700",
   },
   {
-    icon: '🏅',
-    title: 'Academic Excellence',
+    icon: "🏅",
+    title: "Academic Excellence",
     points: [
-      'Regular tests & assessments',
-      'Remedial & doubt-clearing sessions',
-      'Smart classrooms & topper mentorship',
-      'Scholarships & rewards for meritorious students',
+      "Regular tests & assessments",
+      "Remedial & doubt-clearing sessions",
+      "Smart classrooms & topper mentorship",
+      "Scholarships & rewards for meritorious students",
     ],
-    action: 'academic-details',
-    cardColor: 'from-blue-100 to-blue-50 border-blue-300 text-blue-700',
+    action: "academic-details",
+    cardColor: "from-blue-100 to-blue-50 border-blue-300 text-blue-700",
   },
   {
-    icon: '🧑‍🏫',
-    title: 'Faculty & Environment',
+    icon: "🧑‍🏫",
+    title: "Faculty & Environment",
     points: [
-      'Experienced, dedicated teachers',
-      'Positive, disciplined learning environment',
-      'Personalized attention & mentorship',
+      "Experienced, dedicated teachers",
+      "Positive, disciplined learning environment",
+      "Personalized attention & mentorship",
     ],
-    action: 'faculty',
-    cardColor: 'from-green-100 to-green-50 border-green-300 text-green-700',
+    action: "faculty",
+    cardColor: "from-green-100 to-green-50 border-green-300 text-green-700",
   },
   {
-    icon: '🧪',
-    title: 'Labs & Library',
+    icon: "🧪",
+    title: "Labs & Library",
     points: [
-      'Science & computer labs for hands-on learning',
-      'Digital & traditional library resources',
-      'Focus on practical knowledge',
+      "Science & computer labs for hands-on learning",
+      "Digital & traditional library resources",
+      "Focus on practical knowledge",
     ],
-    action: 'lab', // ✅ changed from link to action for internal render
-    cardColor:   'from-pink-100 to-pink-50 border-pink-300 text-pink-700',
+    action: "lab", // ✅ changed from link to action for internal render
+    cardColor: "from-pink-100 to-pink-50 border-pink-300 text-pink-700",
   },
 ];
 
@@ -57,23 +57,23 @@ const AcademicSection = () => {
   const [currentView, setCurrentView] = useState(null);
 
   const handleCardClick = (action) => {
-    if (action === 'academic-details') {
-      localStorage.setItem('student_last_section', 'academic-details');
-      setCurrentView('academic');
-    } else if (action === 'faculty') {
-      setCurrentView('faculty');
-    } else if (action === 'lab') {
-      setCurrentView('lab');
-    } else if (action === 'Streams') {
-      setCurrentView('Streams');
+    if (action === "academic-details") {
+      localStorage.setItem("student_last_section", "academic-details");
+      setCurrentView("academic");
+    } else if (action === "faculty") {
+      setCurrentView("faculty");
+    } else if (action === "lab") {
+      setCurrentView("lab");
+    } else if (action === "Streams") {
+      setCurrentView("Streams");
     }
   };
 
   // Conditional Rendering
-  if (currentView === 'academic') return <AcademicDetail />;
-  if (currentView === 'faculty') return <Faculty />;
-  if (currentView === 'lab') return <Lab />;
-  if (currentView === 'Streams') return <Streams />;
+  if (currentView === "academic") return <AcademicDetail />;
+  if (currentView === "faculty") return <Faculty />;
+  if (currentView === "lab") return <Lab />;
+  if (currentView === "Streams") return <Streams />;
 
   return (
     <section className="bg-gradient-to-br from-indigo-100 to-slate-50 shadow-2xl py-16 px-4">
@@ -81,20 +81,25 @@ const AcademicSection = () => {
         📘 Our Academic Excellence
       </h2>
       <p className="text-center text-gray-600 text-lg max-w-xl mx-auto mb-12">
-        At DLS Inter College, Rithora, we are committed to nurturing well-rounded,
-        responsible, and curious learners. Our curriculum is designed to foster
-        conceptual understanding, critical thinking, and personal growth.
+        At DLS Inter College, Rithora, we are committed to nurturing
+        well-rounded, responsible, and curious learners. Our curriculum is
+        designed to foster conceptual understanding, critical thinking, and
+        personal growth.
       </p>
 
       <div className="flex flex-wrap justify-center gap-8">
         {academicData.map((item, index) => (
           <div
             key={index}
-            className={`cursor-pointer bg-gradient-to-br ${item.cardColor}} w-[320px] min-h-[360px] p-8 rounded-[22px] shadow-xl flex flex-col transform transition-transform duration-300 hover:scale-[1.04] hover:-translate-y-2 hover:z-10 relative`}
+            className={`cursor-pointer bg-gradient-to-br ${item.cardColor}} border-2 border-solid hover:border-3 border-solid w-[320px] min-h-[360px] p-8 rounded-[22px] shadow-xl flex flex-col transform transition-transform duration-300 hover:scale-[1.04] hover:-translate-y-2 hover:z-10 relative`}
           >
             <div className="w-full flex flex-col items-center text-center">
-              <span className="text-4xl text-indigo-800 drop-shadow-md mb-2">{item.icon}</span>
-              <h3 className="text-xl font-semibold text-indigo-800 mb-3">{item.title}</h3>
+              <span className="text-4xl text-indigo-800 drop-shadow-md mb-2">
+                {item.icon}
+              </span>
+              <h3 className="text-xl font-semibold text-indigo-800 mb-3">
+                {item.title}
+              </h3>
             </div>
 
             <ul className="list-disc pl-5 text-gray-700 mb-6 space-y-1 text-sm text-left">
@@ -115,7 +120,7 @@ const AcademicSection = () => {
               ) : (
                 <button
                   onClick={() => handleCardClick(item.action)}
-                  className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-md transition-all duration-300 hover:scale-105"
+                  className={`cursor-pointer bg-gradient-to-br ${item.cardColor} border-2 border-solid hover:border-3 hover:border-solid   hover:bg-indigo-500 hover:shadow-3xl hover:scale-105 text-sm font-semibold px-6 py-2 rounded-full transition-all duration-300 shadow-md`}
                 >
                   See More
                 </button>

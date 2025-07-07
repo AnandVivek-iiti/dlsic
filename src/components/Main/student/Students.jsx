@@ -51,7 +51,8 @@ export default function Student({ darkMode, setDarkMode },props) {
       ],
       btn: 'Access Materials',
       action: 'material',
-    cardColor: 'from-pink-200 to-orange-100',
+       cardColor: 'from-pink-200 to-orange-100 border-red-400 text-red-600',
+
 
     },
     {
@@ -188,7 +189,7 @@ export default function Student({ darkMode, setDarkMode },props) {
   }
 
   return (
-    <section className="bg-gradient-to-br from-indigo-100 to-slate-50 shadow-2xl py-16 px-4">
+    <section className="bg-gradient-to-br from-indigo-100 to-slate-50  shadow-lg overflow-hidden py-16 px-4">
       <h2 className="text-4xl text-center font-bold text-indigo-800 mb-4 tracking-wide">
         🎓 Student Dashboard
       </h2>
@@ -200,7 +201,7 @@ export default function Student({ darkMode, setDarkMode },props) {
         {studentCards.map((item, index) => (
           <div
             key={index}
-            className={`cursor-pointer bg-gradient-to-br ${item.cardColor} w-[320px] min-h-[360px] p-8 rounded-[22px] shadow-xl flex flex-col transform transition-transform duration-300 hover:scale-[1.04] hover:-translate-y-2 hover:z-10 relative`}
+            className={`cursor-pointer bg-gradient-to-br ${item.cardColor}} border-2 border-solid hover:border-3 border-solid w-[320px] min-h-[360px] p-8 rounded-[22px] shadow-xl flex flex-col transform transition-transform duration-300 hover:scale-[1.04] hover:-translate-y-2 hover:z-10 relative`}
           >
             <div className="w-full flex flex-col items-center text-center">
               <span className="text-4xl text-indigo-800 drop-shadow-md mb-2">{item.icon}</span>
@@ -219,7 +220,7 @@ export default function Student({ darkMode, setDarkMode },props) {
                 disabled={!item.action}
                 className={`text-sm font-semibold px-6 py-2 rounded-full transition-all duration-300 shadow-md
                   ${item.action
-                    ? `cursor-pointer bg-gradient-to-br text-black hover:bg-indigo-500 hover:shadow-2xl hover:scale-105`
+                    ? `cursor-pointer bg-gradient-to-br ${item.cardColor} border-2 border-solid hover:border-3 hover:border-solid   hover:bg-indigo-500 hover:shadow-3xl hover:scale-105`
                     : 'bg-gray-300 text-white cursor-pointer'}`}
               >
                 {item.btn}
