@@ -120,10 +120,20 @@ function App() {
                 <Login
                   setissignup={setissignup}
                   setpersoninfo={setpersoninfo}
+                  darkMode={darkMode}
+                  setDarkMode={setDarkMode}
                 />
               }
-              darkMode={darkMode}
-              setDarkMode={setDarkMode}
+            />
+            <Route path="/Alumni" element={<Alumni darkMode={darkMode} />} />
+            <Route
+              path="/Student"
+              element={
+                <StudentDashboard
+                  darkMode={darkMode}
+                  setDarkMode={setDarkMode}
+                />
+              }
             />
             <Route path="/Alumni" element={<Alumni darkMode={darkMode} />} />
             <Route

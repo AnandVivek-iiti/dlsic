@@ -3,7 +3,7 @@ import { useState } from 'react';
 import saraswatiLogo from '../assets/Saraswati.png';
 import user from '../assets/user.png'
 import { useNavigate } from 'react-router-dom';
-import ModeToggle from "./Modetoggle"; 
+// import ModeToggle from "./Modetoggle"; 
 
 export default function NavBar(props) {
   const navigate=useNavigate();

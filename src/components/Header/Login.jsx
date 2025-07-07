@@ -2,9 +2,9 @@ import { User } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Login({ darkMode, setDarkMode },props) {
+export default function Login(props) {
   const navigate = useNavigate();
-
+ const { darkMode, setDarkMode } = props;
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
