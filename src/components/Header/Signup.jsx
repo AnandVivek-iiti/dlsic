@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Register(props) {
   const navigate = useNavigate();
-  const { darkMode, setDarkMode } = props;
+  // const { darkMode, setDarkMode } = props;
   const [formData, setFormData] = useState({
     username: "",
     phone: "",
@@ -43,11 +43,12 @@ export default function Register(props) {
     try {
       const { confirmPassword, ...payload } = formData;
       await axios.post("/api/signup", payload);
-
+      const data = await res.json();
+    
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("personinfo", JSON.stringify(res.data.user));
-        props.setpersoninfo(res.data.user);
+        localStorage.setItem("personinfo", JSON.stringify(res.fromData.user));
+        props.setpersoninfo(res.fromData.user);
         props.setissignup(true);
         alert("Signup successful!");
         navigate("/");
