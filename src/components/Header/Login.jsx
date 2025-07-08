@@ -1,10 +1,13 @@
-import { User } from "lucide-react";
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+
 export default function Login(props) {
   const navigate = useNavigate();
- const { darkMode, setDarkMode } = props;
+  const { darkMode, setDarkMode } = props;
+
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -12,7 +15,6 @@ export default function Login(props) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setLoginInfo((prev) => ({
       ...prev,
       [name]: value,
@@ -22,34 +24,31 @@ export default function Login(props) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loginInfo),
+      const res = await axios.post(`${backendURL}/api/login`, loginInfo, {
+        withCredentials: true,
       });
 
-      const data = await res.json();
+      const data = res.data;
 
-      if (res.ok) {
-        alert(data.message || "Login successful!");
+      if (data.token) {
+        localStorage.setItem("token", data.token);
         localStorage.setItem("personinfo", JSON.stringify(data.user));
         props.setpersoninfo(data.user);
         props.setissignup(true);
         setLoginInfo({ email: "", password: "" });
+        alert("Login successful!");
         navigate("/");
-        localStorage.setItem("token", data.token);
       } else {
         alert(data.message || "Login failed");
       }
     } catch (err) {
-      console.error(err);
-      alert("Something went wrong. Please try again.");
+      console.error("Login error:", err.response?.data || err.message);
+      alert(err.response?.data?.message || "Login failed");
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-400 to-purple-400 px-4 py-10">
-      {/* Outer Title */}
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-white">Welcome Back</h2>
         <p className="text-white mt-1 text-sm">
@@ -57,10 +56,11 @@ export default function Login(props) {
         </p>
       </div>
 
-      {/* Form Card */}
-      <div className={`${
-            darkMode ? "bg-gray-300 text-black" : "bg-gray-300 text-black"
-          } w-full max-w-md rounded-lg shadow-lg px-8 py-6`}>
+      <div
+        className={`${
+          darkMode ? "bg-gray-300 text-black" : "bg-gray-300 text-black"
+        } w-full max-w-md rounded-lg shadow-lg px-8 py-6`}
+      >
         <h2 className="text-2xl font-bold text-indigo-600 text-center mb-6">
           Login
         </h2>
