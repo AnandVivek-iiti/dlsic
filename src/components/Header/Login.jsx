@@ -59,7 +59,7 @@ export default function Login(props) {
 
       {/* Form Card */}
       <div className={`${
-            darkMode ? "bg-gray-300 text-black" : "bg-gray-600 text-white"
+            darkMode ? "bg-gray-300 text-black" : "bg-gray-300 text-black"
           } w-full max-w-md rounded-lg shadow-lg px-8 py-6`}>
         <h2 className="text-2xl font-bold text-indigo-600 text-center mb-6">
           Login

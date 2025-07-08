@@ -92,7 +92,7 @@ useEffect(() => {
         >
           <Routes>
             <Route path="/" element={<Home darkMode={darkMode} />} />
-            {isOpen && (
+            {/* {isOpen && (
               <Set
                 changestatus={changestatus}
                 setissignup={setissignup}
@@ -102,7 +102,7 @@ useEffect(() => {
                 closeset={closeset}
                 isOpen={isOpen}
               />
-            )}
+            )} */}
 
             <Route
               path="/signup"
