@@ -84,11 +84,13 @@ const StudentProfile = () => {
       });
       const data = await res.json();
       if (res.ok) {
-        alert(data.message || 'Profile updated');
+        toast.success(data.message || 'Profile updated!');
+
         setProfile(editedProfile);
         setIsEditing(false);
       } else {
-        alert(data.message || 'Update failed');
+      toast.error(data.message || 'Update failed!');
+
       }
     } catch (err) {
       console.error(err);
