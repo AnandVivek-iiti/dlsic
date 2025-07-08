@@ -126,7 +126,6 @@ useEffect(() => {
                 />
               }
             />
-            <Route path="/Alumni" element={<Alumni darkMode={darkMode} />} />
             <Route
               path="/Student"
               element={
@@ -136,7 +135,6 @@ useEffect(() => {
                 />
               }
             />
-            <Route path="/Alumni" element={<Alumni darkMode={darkMode} />} />
             <Route
               path="/Student"
               element={
