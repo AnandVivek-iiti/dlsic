@@ -68,14 +68,14 @@ const ContactSection = () => {
       {/* Floating Buttons */}
       <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
         <a
-          href="https://wa.me/919876543210"
+          href="https://whatsapp.com/channel/0029VacupYgHFxP2LhjNao1S"
           target="_blank"
           className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition-all duration-300"
         >
           <FaWhatsapp size={22} />
         </a>
         <a
-          href="https://t.me/Av"
+          href="https://t.me/AvSovu"
           target="_blank"
           className="bg-blue-400 hover:bg-blue-500 text-white p-3 rounded-full shadow-lg transition-all duration-300"
         >
