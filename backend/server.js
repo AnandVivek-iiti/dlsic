@@ -20,6 +20,8 @@ import { verifyToken } from "./data/middlewares/authMiddleware.js";
 // import mentorRoutes from './routes/mentorRoutes.js';
 
 const app = express();
+app.options('*', cors());
+
 // const port =" 0.0.0.0";
 const PORT = process.env.PORT || 5000;
 app.use(
