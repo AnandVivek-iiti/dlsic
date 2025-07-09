@@ -54,7 +54,7 @@ export default function Register(props) {
         props.setpersoninfo(res.data.user);
         props.setissignup(true);
         alert("Signup successful!");
-        navigate("/");
+        navigate("/login");
       } else {
         alert(res.data.message || "Signup failed");
       }
