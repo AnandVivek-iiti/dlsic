@@ -13,38 +13,19 @@ import jwt from "jsonwebtoken";
 import profileRoutes from "./routes/profile.js";
 import { Notes } from "./models/Upload.js";
 const JWT_SECRET = process.env.JWT_SECRET;
-const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
 import { verifyToken } from "./data/middlewares/authMiddleware.js";
 // import authMiddleware from './routes/auth.js'
 // import doubtRoutes from './routes/doubtRoutes.js';
 // import mentorRoutes from './routes/mentorRoutes.js';
 
 const app = express();
-app.options('*', cors());
-
 // const port =" 0.0.0.0";
 const PORT = process.env.PORT || 5000;
-app.use((req, res, next) => {
-  console.log("Origin:", req.headers.origin);
-  next();
-});
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://dlsic.vercel.app'],
+  credentials: true
+}));
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      const allowedOrigins = [
-        "http://localhost:5173",
-        process.env.FRONTEND_URL
-      ];
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
 
 app.use(express.json({ limit: "5mb" }));
 
@@ -119,7 +100,7 @@ app.post("/api/login", async (req, res) => {
 
     const token = jwt.sign(
       { userId: user._id, email: user.email },
-      JWT_SECRET,
+     JWT_SECRET,
       { expiresIn: "2h" }
     );
 
