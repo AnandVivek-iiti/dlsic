@@ -9,7 +9,7 @@ export default defineConfig({
     historyApiFallback: true,
     proxy: {
       '/api': {
-         target: "http://localhost:5000/"||'https://dlsic-avsr.onrender.com',
+         target: 'https://dlsic-production.up.railway.app',
         build: { outDir: 'dist' },
          base: '/',
         changeOrigin: true,
