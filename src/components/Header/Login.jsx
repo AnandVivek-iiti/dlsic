@@ -37,7 +37,7 @@ export default function Login(props) {
         props.setissignup(true);
         setLoginInfo({ email: "", password: "" });
         alert("Login successful!");
-        navigate("/");
+        navigate("/login");
       } else {
         alert(data.message || "Login failed");
       }
