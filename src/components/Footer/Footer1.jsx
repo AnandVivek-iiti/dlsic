@@ -81,16 +81,16 @@ export default function Footer() {
          
         {/* Social Media Icons */}
         <div className="flex justify-center space-x-6 my-0 text-xl">
-          <a href="https://www.facebook.com/pages/Darbari%20Lal%20Sharma%20Inter%20College/2120808191487780/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">
+          <a href="https://www.facebook.com/pages/Darbari%20Lal%20Sharma%20Inter%20College/2120808191487780/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600">
             <FaFacebookF />
           </a>
-          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-600">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="text-pink-500 hover:text-pink-700">
             <FaInstagram />
           </a>
-          <a href="https://t.me/AvSovu" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400">
+          <a href="https://t.me/AvSovu" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600">
             <FaTelegram />
           </a>
-          <a href="https://whatsapp.com/channel/0029VacupYgHFxP2LhjNao1S" target="_blank" rel="noopener noreferrer" className="hover:text-green-500">
+          <a href="https://whatsapp.com/channel/0029VacupYgHFxP2LhjNao1S" target="_blank" rel="noopener noreferrer" className="text-green-500 hover:text-green-700">
             <FaWhatsapp />
           </a>
         </div>
