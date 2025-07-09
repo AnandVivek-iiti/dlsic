@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import image from '../../assets/image.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+const backendURL = import.meta.env.VITE_BACKEND_URL||"http://localhost:5000" ;
 const StudentProfile = () => {
   const [profile, setProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -11,7 +12,7 @@ const StudentProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch("/api/profile", {
+        const res = await fetch(`${backendURL}/api/profile`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
