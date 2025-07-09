@@ -101,7 +101,7 @@ export default function Home() {
 
       {/* 📘 About Section */}
       <div className="max-w-full mx-auto mt-10 p-6 bg-white rounded-xl shadow-md border-[1px] border-orange-500 border-t-[4px]">
-        <div className="flex items-center gap-3 text-2xl font-bold text-orange-600 mb-4">
+        <div className="flex items-center gap-3 text-2xl font-bold text-blue-700 mb-4">
           <BookOpen className="h-7 w-7 text-orange-500" />
           <span>Welcome to DLS Inter College</span>
         </div>
@@ -154,7 +154,7 @@ export default function Home() {
               />
             </div>
             <div className="md:col-span-2 bg-white p-6">
-              <div className="flex items-start gap-3 text-2xl font-bold text-orange-600 mb-2">
+              <div className="flex items-start gap-3 text-2xl font-bold text-blue-700 mb-2">
                 <Quote className="h-7 w-7 text-orange-500 transform -scale-x-100" />
                 <span>Message from the Principal</span>
               </div>
@@ -175,7 +175,7 @@ export default function Home() {
 
       {/* 📸 Media Gallery */}
       <div className="mt-10 max-w-full mx-auto bg-white border-[1px] border-orange-500 border-t-[4px] shadow-lg rounded-xl">
-  <div className="text-2xl font-bold text-orange-600 px-6 py-4 border-b">
+  <div className="text-2xl font-bold text-blue-700 px-6 py-4 border-b">
     📸 Media Gallery
   </div>
 
