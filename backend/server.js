@@ -24,9 +24,24 @@ app.options('*', cors());
 
 // const port =" 0.0.0.0";
 const PORT = process.env.PORT || 5000;
+app.use((req, res, next) => {
+  console.log("Origin:", req.headers.origin);
+  next();
+});
+
 app.use(
   cors({
-    origin: ["http://localhost:5173", frontendUrl],
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        "http://localhost:5173",
+        process.env.FRONTEND_URL
+      ];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
