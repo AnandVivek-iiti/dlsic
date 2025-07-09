@@ -75,7 +75,7 @@ const StudentProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/profile', {
+       const res = await fetch(`${backendURL}/api/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
