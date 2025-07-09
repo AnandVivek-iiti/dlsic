@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import AV from '../assets/AV.png';
-// import SR from '../assets/SR.png';
+import SR from '../assets/SR.png';
 import AP from '../assets/AP.png';
 import AS from '../assets/AS.png';
 import IMG from '../assets/image.png';
@@ -19,7 +19,7 @@ const alumniData = [
       hi: 'DLS ने मुझे बड़ा सपना देखने की नींव दी।',
     },
     achievements: ['AI Hackathon Finalist', 'Techfest Winner at IIIT'],
-    // image: SR,
+    image: SR,
     cardColor: 'from-red-500 to-pink-500',
     popupColor: 'bg-gradient-to-br from-red-800 to-pink-700',
   },
