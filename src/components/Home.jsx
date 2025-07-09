@@ -54,18 +54,24 @@ const { language, toggleLanguage, t } = useLanguage();
     timeoutRef.current = setTimeout(() => nextSlide(), 4000);
     return () => resetTimeout();
   }, [current]);
+useEffect(() => {
+  localStorage.setItem('lang', language);
+}, [language]);
 
   return (
     <>
     <div className="home-container">
-      <h1>{t("header.home")}</h1>
+      {/* <h1>{t("header.home")}</h1> */}
 
     <button
       onClick={toggleLanguage}
-      className="rounded-full bg-primary text-white px-4 py-1 text-sm hover:bg-primary/90 transition"
+      className="rounded-full bg-blue-600 text-white px-4 py-1 text-sm hover:bg-blue-700 transition"
+
     >
       {language === 'EN' ? 'हिन्दी' : 'English'}
     </button>
+
+
       {/* 🖼️ Image Slider */}
       <div
         className="relative z-10 w-full max-w-full mx-auto rounded-sm overflow-hidden group"
@@ -119,7 +125,8 @@ const { language, toggleLanguage, t } = useLanguage();
       <div className="max-w-full mx-auto mt-10 p-6 bg-white rounded-xl shadow-md border-[1px] border-orange-500 border-t-[4px]">
         <div className="flex items-center gap-3 text-2xl font-bold text-blue-700 mb-4">
           <BookOpen className="h-7 w-7 text-orange-500" />
-          <span>Welcome to DLS Inter College</span>
+         <span>{t('about.title')}</span>
+
         </div>
 
         <p className="text-gray-800 mb-3">

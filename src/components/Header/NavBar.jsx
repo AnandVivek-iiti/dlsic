@@ -4,7 +4,8 @@ import saraswatiLogo from "../assets/Saraswati.png";
 import U from "../assets/user.png";
 import { useNavigate } from "react-router-dom";
 // import ModeToggle from "./Modetoggle";
-import LanguageSwitcher from '../LanguageSwitcher.jsx';
+import LanguageSwitcher from "../LanguageSwitcher";
+import { useLanguage } from "../Main/context/Languagecontext.jsx";
 export default function NavBar(props) {
   const [user, setUser] = useState(() => {
     try {
@@ -42,9 +43,8 @@ export default function NavBar(props) {
               <h1 className="text-lg text-black sm:text-2xl font-extrabold">
                 DLS Inter College
               </h1>
-                  <LanguageSwitcher />
             </div>
-  
+
             {/* Desktop Menu */}
             <nav className="hidden md:flex items-center space-x-6 p-4">
               {navigation.map((item) => (
@@ -60,6 +60,7 @@ export default function NavBar(props) {
                   {item.name}
                 </Link>
               ))}
+              <LanguageSwitcher className="bg-gray-600 text-black hover:bg-gray-700" />
 
               {props.issignup && (
                 <div className="hidden md:block relative">
@@ -124,25 +125,68 @@ export default function NavBar(props) {
           </div>
 
           {/* Mobile Menu */}
-          {isOpen && (
-            <div className="md:hidden  top-0 w-full bg-white  py-auto space-y-2 shadow-lg z-50 rounded-r-lg">
-              {navigation.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setIsOpen(false)}
-                  className={`block py-2 px-4 rounded font-medium ${
-                    location.pathname === item.path
-                      ? "bg-blue-100 text-blue-700 font-bold"
-                      : "hover:bg-gray-300 text-black"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          )}
+        {isOpen && (
+  <div className="md:hidden top-0 w-full bg-white py-4 space-y-2 shadow-lg z-50 rounded-r-lg">
+    {navigation.map((item) => (
+      <Link
+        key={item.path}
+        to={item.path}
+        onClick={() => setIsOpen(false)}
+        className={`block py-2 px-4 rounded font-medium ${
+          location.pathname === item.path
+            ? "bg-blue-100 text-blue-700 font-bold"
+            : "hover:bg-gray-300 text-black"
+        }`}
+      >
+        {item.name}
+      </Link>
+    ))}
+    
+
+          
+    {/* ✅ Language Switcher in mobile */}
+    <div className="px-4">
+      <LanguageSwitcher className="bg-gray-600 text-white w-full py-2 text-center rounded-md" />
+    </div>
+           {/* ✅ User Profile in mobile */}
+    {props.issignup && (
+      <div className="px-4 pt-2 border-t border-gray-300">
+        <div className="text-sm text-gray-800 font-semibold">
+          {props.personinfo?.name || "No name"}
         </div>
+        <div className="text-sm text-gray-600">{props.personinfo?.email}</div>
+        <div className="text-sm text-gray-600">{user?.phone}</div>
+
+        <div className="flex flex-col mt-2">
+          <button
+            onClick={() => {
+              setIsOpen(false);
+              navigate("/profile");
+            }}
+            className="text-left py-1 px-2 rounded hover:bg-gray-100"
+          >
+            📄 View Profile
+          </button>
+          <button
+            onClick={() => {
+              if (window.confirm("Do you want to logout?")) {
+                localStorage.removeItem("personinfo");
+                props.setissignup(false);
+                props.setpersoninfo(null);
+                setIsOpen(false);
+                navigate("/signup");
+              }
+            }}
+            className="text-left py-1 px-2 rounded text-red-600 hover:bg-gray-100"
+          >
+            🔓 Logout
+          </button>
+        </div>
+      </div>
+    )}
+        </div>
+        )}
+     </div>
       </header>
     </div>
   );
