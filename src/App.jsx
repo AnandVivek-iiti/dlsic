@@ -3,6 +3,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 
+
 // Components
 import Header1 from "./components/Header/NavBar";
 import Home from "./components/Home";
@@ -90,6 +91,7 @@ useEffect(() => {
             darkMode ? "bg-black text-white" : "bg-white text-black"
           }`}
         >
+          
           <Routes>
             <Route path="/" element={<Home darkMode={darkMode} />} />
             {/* {isOpen && (
@@ -192,6 +194,7 @@ useEffect(() => {
               }
             />
           </Routes>
+          
         </div>
       </div>
       {/* Footer */}
