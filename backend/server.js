@@ -14,16 +14,13 @@ import profileRoutes from "./routes/profile.js";
 import { Notes } from "./models/Upload.js";
 const JWT_SECRET = process.env.JWT_SECRET;
 import { verifyToken } from "./data/middlewares/authMiddleware.js";
-// import authMiddleware from './routes/auth.js'
-// import doubtRoutes from './routes/doubtRoutes.js';
-// import mentorRoutes from './routes/mentorRoutes.js';
 
 const app = express();
 // const port =" 0.0.0.0";
 const PORT = process.env.PORT || 5000;
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://dlsic.vercel.app'],
-  credentials: true
+  origin: ["http://localhost:5173", process.env.FRONTEND_URL, "https://dlsic.vercel.app", "https://dlsic-avsr.onrender.com"],
+  credentials: true,
 }));
 
 
