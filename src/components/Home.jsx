@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { BookOpen, ArrowDown, ArrowUp, Quote } from "lucide-react";
 import image from './assets/image.png'; // local image
-import SR from './assets/SR.png'; // Principal's image
+// import SR from './assets/SR.png'; // Principal's image
 
 const slides = [
   {
@@ -149,7 +149,7 @@ export default function Home() {
           <div className="grid md:grid-cols-3">
             <div className="md:col-span-1 relative h-full min-h-[300px]">
               <img
-                src={SR} 
+                src="/image" 
                 alt="Principal's Photo"
                 className="object-cover object-top h-full w-full"
               />
