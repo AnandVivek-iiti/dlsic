@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { BookOpen, ArrowDown, ArrowUp, Quote } from "lucide-react";
 import image from './assets/image.png'; // local image
-import SR from './assets/SR.png'; // Principal's image
+import SR from './assets/Ashish_Sir.png'; // Principal's image
 
 const slides = [
   {

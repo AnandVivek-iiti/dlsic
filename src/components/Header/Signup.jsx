@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const backendURL = import.meta.env.VITE_BACKEND_URL ;
+const backendURL = import.meta.env.VITE_BACKEND_URL||"http://localhost:5000" ;
 
 export default function Register(props) {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ export default function Register(props) {
   try {
     const { confirmPassword, ...payload } = formData;
 
-    const res = await axios.post(`${backendURL}/api/signup`, payload);
+    const res = await axios.post('/api/signup', payload);
 
     if (res.data.token) {
       localStorage.setItem("token", res.data.token);
