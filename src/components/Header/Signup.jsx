@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const backendURL = import.meta.env.VITE_BACKEND_URL||"http://localhost:5000" ;
+const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
 export default function Register(props) {
   const navigate = useNavigate();
@@ -34,35 +34,33 @@ export default function Register(props) {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (formData.password !== formData.confirmPassword) {
-    alert("Passwords do not match!");
-    return;
-  }
-
-  try {
-    const { confirmPassword, ...payload } = formData;
-
-    const res = await axios.post(`${backendURL}/api/signup`, payload);
-
-
-    if (res.data.token) {
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("personinfo", JSON.stringify(res.data.user));
-      props.setpersoninfo(res.data.user);
-      props.setissignup(true);
-      alert("Signup successful!");
-      navigate("/");
-    } else {
-      alert(res.data.message || "Signup failed");
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
     }
-  } catch (err) {
-    console.error("Signup error:", err.response?.data || err.message);
-    alert(err.response?.data?.message || "Signup failed");
-  }
-};
 
+    try {
+      const { confirmPassword, ...payload } = formData;
+
+      const res = await axios.post(`${backendURL}/api/signup`, payload);
+
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("personinfo", JSON.stringify(res.data.user));
+        props.setpersoninfo(res.data.user);
+        props.setissignup(true);
+        alert("Signup successful!");
+        navigate("/");
+      } else {
+        alert(res.data.message || "Signup failed");
+      }
+    } catch (err) {
+      console.error("Signup error:", err.response?.data || err.message);
+      alert(err.response?.data?.message || "Signup failed");
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-400 to-purple-400 px-4 py-10">
@@ -193,7 +191,7 @@ export default function Register(props) {
 
         <p className="mt-4 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <a href="/#/login" className="text-indigo-500 hover:underline">
+          <a href="/login" className="text-indigo-500 hover:underline">
             Login
           </a>
         </p>
