@@ -17,7 +17,9 @@
   "type": "module",
   "main": "eslint.config.js",
   "scripts": {
-   
+
+  "start": "node server.js",
+  "server": "nodemon server.js",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
