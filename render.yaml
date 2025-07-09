@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: dlsicr-backend
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && node server.js
+    rootDir: backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://Anand:Anand@anand.lq8huhq.mongodb.net/
+      - key: JWT_SECRET
+        value: anand123secretkey
+      # Add any other backend env variables here
+
+  - type: web
+    name: dlsicr-frontend
+    env: static
+    plan: free
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    rootDir: .
+    envVars:
+      - key: VITE_API_URL
+        value: https://dlsicr-backend.onrender.com
