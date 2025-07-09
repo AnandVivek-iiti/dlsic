@@ -59,7 +59,7 @@ const ContactSection = () => {
             loading="lazy"
             allowFullScreen
             referrerPolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed/v1/place?q=DLS+Inter+College+Rithora+Bareilly&key=YOUR_API_KEY"
+            src="https://maps.google.com/maps?q=rithora%20bareilly&t=&z=13&ie=UTF8&iwloc=&output=embed"
             className="w-full h-full border-0"
           ></iframe>
         </div>
