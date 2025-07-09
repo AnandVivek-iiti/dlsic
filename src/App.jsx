@@ -3,7 +3,6 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 
-
 // Components
 import Header1 from "./components/Header/NavBar";
 import Home from "./components/Home";
@@ -18,9 +17,8 @@ import Footer1 from "./components/Footer/Footer1";
 import Profile from "./components/Main/student/StudentProfile";
 import AcedemicDetails from "./components/Main/AcademicDetails";
 import Contacts from "./components/Main/Contact";
-import set from "./components/Header/Set";
+import Sets from "./components/Header/Set";
 // import HeroSlider from "./components/Heroslider";
-// import { Contact } from 'lucide-react';
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [issignup, setissignup] = useState(false);
@@ -29,21 +27,20 @@ function App() {
   const [personinfo, setpersoninfo] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
 
- useEffect(() => {
-  if (darkMode) {
-    document.documentElement.classList.add("dark");
-    localStorage.setItem("theme", "dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-    localStorage.setItem("theme", "light");
-  }
-}, [darkMode]);
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
-useEffect(() => {
-  const storedTheme = localStorage.getItem("theme");
-  if (storedTheme === "dark") setDarkMode(true);
-}, []);
-
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme === "dark") setDarkMode(true);
+  }, []);
 
   return (
     <div className="w-full overflow-x-hidden">
@@ -75,10 +72,21 @@ useEffect(() => {
           darkMode={darkMode}
           setDarkMode={setDarkMode}
         />
-   <div className="mode width-4px h-4px fixed top-0 right-0 z-50">
+        {isOpen && (
+          <Set
+            changestatus={changestatus}
+            setissignup={setissignup}
+            issignup={issignup}
+            personinfo={personinfo}
+            setpersoninfo={setpersoninfo}
+            closeset={closeset}
+            isOpen={isOpen}
+          />
+        )}
+        <div className="mode width-4px h-4px fixed top-0 right-0 z-50">
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className=" top-4 right-0 z-50 px-1 py-1 border-2 border-black shadow-md rounded-full bg-gray-800 text-white dark:bg-white dark:text-black  hover:scale-105 transition duration-300"
+            className=" top-40 right-0 z-50 px-1 py-1 border-2 border-black shadow-md rounded-full bg-gray-800 text-white dark:bg-white dark:text-black  hover:scale-105 transition duration-300"
             title="Toggle Dark Mode"
           >
             {darkMode ? "☀️ " : "🌙 "}
@@ -91,20 +99,8 @@ useEffect(() => {
             darkMode ? "bg-black text-white" : "bg-white text-black"
           }`}
         >
-          
           <Routes>
             <Route path="/" element={<Home darkMode={darkMode} />} />
-            {/* {isOpen && (
-              <Set
-                changestatus={changestatus}
-                setissignup={setissignup}
-                issignup={issignup}
-                personinfo={personinfo}
-                setpersoninfo={setpersoninfo}
-                closeset={closeset}
-                isOpen={isOpen}
-              />
-            )} */}
 
             <Route
               path="/signup"
@@ -139,12 +135,7 @@ useEffect(() => {
             />
             <Route
               path="/Alumni"
-              element={
-                <Alumni
-                  darkMode={darkMode}
-                  setDarkMode={setDarkMode}
-                />
-              }
+              element={<Alumni darkMode={darkMode} setDarkMode={setDarkMode} />}
             />
             <Route
               path="/Acedemic"
@@ -194,7 +185,6 @@ useEffect(() => {
               }
             />
           </Routes>
-          
         </div>
       </div>
       {/* Footer */}

@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const backendURL = import.meta.env.VITE_BACKEND_URL||"http://localhost:5000";
+import { useAuth } from "../Main/context/AuthContext.jsx";
+const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
 export default function Login(props) {
+    const { login } = useAuth();
   const navigate = useNavigate();
   const { darkMode, setDarkMode } = props;
 
@@ -37,7 +38,7 @@ export default function Login(props) {
         props.setissignup(true);
         setLoginInfo({ email: "", password: "" });
         alert("Login successful!");
-        navigate("/login");
+        navigate("/");
       } else {
         alert(data.message || "Login failed");
       }
@@ -58,7 +59,7 @@ export default function Login(props) {
 
       <div
         className={`${
-          darkMode ? "bg-gray-300 text-black" : "bg-gray-300 text-black"
+          darkMode ? "bg-gray-100 text-black" : "bg-gray-100 text-black"
         } w-full max-w-md rounded-lg shadow-lg px-8 py-6`}
       >
         <h2 className="text-2xl font-bold text-indigo-600 text-center mb-6">
@@ -105,7 +106,7 @@ export default function Login(props) {
 
         <p className="mt-4 text-center text-sm text-gray-600">
           Don't have an account?{" "}
-          <a href="/signup" className="text-indigo-500 hover:underline">
+          <a href="/#/signup" className="text-indigo-500 hover:underline">
             Create Account
           </a>
         </p>

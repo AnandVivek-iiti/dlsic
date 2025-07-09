@@ -18,23 +18,25 @@ import { verifyToken } from "./data/middlewares/authMiddleware.js";
 const app = express();
 // const port =" 0.0.0.0";
 const PORT = process.env.PORT || 5000;
-app.use(cors({
-  origin: ["http://localhost:5173", process.env.FRONTEND_URL, "https://dlsic.vercel.app", "https://dlsic-avsr.onrender.com"],
-  credentials: true,
-}));
-
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      process.env.FRONTEND_URL,
+      "https://dlsic.vercel.app",
+      "https://dlsic-avsr.onrender.com",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json({ limit: "5mb" }));
 
 mongoose
-  .connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/todo")
+  .connect(process.env.MONGO_URL) // || MONGO_URI=mongodb+srv://Anand:Anand@anand.lq8huhq.mongodb.net/
 
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
-// Connect to MongoDB
-
-// app.use('/api/doubts', doubtRoutes);
-// app.use('/api/mentors', mentorRoutes);
 
 app.use("/api/profile", profileRoutes);
 // Signup route
@@ -97,7 +99,7 @@ app.post("/api/login", async (req, res) => {
 
     const token = jwt.sign(
       { userId: user._id, email: user.email },
-     JWT_SECRET,
+      JWT_SECRET,
       { expiresIn: "2h" }
     );
 

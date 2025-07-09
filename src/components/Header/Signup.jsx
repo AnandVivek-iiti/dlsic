@@ -54,7 +54,7 @@ export default function Register(props) {
         props.setpersoninfo(res.data.user);
         props.setissignup(true);
         alert("Signup successful!");
-        navigate("/login");
+        navigate("/");
       } else {
         alert(res.data.message || "Signup failed");
       }
@@ -193,7 +193,7 @@ export default function Register(props) {
 
         <p className="mt-4 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <a href="/login" className="text-indigo-500 hover:underline">
+          <a href="/#/login" className="text-indigo-500 hover:underline">
             Login
           </a>
         </p>

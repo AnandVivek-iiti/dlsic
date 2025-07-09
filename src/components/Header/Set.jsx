@@ -7,13 +7,16 @@ import { useNavigate } from 'react-router-dom';
 function Set(props) {
      const location = useLocation();
      const navigate=useNavigate();
+  
   const navigation = [
-  { name: '🧑‍🤝‍🧑 Clubs', path: '/clubs' },
-  { name: '📅 Events', path: '/' },
- 
-  { name: '🔔 Notification', path: '/notification' },
-  ...(!props.issignup?[{ name: ' ✍️ Signup', path: '/signup'}]:[] )
-];
+    { name: "Home", path: "/" },
+    { name: "Acedemic", path: "/Acedemic" },
+    { name: "Student", path: "/Student" },
+    { name: "Alumni", path: "/Alumni" },
+    { name: "Contact Us", path: "/contact" },
+    ...(!props.issignup ? [{ name: "Signup", path: "/signup" }] : []),
+  ];
+
   return (
     <>
      {/* Mobile Dropdown */}
