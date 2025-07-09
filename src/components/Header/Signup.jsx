@@ -193,7 +193,7 @@ export default function Register(props) {
 
         <p className="mt-4 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <a href="/login" className="text-indigo-500 hover:underline">
+          <a href="/#/login" className="text-indigo-500 hover:underline">
             Login
           </a>
         </p>

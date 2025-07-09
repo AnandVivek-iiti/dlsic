@@ -9,7 +9,7 @@ export default defineConfig({
     historyApiFallback: true,
     proxy: {
       '/api': {
-         target: 'https://dlsic-production.up.railway.app',
+         target: import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000',
         build: { outDir: 'dist' },
          base: '/',
         changeOrigin: true,
