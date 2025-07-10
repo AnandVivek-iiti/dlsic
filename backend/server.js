@@ -18,10 +18,12 @@ import uploadRoute from "./routes/Upload.js";
 const app = express();
 // const port =" 0.0.0.0";
 const PORT = process.env.PORT || 5000;
+app.options("*", cors()); // Add before routes if needed
+
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",
+      
       process.env.FRONTEND_URL,
       "https://dlsic.vercel.app",
       "https://dlsic.onrender.com"

@@ -84,9 +84,14 @@ export default function Register(props) {
     try {
       const { confirmPassword, ...payload } = formData;
 
-      const res = await axios.post(`${backendURL}/api/signup`, payload, {
-        withCredentials: true
-      });
+      const res = fetch(`${backendURL}/api/signup`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(payload),
+  credentials: "include",  // VERY IMPORTANT
+});
 
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
