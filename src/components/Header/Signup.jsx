@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const backendURL = import.meta.env.VITE_BACKEND_URL ;  // || "http://localhost:5000"
@@ -14,6 +14,14 @@ export default function Register(props) {
     confirmPassword: "",
     profileImage: "",
   });
+  const [fileUrl, setFileUrl] = useState("");
+
+  useEffect(() => {
+    const savedPath = localStorage.getItem("filePath");
+    if (savedPath) {
+      setFileUrl(`${backendURL}${savedPath}`);
+    }
+  }, []);
 
   const [preview, setPreview] = useState(null);
 
@@ -21,15 +29,47 @@ export default function Register(props) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleImageChange = (e) => {
+ const handleImageChange = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const res = await fetch(`${backendURL}/api/upload`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    const imageUrl = `${backendURL}${data.filePath}`;
+    localStorage.setItem("filePath", data.filePath); // optional
+    setFormData((prev) => ({ ...prev, profileImage: imageUrl }));
+    setPreview(imageUrl);
+  } else {
+    console.error("Image upload failed");
+  }
+};
+
+   const handleUpload = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData((prev) => ({ ...prev, profileImage: reader.result }));
-        setPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch(`${backendURL}/api/upload`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      localStorage.setItem("filePath", data.filePath);
+      setFileUrl(`${backendURL}${data.filePath}`);
+    } else {
+      console.error("Upload failed");
     }
   };
 
@@ -164,6 +204,7 @@ export default function Register(props) {
                 />
               ) : (
                 <span className="text-sm text-gray-400">Click to upload</span>
+
               )}
               <input
                 type="file"
@@ -172,6 +213,7 @@ export default function Register(props) {
                 className="hidden"
               />
             </label>
+
             {formData.profileImage && (
               <button
                 type="button"

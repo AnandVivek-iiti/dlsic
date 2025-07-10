@@ -11,10 +11,10 @@ import { User } from "./models/UserSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import profileRoutes from "./routes/profile.js";
-import { Notes } from "./models/Upload.js";
+// import { Notes } from "./routes/Upload.js";
 const JWT_SECRET = process.env.JWT_SECRET;
 import { verifyToken } from "./data/middlewares/authMiddleware.js";
-
+import uploadRoute from "./routes/Upload.js";
 const app = express();
 // const port =" 0.0.0.0";
 const PORT = process.env.PORT || 5000;
@@ -44,6 +44,10 @@ app.post("/api/signup", async (req, res) => {
 
   console.log(req.body);
   try {
+    if (!username || !email || !phone || !password) {
+  return res.status(400).json({ message: "All fields are required" });
+}
+
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res
@@ -65,19 +69,21 @@ app.post("/api/signup", async (req, res) => {
 
     const token = jwt.sign(
       { userId: newUser._id, email: newUser.email },
-      process.env.JWT_SECRET,
+      JWT_SECRET,
       { expiresIn: "2h" }
     );
 
     res
       .status(201)
       .json({ message: "User registered successfully!", token, user: newUser });
-  } catch (err) {
-    if (err.name === "ValidationError") {
-      return res.status(400).json({ message: err.message });
-    }
-    res.status(500).json({ message: "Something went wrong" });
+} catch (err) {
+  console.error("Signup error:", err);
+  if (err.name === "ValidationError") {
+    return res.status(400).json({ message: err.message });
   }
+  res.status(500).json({ message: "Something went wrong", error: err.message });
+}
+
 });
 
 // Login route
@@ -137,17 +143,19 @@ app.put("/api/profile", verifyToken, async (req, res) => {
   }
 });
 
-app.put("/api/Notes", async (req, res) => {
-  try {
-    const { NoteFile } = req.body;
-    const Note = await Notes.findOne();
-    if (!Note) return res.status(404).json({ message: "Notes not found" });
-    res.json(NoteFile);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
-  }
-});
+// app.put("/api/Notes", async (req, res) => {
+//   try {
+//     const { NoteFile } = req.body;
+//     const Note = await Notes.findOne();
+//     if (!Note) return res.status(404).json({ message: "Notes not found" });
+//     res.json(NoteFile);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
+app.use("/api", uploadRoute);
+app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
   res.send("Backend is running!");
