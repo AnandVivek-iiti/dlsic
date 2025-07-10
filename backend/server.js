@@ -33,8 +33,7 @@ app.use(
 app.use(express.json({ limit: "5mb" }));
 
 mongoose
-  .connect(process.env.MONGO_URI || process.env.MONGO_URL) // || MONGO_URI=mongodb+srv://Anand:Anand@anand.lq8huhq.mongodb.net/
-
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
