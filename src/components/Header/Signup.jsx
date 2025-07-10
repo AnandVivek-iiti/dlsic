@@ -126,6 +126,7 @@ export default function Register(props) {
             <input
               type="password"
               name="password"
+              autoComplete="new-password"
               placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
@@ -141,6 +142,7 @@ export default function Register(props) {
             <input
               type="password"
               name="confirmPassword"
+              autoComplete="new-password"
               placeholder="Confirm your password"
               value={formData.confirmPassword}
               onChange={handleChange}

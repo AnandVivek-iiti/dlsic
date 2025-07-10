@@ -88,6 +88,7 @@ export default function Login(props) {
             <input
               type="password"
               name="password"
+              autoComplete="current-password"
               placeholder="Enter your password"
               value={loginInfo.password}
               onChange={handleChange}
