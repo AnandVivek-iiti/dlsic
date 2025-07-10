@@ -63,13 +63,13 @@ useEffect(() => {
     <div className="home-container">
       {/* <h1>{t("header.home")}</h1> */}
 
-    <button
+    {/* <button
       onClick={toggleLanguage}
       className="rounded-full bg-blue-600 text-white px-4 py-1 text-sm hover:bg-blue-700 transition"
 
     >
       {language === 'EN' ? 'हिन्दी' : 'English'}
-    </button>
+    </button> */}
 
 
       {/* 🖼️ Image Slider */}

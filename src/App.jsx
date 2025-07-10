@@ -10,7 +10,7 @@ import Login from "./components/Header/Login";
 import Signup from "./components/Header/Signup";
 import Alumni from "./components/Main/Alumni";
 import StudentDashboard from "./components/Main/student/Students";
-import Acedemic from "./components/Main/Acedemic";
+import Academic from "./components/Main/Academic";
 import StudyResources from "./components/Main/student/StudyResources";
 import Doubts from "./components/Main/student/DoubtSolver";
 import Footer1 from "./components/Footer/Footer1";
@@ -138,9 +138,9 @@ function App() {
               element={<Alumni darkMode={darkMode} setDarkMode={setDarkMode} />}
             />
             <Route
-              path="/Acedemic"
+              path="/Academic"
               element={
-                <Acedemic darkMode={darkMode} setDarkMode={setDarkMode} />
+                <Academic darkMode={darkMode} setDarkMode={setDarkMode} />
               }
             />
 

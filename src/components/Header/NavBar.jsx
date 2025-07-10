@@ -19,7 +19,7 @@ export default function NavBar(props) {
   const [isuserinfoopen, setisuserinfoopen] = useState(false);
   const navigation = [
     { name: "Home", path: "/" },
-    { name: "Acedemic", path: "/Acedemic" },
+    { name: "Academic", path: "/Academic" },
     { name: "Student", path: "/Student" },
     { name: "Alumni", path: "/Alumni" },
     { name: "Contact Us", path: "/contact" },
