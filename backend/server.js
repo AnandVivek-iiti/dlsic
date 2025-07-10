@@ -24,7 +24,7 @@ app.use(
       "http://localhost:5173",
       process.env.FRONTEND_URL,
       "https://dlsic.vercel.app",
-      "https://dlsic-avsr.onrender.com",
+      "https://dlsic.onrender.com"
     ],
     credentials: true,
   })
@@ -33,7 +33,7 @@ app.use(
 app.use(express.json({ limit: "5mb" }));
 
 mongoose
-  .connect(process.env.MONGO_URL || process.env.MONGO_URI) // || MONGO_URI=mongodb+srv://Anand:Anand@anand.lq8huhq.mongodb.net/
+  .connect(process.env.MONGO_URI || process.env.MONGO_URL) // || MONGO_URI=mongodb+srv://Anand:Anand@anand.lq8huhq.mongodb.net/
 
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
