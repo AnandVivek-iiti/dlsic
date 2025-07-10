@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Main/context/AuthContext.jsx";
-const backendURL = import.meta.env.VITE_BACKEND_URL ; // || "http://localhost:5000";
+const backendURL = import.meta.env.VITE_BACKEND_URL  || "http://localhost:5000";
 
 export default function Login(props) {
     const { login } = useAuth();
@@ -72,6 +72,7 @@ export default function Login(props) {
             </label>
             <input
               type="email"
+              autoComplete="email"
               name="email"
               placeholder="Enter your email"
               value={loginInfo.email}

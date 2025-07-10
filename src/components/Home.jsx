@@ -130,48 +130,19 @@ useEffect(() => {
         </div>
 
         <p className="text-gray-800 mb-3">
-          DLS Inter College was founded in 1996 by Shri Darbari Lal Sharma, a
-          true patriot and visionary educationist. He established the college to
-          provide quality education to all, especially in rural areas. Later, he
-          generously handed it over to the government to ensure wider access and
-          sustainable development. Today, the college continues to uphold his
-          values and vision, shaping responsible and educated citizens who
-          contribute positively to society. The college is located in the heart
-          of the city, providing a conducive environment for learning and
-          growth. It is equipped with modern facilities, including well-equipped
-          science and computer labs, a spacious library, and sports facilities,
-          ensuring a holistic educational experience for its students.
+          {t('about.p1')}
         </p>
 
         {aboutExpanded && (
           <div className="space-y-3 text-gray-800">
             <p>
-              Over the years, D.L.S. Inter College has nurtured thousands of
-              students who have gone on to serve the nation as teachers,
-              doctors, engineers, soldiers, police officers, government
-              officials, and entrepreneurs. The college takes immense pride in
-              its alumni, who have carried forward the values of knowledge,
-              integrity, and service imparted here. Affiliated with the Uttar
-              Pradesh Madhyamik Shiksha Parishad (UPMSP), the college offers
-              quality education from class 6 to 12 in Science, Commerce, and
-              Arts streams. Under the capable leadership of Principal Ashish
-              Singh, and the dedicated efforts of a qualified teaching faculty,
-              the college continues to grow academically and culturally.
+              {t('about.p2')}
             </p>
             <p>
-              D.L.S. Inter College has always been actively involved in social
-              and national causes. Rooted in patriotic spirit, the college
-              regularly organizes events to promote awareness, nationalism, and
-              moral values among its students. Inspired by the ideals of our
-              freedom fighters, the college also emphasizes discipline,
-              character-building, and holistic development. The institution is
-              governed by a progressive and community-driven management, which
-              is committed to continuously upgrading facilities, expanding
-              access, and enriching the educational experience for all students.
-              As the college moves forward with vision and vigor, it remains
-              steadfast in its mission:
-              <strong> “Shiksha se Sanskaar tak.”</strong>
+             {t('about.p3')}
+            
             </p>
+            <strong>शिक्षा से संस्कार तक।</strong>
           </div>
         )}
 
@@ -183,12 +154,12 @@ useEffect(() => {
             {aboutExpanded ? (
               <>
                 <ArrowUp className="w-4 h-4" />
-                <span>Show Less</span>
+                <span>{t('about.readLess')}</span>
               </>
             ) : (
               <>
                 <ArrowDown className="w-4 h-4" />
-                <span>Read More</span>
+                <span>{t('about.readMore')}</span>
               </>
             )}
           </button>
@@ -209,29 +180,18 @@ useEffect(() => {
             <div className="md:col-span-2 bg-white p-6">
               <div className="flex items-start gap-3 text-2xl font-bold text-blue-700 mb-2">
                 <Quote className="h-7 w-7 text-orange-500 transform -scale-x-100" />
-                <span>Message from the Principal</span>
+                <span>{t("principal.title")}</span>
               </div>
               <p className="italic text-gray-700 mb-2">
-                It is my pleasure to welcome you to our college's digital home.
-                At DLS Inter College, we believe that education is the most
-                powerful tool to transform lives. Our goal is to create a
-                nurturing and challenging environment where students can achieve
-                their fullest potential, both academically and personally. We
-                are committed to fostering a culture of curiosity, integrity,
-                and respect.
+                {t("principal.quote")}
               </p>
               <p className="text-gray-800">
-                We strive to provide an educational experience that is not just
-                about textbooks and examinations, but about building character,
-                instilling values, and preparing students for the journey of
-                life. I invite you to explore our website and learn more about
-                the vibrant community and the endless opportunities that await
-                you here at DLS Inter College.
+                {t("principal.message")}
               </p>
               <div className="mt-4">
-                <p className="font-bold text-blue-900">Dr. Ashish Singh</p>
+                <p className="font-bold text-blue-900">{t("principal.name")}</p>
                 <p className="text-medium text-orange-600 font-semibold">
-                  Principal, DLS Inter College
+                  {t("principal.designation")}
                 </p>
               </div>
             </div>
@@ -258,7 +218,7 @@ useEffect(() => {
                   className="w-full h-60 object-cover"
                 />
                 <div className="absolute bottom-0 left-0 w-full bg-black/40 text-white px-3 py-2 text-sm font-semibold">
-                  Science Lab
+                  {t("events.scienceExhibition.title")}
                 </div>
               </div>
             </div>

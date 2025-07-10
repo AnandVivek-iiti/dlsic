@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const backendURL = import.meta.env.VITE_BACKEND_URL ;  // || "http://localhost:5000"
+const backendURL = import.meta.env.VITE_BACKEND_URL|| "http://localhost:5000"
 
 export default function Register(props) {
   const navigate = useNavigate();
@@ -29,30 +29,30 @@ export default function Register(props) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
- const handleImageChange = async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  const formData = new FormData();
-  formData.append("file", file);
+    const formData = new FormData();
+    formData.append("file", file);
 
-  const res = await fetch(`${backendURL}/api/upload`, {
-    method: "POST",
-    body: formData,
-  });
+    const res = await fetch(`${backendURL}/api/upload`, {
+      method: "POST",
+      body: formData,
+    });
 
-  if (res.ok) {
-    const data = await res.json();
-    const imageUrl = `${backendURL}${data.filePath}`;
-    localStorage.setItem("filePath", data.filePath); // optional
-    setFormData((prev) => ({ ...prev, profileImage: imageUrl }));
-    setPreview(imageUrl);
-  } else {
-    console.error("Image upload failed");
-  }
-};
+    if (res.ok) {
+      const data = await res.json();
+      const imageUrl = `${backendURL}${data.filePath}`;
+      localStorage.setItem("filePath", data.filePath); // optional
+      setFormData((prev) => ({ ...prev, profileImage: imageUrl }));
+      setPreview(imageUrl);
+    } else {
+      console.error("Image upload failed");
+    }
+  };
 
-   const handleUpload = async (e) => {
+  const handleUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -85,13 +85,13 @@ export default function Register(props) {
       const { confirmPassword, ...payload } = formData;
 
       const res = fetch(`${backendURL}/api/signup`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(payload),
-  credentials: "include",  // VERY IMPORTANT
-});
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+        credentials: "include", // VERY IMPORTANT
+      });
 
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
@@ -143,6 +143,7 @@ export default function Register(props) {
             <input
               type="email"
               name="email"
+              autoComplete="email"
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
@@ -156,6 +157,7 @@ export default function Register(props) {
             <input
               type="tel"
               name="phone"
+              autoComplete="tel"
               placeholder="Enter your phone number"
               value={formData.phone}
               onChange={handleChange}
@@ -209,7 +211,6 @@ export default function Register(props) {
                 />
               ) : (
                 <span className="text-sm text-gray-400">Click to upload</span>
-
               )}
               <input
                 type="file"
