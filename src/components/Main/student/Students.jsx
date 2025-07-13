@@ -35,7 +35,6 @@ useEffect(() => {
       btn: 'View Timetable',
       action: 'TimeTable',
     cardColor: 'from-yellow-100 to-yellow-50 border-yellow-300 text-yellow-700',
-
     },
     {
       icon: '📚',
@@ -48,8 +47,6 @@ useEffect(() => {
       btn: 'Access Materials',
       action: 'material',
        cardColor: 'from-pink-200 to-orange-100 border-red-400 text-red-600',
-
-
     },
     {
       icon: '📈',
@@ -62,11 +59,6 @@ useEffect(() => {
       btn: 'Check Progress',
       action: 'profile',
       cardColor:'from-gray-200 to-blue-50 border-blue-300 text-blue-700',
-
-
-
-
-
     },
     {
       icon: '🧠',
@@ -106,7 +98,6 @@ useEffect(() => {
       action: 'NoticeLinks',
     cardColor:   'from-pink-100 to-pink-50 border-pink-300 text-pink-700',
     btnColor :  'from-pink-300 to-pink-200 border-pink-500 ',
-
     },
   ];
     
@@ -185,7 +176,7 @@ useEffect(() => {
   }
 
   return (
-              <div className="shadow-lg overflow-hidden bordershadow-md border-[1px] border-gray-500 border-t-[4px] rounded-xl">
+              <div className="shadow-lg overflow-hidden bordershadow-md border-[1px] border-orange-500 border-t-[4px] rounded-xl">
 
 
     <section className="bg-gradient-to-br from-indigo-100 to-slate-50  shadow-lg overflow-hidden py-16 px-4">

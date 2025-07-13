@@ -1,11 +1,13 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
 import saraswatiLogo from "../assets/Saraswati.png";
-import U from "../assets/user.png";
-import { useNavigate } from "react-router-dom";
-// import ModeToggle from "./Modetoggle";
+import U from "../assets/Saraswati.png";
 import LanguageSwitcher from "../LanguageSwitcher";
 import { useLanguage } from "../Main/context/Languagecontext.jsx";
+
 export default function NavBar(props) {
   const [user, setUser] = useState(() => {
     try {
@@ -17,6 +19,9 @@ export default function NavBar(props) {
 
   const navigate = useNavigate();
   const [isuserinfoopen, setisuserinfoopen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
   const navigation = [
     { name: "Home", path: "/" },
     { name: "Academic", path: "/Academic" },
@@ -25,27 +30,38 @@ export default function NavBar(props) {
     { name: "Contact Us", path: "/contact" },
     ...(!props.issignup ? [{ name: "Signup", path: "/signup" }] : []),
   ];
-  const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="Nav-container mode sticky top-0">
-      <header className="  z-50 bg-gradient-to-br from-indigo-100 to-slate-100 text-black  shadow-md">
-        <div className="max-w-[99%] mx-auto items-center px-4 sm:px-6 lg:px-8">
+    <div className="Nav-container sticky top-0 z-50">
+      <header className="bg-gradient-to-br from-indigo-200 to-slate-200 text-black shadow-md">
+        <div className="max-w-[99%] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Logo */}
+            {/* Logo + College Name */}
             <div className="flex items-center space-x-4">
               <img
                 src={saraswatiLogo}
                 alt="Logo"
-                className="h-16 w-16 border-2 border-indigo-200 rounded-full"
+                className="h-16 w-16 border-2 border-indigo-300 rounded-full"
               />
-
-              <h1 className="text-lg text-black sm:text-2xl font-extrabold">
-                DLS Inter College
-              </h1>
+              <motion.h1
+                className="text-lg sm:text-2xl font-extrabold text-blue-700 glow"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+              >
+                <Typewriter
+                  words={["DLS Inter College Bareilly"]}
+                  loop={0}
+                  cursor
+                  cursorStyle="-"
+                  typeSpeed={100}
+                  deleteSpeed={50}
+                  delaySpeed={3000}
+                />
+              </motion.h1>
             </div>
 
-            {/* Desktop Menu */}
+            {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-6 p-4">
               {navigation.map((item) => (
                 <Link
@@ -53,43 +69,35 @@ export default function NavBar(props) {
                   to={item.path}
                   className={`font-bold text-lg ${
                     location.pathname === item.path
-                      ? "text-blue-500 "
+                      ? "text-blue-500"
                       : "text-black hover:text-blue-500"
                   }`}
                 >
                   {item.name}
                 </Link>
               ))}
-              <LanguageSwitcher className="bg-gray-600 text-black hover:bg-gray-700" />
-
+              <LanguageSwitcher className="bg-gray-600 text-white hover:bg-gray-700" />
               {props.issignup && (
-                <div className="hidden md:block relative">
+                <div className="relative">
                   <img
                     src={U}
-                    alt="user"
-                    className="w-11 h-11 cursor-pointer hover:h-12 hover:w-12 hover:opacity-75"
+                    alt="User"
+                    className="w-11 h-11 cursor-pointer hover:opacity-80"
                     onClick={() => setisuserinfoopen(!isuserinfoopen)}
                   />
-
                   {isuserinfoopen && (
-                    <div className="w-80   md:block absolute border border-radius-2 top-32 right-3 z-50 bg-white rounded-md ">
-                      <div className="flex flex-col items-center my-5 mx-5 border rounded bg-gray-300">
-                        <h2 className="font-bold py-1">
-                          {props.personinfo?.name || "No name"}
-                        </h2>
-                        <h2 className="font-bold py-1">
-                          {props.personinfo?.email || "No email "}
-                        </h2>
-                        <h2 className="font-bold py-1">
-                          {user?.phone || "No phone"}
-                        </h2>
+                    <div className="absolute top-16 right-0 z-50 w-80 bg-white rounded-md border shadow-lg p-4">
+                      <div className="text-center mb-3">
+                        <p className="font-semibold">{props.personinfo?.name || "No name"}</p>
+                        <p className="text-sm">{props.personinfo?.email}</p>
+                        <p className="text-sm">{user?.phone}</p>
                       </div>
                       <button
                         onClick={() => {
                           setisuserinfoopen(false);
                           navigate("/profile");
                         }}
-                        className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                        className="w-full py-2 text-left hover:bg-gray-100 rounded px-2"
                       >
                         📄 View Profile
                       </button>
@@ -103,7 +111,7 @@ export default function NavBar(props) {
                             navigate("/signup");
                           }
                         }}
-                        className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
+                        className="w-full py-2 text-left text-red-600 hover:bg-gray-100 rounded px-2"
                       >
                         🔓 Logout
                       </button>
@@ -113,81 +121,112 @@ export default function NavBar(props) {
               )}
             </nav>
 
-            {/* Mobile Toggle Button */}
-            <div className="md:hidden flex items-center gap-3">
+            {/* Mobile Menu Toggle */}
+            <div className="md:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-black text-3xl cursor-pointer focus:outline-none"
+                className="text-3xl focus:outline-none"
               >
                 {isOpen ? "✖" : "☰"}
               </button>
             </div>
           </div>
-
-          {/* Mobile Menu */}
-        {isOpen && (
-  <div className="md:hidden top-0 w-full bg-white py-4 space-y-2 shadow-lg z-50 rounded-r-lg">
-    {navigation.map((item) => (
-      <Link
-        key={item.path}
-        to={item.path}
-        onClick={() => setIsOpen(false)}
-        className={`block py-2 px-4 rounded font-medium ${
-          location.pathname === item.path
-            ? "bg-blue-100 text-blue-700 font-bold"
-            : "hover:bg-gray-300 text-black"
-        }`}
-      >
-        {item.name}
-      </Link>
-    ))}
-    
-
-          
-    {/* ✅ Language Switcher in mobile */}
-    <div className="px-4">
-      <LanguageSwitcher className="bg-gray-600 text-white w-full py-2 text-center rounded-md" />
-    </div>
-           {/* ✅ User Profile in mobile */}
-    {props.issignup && (
-      <div className="px-4 pt-2 border-t border-gray-300">
-        <div className="text-sm text-gray-800 font-semibold">
-          {props.personinfo?.name || "No name"}
         </div>
-        <div className="text-sm text-gray-600">{props.personinfo?.email}</div>
-        <div className="text-sm text-gray-600">{user?.phone}</div>
 
-        <div className="flex flex-col mt-2">
-          <button
-            onClick={() => {
-              setIsOpen(false);
-              navigate("/profile");
-            }}
-            className="text-left py-1 px-2 rounded hover:bg-gray-100"
+        
+          {/* Mobile Menu */}
+ <AnimatePresence>
+  {isOpen && (
+    <motion.div
+      initial={{ y: "-100%", opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: "-100%", opacity: 0 }}
+      transition={{ duration: 0.4, ease: "easeInOut" }}
+      className="fixed top-0 left-0 w-full h-screen bg-white z-50 shadow-lg flex flex-col overflow-y-auto"
+    >
+      {/* Header with Close and Logo */}
+      <div className="flex items-center justify-between px-4 py-4 border-b">
+        <div className="flex items-center gap-2">
+          <img src={U} alt="Logo" className="w-12 h-12 border-2 border-indigo-300 rounded-full " />
+          <h1 className="text-lg font-bold text-blue-700">DLS Inter College</h1>
+        </div>
+        <button
+          onClick={() => setIsOpen(false)}
+          className="text-gray-600 hover:text-black text-xl"
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Navigation Links */}
+      <div className="flex flex-col px-4 py-6 space-y-3">
+        {navigation.map((item) => (
+          <Link
+            key={item.path}
+            to={item.path}
+            onClick={() => setIsOpen(false)}
+            className={`block py-3 px-4 rounded-lg transition-all duration-200 text-base font-medium ${
+              location.pathname === item.path
+                ? "bg-orange-100 text-blue-700 font-semibold"
+                : "hover:bg-gray-200 text-gray-800"
+            }`}
           >
-            📄 View Profile
-          </button>
-          <button
-            onClick={() => {
-              if (window.confirm("Do you want to logout?")) {
-                localStorage.removeItem("personinfo");
-                props.setissignup(false);
-                props.setpersoninfo(null);
-                setIsOpen(false);
-                navigate("/signup");
-              }
-            }}
-            className="text-left py-1 px-2 rounded text-red-600 hover:bg-gray-100"
-          >
-            🔓 Logout
-          </button>
+            {item.name}
+          </Link>
+        ))}
+      </div>
+
+      {/* Language Switcher */}
+      <div className="px-4 pt-4 border-t border-gray-200">
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm text-gray-600">Language / भाषा</span>
+          <LanguageSwitcher className="bg-white text-blue-600 border border-gray-300 px-4 py-1 rounded-md shadow-sm hover:bg-gray-100 transition duration-200 text-sm font-semibold" />
+
         </div>
       </div>
-    )}
+
+      {/* User Info */}
+      {props.issignup && (
+        <div className="px-4 pt-4 border-t border-gray-200">
+          <div className="mb-2 text-gray-700">
+            <div className="font-semibold">{props.personinfo?.name || "No name"}</div>
+            <div className="text-sm">{props.personinfo?.email}</div>
+            <div className="text-sm">{user?.phone}</div>
+          </div>
+
+          <div className="flex flex-col space-y-2 mt-3">
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                navigate("/profile");
+              }}
+              className="w-full bg-blue-600 text-white py-2 rounded-md font-semibold"
+            >
+              📄 View Profile
+            </button>
+            <button
+              onClick={() => {
+                if (window.confirm("Do you want to logout?")) {
+                  localStorage.removeItem("personinfo");
+                  props.setissignup(false);
+                  props.setpersoninfo(null);
+                  setIsOpen(false);
+                  navigate("/signup");
+                }
+              }}
+              className="w-full bg-red-100 text-red-600 py-2 rounded-md font-semibold hover:bg-red-200 transition"
+            >
+              🔓 Logout
+            </button>
+          </div>
         </div>
-        )}
-     </div>
+      )}
+    </motion.div>
+  )}
+</AnimatePresence>
+
       </header>
     </div>
   );
 }
+

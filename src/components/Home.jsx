@@ -1,24 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
 import { BookOpen, ArrowDown, ArrowUp, Quote } from "lucide-react";
 import image from "./assets/image.png";
+import image1 from "./assets/slide1.png";
+import image2 from "./assets/slide2.png";
+import image3 from "./assets/slider3.png";
 import SR from "./assets/Ashish_Sir.png";
 import { useLanguage } from './Main/context/Languagecontext.jsx';
 import { translationKeys, defaultLanguage } from '../components/Main/context/lib/translations.js';
 const slides = [
   {
-    src: image,
+    src: image1,
     alt: "Students and faculty at a college event",
     title: "College Event"  ,
     description: "A vibrant morning gathering of students and teachers.",
   },
   {
-    src: image,
+    src: image2,
     alt: "Classroom learning",
     title: "Focused Learning",
     description: "Classroom environment promoting education.",
   },
   {
-    src: image,
+    src: image3,
     alt: "College Building",
     title: "Campus View",
     description: "Modern infrastructure and facilities.",
