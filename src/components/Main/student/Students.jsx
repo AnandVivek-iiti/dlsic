@@ -9,18 +9,14 @@ import TimeTable from './TimeTable';
 import 'vanilla-tilt';
 import CareerGuidance from './CareerGuidance';
 import NoticeLinks from './NoticeLinks';
-
+import { useLanguage } from '../context/Languagecontext';
 export default function Student({ darkMode, setDarkMode },props) {
   const [currentView, setCurrentView] = useState(null);
+const { language, toggleLanguage, t } = useLanguage();
+useEffect(() => {
+  localStorage.setItem('lang', language);
+}, [language]);
 
-  const dummyProfile = {
-    name: 'Anand Vivek',
-    rollNumber: 'ME24B999',
-    degree: 'BTech Mechanical Engineering',
-    year: '1st',
-    hostelName: 'Himalaya',
-    profileImage: 'https://via.placeholder.com/150',
-  };
 
   useEffect(() => {
     const last = localStorage.getItem('student_last_section');
@@ -124,7 +120,7 @@ export default function Student({ darkMode, setDarkMode },props) {
     return (
       <section className="py-2 px-1">
         <div className={`${
-            darkMode ? "bg-gray-300 text-black" : "bg-gray-600 text-white"
+            darkMode ? "bg-gray-300 text-black" : "bg-gray-400 text-black"
           } max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6`}>
           {/* <button  className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
           <StudentResources />
@@ -149,7 +145,7 @@ export default function Student({ darkMode, setDarkMode },props) {
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
           {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
-          <StudentProfile profile={dummyProfile} />
+          <StudentProfile />
         </div>
       </section>
     );
@@ -195,7 +191,7 @@ export default function Student({ darkMode, setDarkMode },props) {
     <section className="bg-gradient-to-br from-indigo-100 to-slate-50  shadow-lg overflow-hidden py-16 px-4">
 
       <h2 className="text-4xl text-center font-bold text-indigo-800 mb-4 tracking-wide">
-        🎓 Student Dashboard
+        🎓{t("student.pageTitle")}
       </h2>
       <p className="text-center text-gray-600 text-lg max-w-xl mx-auto mb-12">
         Everything a DLS student needs in one place — from timetables and learning materials to support and progress tracking.

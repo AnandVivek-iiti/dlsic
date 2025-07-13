@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import express from "express";
 // const axios = require("axios");
 // const cors = require("cors");
-import axios from "axios";
+// import axios from "axios";
 import cors from "cors";
 // require("dotenv").config();
 import dotenv from "dotenv";
@@ -11,13 +11,15 @@ import { User } from "./models/UserSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import profileRoutes from "./routes/profile.js";
+import { checkRole } from "./utils/checkRoles.js";
 // import { Notes } from "./routes/Upload.js";
 const JWT_SECRET = process.env.JWT_SECRET;
 import { verifyToken } from "./data/middlewares/authMiddleware.js";
 import uploadRoute from "./routes/Upload.js";
 const app = express();
 // const port =" 0.0.0.0";
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || '//localhost:5000/';
+
 //  Add before routes if needed
 
 app.use(
@@ -158,7 +160,13 @@ app.put("/api/profile", verifyToken, async (req, res) => {
 // });
 app.use("/api", uploadRoute);
 app.use("/uploads", express.static("uploads"));
+app.get("/teacher-only", verifyToken, checkRole(["teacher"]), (req, res) => {
+  res.json({ message: "Welcome Teacher" });
+});
 
+app.get("/alumni-resource", verifyToken, checkRole(["alumni"]), (req, res) => {
+  res.json({ message: "Hello Alumni!" });
+});
 app.get("/", (req, res) => {
   res.send("Backend is running!");
 });

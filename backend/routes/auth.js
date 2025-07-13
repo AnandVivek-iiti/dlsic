@@ -1,13 +1,13 @@
-import express from 'express';
-import User from '../models/UserSchema.js';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import express from "express";
+import User from "../models/UserSchema.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // SIGNUP
-router.post('/signup', async (req, res) => {
+router.post("/signup", async (req, res) => {
   try {
     const { username, phone, email, password, profileImage } = req.body;
 
@@ -22,13 +22,15 @@ router.post('/signup', async (req, res) => {
       username,
       phone,
       email,
+
       password: hashedPassword,
-      profileImage
+      profileImage,
+      skills,
+      
     });
 
     await user.save();
     res.status(201).json({ message: "Signup successful!" });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error during signup" });
@@ -36,7 +38,7 @@ router.post('/signup', async (req, res) => {
 });
 
 // LOGIN
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -49,9 +51,8 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
     res.json({ message: "Login successful!", token });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error during login" });
@@ -61,7 +62,8 @@ router.post('/login', async (req, res) => {
 // AUTH MIDDLEWARE
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  if (!authHeader) return res.status(401).json({ message: "No token provided" });
+  if (!authHeader)
+    return res.status(401).json({ message: "No token provided" });
 
   const token = authHeader.split(" ")[1];
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
@@ -72,22 +74,24 @@ const authMiddleware = (req, res, next) => {
 };
 
 // PROFILE GET
-router.get('/profile', authMiddleware, async (req, res) => {
-  const user = await User.findById(req.userId).select('-password');
+router.get("/profile", authMiddleware, async (req, res) => {
+  const user = await User.findById(req.userId).select("-password");
   if (!user) return res.status(404).json({ message: "User not found" });
   res.json(user);
 });
 
 // PROFILE UPDATE
-router.put('/profile', authMiddleware, async (req, res) => {
-  const { username, phone, email, profileImage } = req.body;
+router.put("/profile", authMiddleware, async (req, res) => {
+  const { username, phone, email, profileImage, imageBase64 } = req.body;
   const updated = await User.findByIdAndUpdate(
     req.userId,
-    { username, phone, email, profileImage },
+    { username, phone, email, profileImage, imageBase64 },
     { new: true }
-  ).select('-password');
+  ).select("-password");
 
   res.json({ message: "Profile updated", user: updated });
 });
+
+
 
 export default router;

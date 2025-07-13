@@ -262,10 +262,13 @@ const translations = {
     "login.error.description": "Invalid email or password. Please try again.",
 
     // Sign Up Page
-    "signup.title": "Create an Account",
-    "signup.description": "Enter your details to sign up.",
-    "signup.nameLabel": "Full Name",
+    "signup.title": "Create a new Account",
+    "signup.description": " Register now to access the student portal and stay updated.",
+    "signup.nameLabel": "Username",
     "signup.emailLabel": "Email Address",
+    "signup.phoneLabel": "Phone Number",
+    "signup.phonePlaceholder": "Enter your phone number",
+    "signup.submitButton": "Register",
     "signup.passwordLabel": "Password",
     "signup.role.label": "I am a...",
     "signup.role.student": "Student",
@@ -1214,7 +1217,7 @@ const translations = {
       "इस खंड के लिए अभी तक कोई नोट्स अपलोड नहीं किए गए हैं।",
     "student.studyMaterial.loginToUpload":
       "नोट्स अपलोड करने के लिए कृपया लॉग इन करें।",
-    // Curriculu
+    // Curriculum
     "student.progressReport.title": "प्रगति रिपोर्ट",
     "student.progressReport.description":
       "अपनी शैक्षणिक प्रगति को ट्रैक करें, अंक देखें और प्रगति की निगरानी करें।",

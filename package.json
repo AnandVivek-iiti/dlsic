@@ -30,6 +30,7 @@
     "@tailwindcss/vite": "^4.1.8",
     "axios": "^1.10.0",
     "bcrypt": "^6.0.0",
+    "browser-image-compression": "^2.0.2",
     "connect-history-api-fallback": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
