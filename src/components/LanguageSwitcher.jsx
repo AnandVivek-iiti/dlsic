@@ -11,9 +11,18 @@ const LanguageSwitcher = () => {
   return (
     <button
       onClick={toggleLang}
-       className={`rounded-full bg-gray-400 text-black px-2 py-1 text-sm hover:bg-gray-500 transition `}
+      className={`
+        flex items-center gap-2
+        bg-gradient-to-r from-blue-500 to-indigo-500
+        text-white font-semibold
+        px-4 py-1.5 rounded-sm shadow-md
+        hover:from-indigo-600 hover:to-blue-600
+        hover:shadow-lg hover:scale-[1.03]
+        transition-all duration-300 ease-in-out
+        text-sm
+      `}
     >
-     🌐 {language === 'EN' ? 'हिन्दी' : 'English'}
+      🌐 {language === 'EN' ? 'हिन्दी' : 'English'}
     </button>
   );
 };
