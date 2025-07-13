@@ -219,6 +219,9 @@ export default function Register(props) {
             <label className="block text-gray-700  font-semibold">Role:</label>
 
             <Listbox value={formData.role} onChange={handleRoleChange}>
+               <span className="block truncate text-bold capitalize text-gray-500">
+    {formData.role ? formData.role : "Select your role"}
+  </span>
               <div className="relative">
                 <Listbox.Button className="relative w-full h-10 rounded-md border border-gray-300 bg-white py-1.5 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                   <span className="block truncate capitalize">
@@ -234,7 +237,7 @@ export default function Register(props) {
                       key={role.name}
                       value={role.name}
                       as={Fragment}
-                     
+
                     >
                       {({ active, selected }) => (
                         <li
