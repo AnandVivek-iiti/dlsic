@@ -76,7 +76,7 @@ const AcademicSection = () => {
   if (currentView === "Streams") return <Streams />;
 
   return (
-              <div className="shadow-lg overflow-hidden bordershadow-md border-[1px] border-gray-500 border-t-[4px] rounded-xl">
+            <div className="shadow-lg overflow-hidden bordershadow-md border-[1px] border-orange-500 border-t-[4px] rounded-xl">
 
     <section className="bg-gradient-to-br from-indigo-100 to-slate-50 shadow-2xl py-16 px-4">
       <h2 className="text-4xl text-center font-bold text-indigo-800 mb-4 tracking-wide">
