@@ -17,9 +17,8 @@ import { checkRole } from "./utils/checkRoles.js";
 
 const app = express();
 // const port =" 0.0.0.0";
-const PORT = process.env.PORT ;
+const PORT =5000;
 
-//  Add before routes if needed
 
 app.use(
   cors({
