@@ -35,7 +35,7 @@ app.use(
 app.use(express.json({ limit: "5mb" }));
 
 mongoose
-  .connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/todo") //process.env.MONGO_URI || "mongodb://127.0.0.1:27017/todo"
+  .connect(process.env.MONGO_URI ) //process.env.MONGO_URI || "mongodb://127.0.0.1:27017/todo"
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
