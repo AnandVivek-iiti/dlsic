@@ -18,8 +18,8 @@ import Profile from "./components/Main/student/StudentProfile";
 import AcedemicDetails from "./components/Main/AcademicDetails";
 import Contacts from "./components/Main/Contact";
 import Sets from "./components/Header/Set";
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+import { motion, AnimatePresence } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
 // import HeroSlider from "./components/Heroslider";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,9 +56,22 @@ function App() {
           } py-4`}
         >
           <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center px-4">
-            <p className="text-lg mx-auto sm:text-xl md:text-2xl font-semibold text-center w-full sm:w-auto mb-2 sm:mb-0">
-              दरबारी लाल शर्मा इंटर कॉलेज, रिठौरा बरेली
-            </p>
+            <motion.h1
+                className="text-lg mx-auto sm:text-xl md:text-2xl font-semibold text-center w-full sm:w-auto mb-2 sm:mb-0 text-white glow"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+              >
+                <Typewriter
+                  words={["दरबारी लाल शर्मा इंटर कॉलेज, रिठौरा बरेली"]}
+                  loop={0}
+                  cursor
+                  cursorStyle="-"
+                  typeSpeed={100}
+                  deleteSpeed={50}
+                  delaySpeed={3000}
+                />
+              </motion.h1>
           </div>
         </div>
 
