@@ -17,7 +17,7 @@ import { checkRole } from "./utils/checkRoles.js";
 
 const app = express();
 // const port =" 0.0.0.0";
-const PORT =5000;
+const PORT = process.env.PORT ||5000;
 
 
 app.use(
