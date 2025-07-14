@@ -17,7 +17,7 @@ import { checkRole } from "./utils/checkRoles.js";
 
 const app = express();
 // const port =" 0.0.0.0";
-const PORT = process.env.PORT || "http://localhost:5000";
+const PORT = process.env.PORT || 5000;
 
 //  Add before routes if needed
 
@@ -40,7 +40,7 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
-app.use("/api/auth", authRoutes); // login, signup, profile
+app.use("/api", authRoutes); // login, signup, profile
 app.use("/api", profileRoutes); // other profile routes
 app.use("/api", roleRoutes); // role-based routes
 app.use("/api", uploadRoute); // uploads
