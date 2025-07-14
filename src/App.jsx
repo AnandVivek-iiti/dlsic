@@ -18,6 +18,8 @@ import Profile from "./components/Main/student/StudentProfile";
 import AcedemicDetails from "./components/Main/AcademicDetails";
 import Contacts from "./components/Main/Contact";
 import Sets from "./components/Header/Set";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import { motion, AnimatePresence } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 // import HeroSlider from "./components/Heroslider";

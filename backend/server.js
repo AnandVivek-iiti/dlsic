@@ -36,7 +36,7 @@ app.use(
 app.use(express.json({ limit: "5mb" }));
 
 mongoose
-  .connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/todo") //
+  .connect(process.env.MONGO_URI ) //process.env.MONGO_URI || "mongodb://127.0.0.1:27017/todo"
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
@@ -98,8 +98,10 @@ app.post("/api/signup", async (req, res) => {
     await user.save();
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
+console.log("Signup Payload:", req.body);
 
     res.status(201).json({ message: "Signup successful!", token, user });
+
   } catch (err) {
     console.error("Signup error:", err);
     res.status(500).json({
