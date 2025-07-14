@@ -36,6 +36,7 @@
     "dotenv": "^16.6.1",
     "errorhandler": "^1.5.1",
     "express": "^5.1.0",
+    "firebase": "^11.10.0",
     "framer-motion": "^12.19.2",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.525.0",

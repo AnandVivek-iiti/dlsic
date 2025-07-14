@@ -1,15 +1,37 @@
 import express from "express";
-import User from "../models/UserSchema.js";
+import { User } from "../models/UserSchema.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-
+import { verifyToken } from "./middlewares/authMiddleware.js";
+import { checkRole } from "../utils/checkRoles.js";
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
+const isEmail = (str) => /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(str);
 
 // SIGNUP
 router.post("/signup", async (req, res) => {
   try {
-    const { username, phone, email, password, profileImage } = req.body;
+    const {
+      username,
+      phone,
+      email,
+      password,
+      profileImage,
+      role,
+      class: studentClass,
+      stream,
+      department,
+      education,
+      experience,
+      passingYear,
+      currentCompany,
+      skills,
+    } = req.body;
+
+    // Required field check
+    if (!username || !phone || !email || !password || !role) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -22,28 +44,49 @@ router.post("/signup", async (req, res) => {
       username,
       phone,
       email,
-
       password: hashedPassword,
       profileImage,
+      role,
+      class: studentClass,
+      stream,
+      department,
+      education,
+      experience,
+      passingYear,
+      currentCompany,
       skills,
-      
     });
 
     await user.save();
-    res.status(201).json({ message: "Signup successful!" });
+
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
+
+    res.status(201).json({ message: "Signup successful!", token, user });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error during signup" });
+    console.error("Signup error:", err);
+    res.status(500).json({
+      message: "Server error during signup",
+      error: err.message,
+      details: err.errors || null,
+    });
   }
 });
 
 // LOGIN
 router.post("/login", async (req, res) => {
+  const { identifier, password } = req.body;
+
+  if (!identifier || !password) {
+    return res.status(400).json({ message: "Please enter credentials" });
+  }
+
+  const queryField = isEmail(identifier) ? "email" : "phone";
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ [queryField]: identifier });
     if (!user) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res
+        .status(401)
+        .json({ message: "User not found. Please sign up." });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -52,7 +95,7 @@ router.post("/login", async (req, res) => {
     }
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
-    res.json({ message: "Login successful!", token });
+    res.json({ message: "Login successful!", token, user });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error during login" });
@@ -82,16 +125,13 @@ router.get("/profile", authMiddleware, async (req, res) => {
 
 // PROFILE UPDATE
 router.put("/profile", authMiddleware, async (req, res) => {
-  const { username, phone, email, profileImage, imageBase64 } = req.body;
+  const { username, phone, email, profileImage } = req.body;
   const updated = await User.findByIdAndUpdate(
     req.userId,
-    { username, phone, email, profileImage, imageBase64 },
+    { username, phone, email, profileImage },
     { new: true }
   ).select("-password");
 
   res.json({ message: "Profile updated", user: updated });
 });
-
-
-
 export default router;

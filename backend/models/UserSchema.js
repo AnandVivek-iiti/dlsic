@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
+    unique: true,
     required: true,
     validate: {
       validator: function (v) {
@@ -32,8 +33,8 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: [6, 'Password must be at least 6 characters long'],
-    maxlength: [12, 'Password must be at most 12 characters long']
+    // minlength: [6, 'Password must be at least 6 characters long'],
+    // maxlength: [12, 'Password must be at most 12 characters long']
   },
 
   role: {
@@ -59,8 +60,8 @@ const userSchema = new mongoose.Schema({
   currentCompany: String,
   skills: String
 
-}, { timestamps: true });
-
+}, );
+// { timestamps: true }
 // ✅ Custom Role-based Validation
 userSchema.pre("validate", function (next) {
   const errors = [];

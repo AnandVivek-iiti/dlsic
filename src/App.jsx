@@ -18,6 +18,8 @@ import Profile from "./components/Main/student/StudentProfile";
 import AcedemicDetails from "./components/Main/AcademicDetails";
 import Contacts from "./components/Main/Contact";
 import Sets from "./components/Header/Set";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 // import HeroSlider from "./components/Heroslider";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +47,7 @@ function App() {
   return (
     <div className="w-full overflow-x-hidden">
       {/* Dark Mode Wrapper */}
-
+ <ToastContainer position="top-right" autoClose={3000} />
       <div className="min-h-screen flex flex-col bg-white text-black dark:bg-[#01011b] dark:text-white transition-colors duration-300">
         {/* Header Title */}
         <div

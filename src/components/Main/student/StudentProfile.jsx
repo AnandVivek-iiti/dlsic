@@ -132,6 +132,8 @@ const StudentProfile = () => {
     return (
       <div className="text-center mt-10 text-gray-600">Loading profile...</div>
     );
+const user = JSON.parse(localStorage.getItem("personinfo"));
+const role = user?.role;
 
   const colors = [
     "from-green-100 to-green-50 border-green-300 text-green-700",

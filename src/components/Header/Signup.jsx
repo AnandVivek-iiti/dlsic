@@ -29,7 +29,6 @@ export default function Register(props) {
     password: "",
     confirmPassword: "",
     profileImage: "",
-    imageBase64: "",
     role: "",
     class: "",
     stream: "",
@@ -93,32 +92,32 @@ export default function Register(props) {
 
     setFormData((prev) => ({
       ...prev,
-      imageBase64: base64String,
+      profileImage: base64String,
     }));
 
     setPreview(base64String);
   };
 
-  const handleUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  // const handleUpload = async (e) => {
+  //   const file = e.target.files[0];
+  //   if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
+  //   const formData = new FormData();
+  //   formData.append("file", file);
 
-    const res = await fetch(`${backendURL}/api/upload`, {
-      method: "POST",
-      body: formData,
-    });
+  //   const res = await fetch(`${backendURL}/api/upload`, {
+  //     method: "POST",
+  //     body: formData,
+  //   });
 
-    if (res.ok) {
-      const data = await res.json();
-      localStorage.setItem("filePath", data.filePath);
-      setFileUrl(`${backendURL}${data.filePath}`);
-    } else {
-      console.error("Upload failed");
-    }
-  };
+  //   if (res.ok) {
+  //     const data = await res.json();
+  //     localStorage.setItem("filePath", data.filePath);
+  //     setFileUrl(`${backendURL}${data.filePath}`);
+  //   } else {
+  //     console.error("Upload failed");
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -131,26 +130,30 @@ export default function Register(props) {
     try {
       const { confirmPassword, ...payload } = formData;
 
-      const res = fetch(`${backendURL}/api/signup`, {
+      const res = await fetch(`${backendURL}/api/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-        credentials: "include", // VERY IMPORTANT
+        credentials: "include",
       });
-
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("personinfo", JSON.stringify(res.data.user));
-        props.setpersoninfo(res.data.user);
+      const data = await res.json();
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("personinfo", JSON.stringify(data.user));
+        props.setpersoninfo(data.user);
         props.setissignup(true);
         alert("Signup successful!");
         navigate("/");
       }
     } catch (err) {
-      console.error("Signup error:", err.response?.data || err.message);
-      alert(err.response?.data?.message || "Signup failed");
+      if (err.response?.status === 409) {
+        alert("User already exists");
+      } else {
+        console.error("Signup error:", err.response?.data || err.message);
+        alert(err.response?.data?.message || "Signup failed");
+      }
     }
   };
   const roles = [
@@ -222,10 +225,11 @@ export default function Register(props) {
               <div className="relative">
                 <Listbox.Button className="relative w-full h-10 rounded-md border border-gray-300 bg-white py-1.5 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                   <span className="block truncate capitalize">
-                    {selectedRole}
-                    <span className="block truncate text-bold capitalize text-gray-500">
-                      {formData.role ? formData.role : "Select your role"}
-                    </span>
+                    {formData.role ? (
+                      <span className="capitalize">{formData.role}</span>
+                    ) : (
+                      <span className="text-gray-400">Select your role</span>
+                    )}
                   </span>
                   <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400" />
@@ -266,7 +270,7 @@ export default function Register(props) {
               name="password"
               autoComplete="new-password"
               placeholder="At least 8 chars, 1 capital, 1 symbol"
-              pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':\\\|,.<>\/?]).{8,}$"
+              // pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':\\\|,.<>\/?]).{8,}$"
               value={formData.password}
               onChange={handleChange}
               className="w-full px-4 py-2 rounded-md border"
@@ -304,7 +308,7 @@ export default function Register(props) {
                   value={formData.class}
                   onChange={handleChange}
                   className="w-full px-4 py-2 rounded-md border"
-                  placeholder="e.g., 10th, BTech 1st Year"
+                  placeholder="e.g., 10th, 12th "
                 />
               </div>
               <div>
@@ -317,7 +321,7 @@ export default function Register(props) {
                   value={formData.stream}
                   onChange={handleChange}
                   className="w-full px-4 py-2 rounded-md border"
-                  placeholder="e.g., Science, CS"
+                  placeholder="e.g., Science, Arts"
                 />
               </div>
             </>
@@ -335,7 +339,7 @@ export default function Register(props) {
                   value={formData.department}
                   onChange={handleChange}
                   className="w-full px-4 py-2 rounded-md border"
-                  placeholder="e.g., Physics, CSE"
+                  placeholder="e.g., Physics, Maths"
                 />
               </div>
               <div>
@@ -348,7 +352,7 @@ export default function Register(props) {
                   value={formData.education}
                   onChange={handleChange}
                   className="w-full px-4 py-2 rounded-md border"
-                  placeholder="e.g., PhD, M.Tech"
+                  placeholder="e.g.  B.ed ,B.Sc , M.Sc"
                 />
               </div>
               <div>
@@ -361,7 +365,7 @@ export default function Register(props) {
                   value={formData.experience}
                   onChange={handleChange}
                   className="w-full px-4 py-2 rounded-md border"
-                  placeholder="e.g., 5 years"
+                  placeholder="e.g., 10 years"
                 />
               </div>
             </>
@@ -392,7 +396,7 @@ export default function Register(props) {
                   value={formData.currentCompany}
                   onChange={handleChange}
                   className="w-full px-4 py-2 rounded-md border"
-                  placeholder="e.g., Google"
+                  placeholder="e.g., Google , Apple"
                 />
               </div>
               <div>
@@ -405,7 +409,7 @@ export default function Register(props) {
                   value={formData.skills}
                   onChange={handleChange}
                   className="w-full px-4 py-2 rounded-md border"
-                  placeholder="e.g., MERN, Java, Python"
+                  placeholder="e.g., MERN,Social Services "
                 />
               </div>
             </>
