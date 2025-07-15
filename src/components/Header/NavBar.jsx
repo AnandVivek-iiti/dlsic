@@ -50,13 +50,13 @@ export default function NavBar(props) {
                 transition={{ duration: 1 }}
               >
                 <Typewriter
-                  words={["DLS Inter College "]}
-                  loop={0}
+                  words={["DLS Inter College Bareilly"]}
+                  loop={1}
                   cursor
                   cursorStyle=""
                   typeSpeed={100}
                   deleteSpeed={50}
-                  delaySpeed={3000}
+                  delaySpeed={1000}
                 />
               </motion.h1>
             </div>

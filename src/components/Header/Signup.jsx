@@ -14,7 +14,7 @@ const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 import { useLanguage } from "../Main/context/Languagecontext";
 import imageCompression from "browser-image-compression";
 export default function Register(props) {
-  const [selectedRole, setSelectedRole] = useState(null);
+  // const [selectedRole, setSelectedRole] = useState(null);
   const { language, t } = useLanguage();
   useEffect(() => {
     localStorage.setItem("lang", language);
@@ -98,26 +98,6 @@ export default function Register(props) {
     setPreview(base64String);
   };
 
-  // const handleUpload = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (!file) return;
-
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-
-  //   const res = await fetch(`${backendURL}/api/upload`, {
-  //     method: "POST",
-  //     body: formData,
-  //   });
-
-  //   if (res.ok) {
-  //     const data = await res.json();
-  //     localStorage.setItem("filePath", data.filePath);
-  //     setFileUrl(`${backendURL}${data.filePath}`);
-  //   } else {
-  //     console.error("Upload failed");
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -130,7 +110,7 @@ export default function Register(props) {
     try {
       const { confirmPassword, ...payload } = formData;
 
-      const res = await fetch(`${backendURL}/api/signup`, {
+      const res = await axios.post(`/api/auth/signup`, {  //`${backendURL}/api/signup`
         method: "POST",
         headers: {
           "Content-Type": "application/json",

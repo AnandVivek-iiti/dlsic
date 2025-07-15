@@ -68,10 +68,10 @@ function App() {
                   words={["दरबारी लाल शर्मा इंटर कॉलेज, रिठौरा बरेली"]}
                   loop={0}
                   cursor
-                  cursorStyle="-"
+                  cursorStyle="|"
                   typeSpeed={100}
-                  deleteSpeed={50}
-                  delaySpeed={3000}
+                  deleteSpeed={20}
+                  delaySpeed={2000}
                 />
               </motion.h1>
           </div>

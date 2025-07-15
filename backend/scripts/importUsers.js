@@ -2,8 +2,8 @@
 // scripts/importUsers.js
 import mongoose from 'mongoose';
 import fs from 'fs';
-import User from '../models/UserSchema.js'; 
-mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/todo')
+import {User} from '../models/UserSchema.js';
+mongoose.connect( 'mongodb://127.0.0.1:27017/todo') //process.env.MONGO_URI
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err))
 .then(async () => {

@@ -29,7 +29,7 @@ router.post("/signup", async (req, res) => {
     } = req.body;
 
     // Required field check
-    if (!username || !phone || !email || !password || !role) {
+    if (!username || !phone || !email || !password ) {                   // || !role
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -60,9 +60,10 @@ router.post("/signup", async (req, res) => {
     await user.save();
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
-console.log("Signup Payload:", req.body);
+    console.log("Signup Payload:", req.body);
     res.status(201).json({ message: "Signup successful!", token, user });
-  } catch (err) {
+  }
+   catch (err) {
     console.error("Signup error:", err);
     res.status(500).json({
       message: "Server error during signup",

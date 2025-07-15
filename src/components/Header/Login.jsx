@@ -9,7 +9,7 @@ export default function Login(props) {
   const { login } = useAuth();
   const navigate = useNavigate();
   const { darkMode, setDarkMode } = props;
-  const [identifier, setIdentifier] = useState("");
+  // const [identifier, setIdentifier] = useState("");
   const [loginInfo, setLoginInfo] = useState({
     // email: "",
     password: "",
@@ -28,7 +28,7 @@ export default function Login(props) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${backendURL}/api/login`, loginInfo, {
+      const res = await axios.post('/api/auth/login', loginInfo, {  //(`${backendURL}/api/login`, loginInfo
         withCredentials: true,
       });
 
@@ -40,13 +40,13 @@ export default function Login(props) {
         localStorage.setItem("role", data.user.role);
         props.setpersoninfo(data.user);
         props.setissignup(true);
-        setLoginInfo({ email: "", password: "" });
+        setLoginInfo({ identifier: "", password: "" });
         toast.dismiss();
 
         toast.success("Login successful!");
         navigate("/");
       } else {
-        toast.error(data.message || "Login failed");
+        toast.error(data.message || "Login failed with err");
       }
     } catch (err) {
       console.error("Login error:", err.response?.data || err.message);

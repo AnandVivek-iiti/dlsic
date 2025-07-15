@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
   },
 
   profileImage: String,
-  imageBase64: String,
+  // imageBase64: String,
 
   // Student fields
   class: String,
