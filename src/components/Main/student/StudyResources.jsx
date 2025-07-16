@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, DownloadCloud, UploadCloud } from "lucide-react";
-
+import axios from "axios";
+const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 const subjectColors = {
   English: "bg-purple-100",
   Hindi: "bg-orange-100",
@@ -349,6 +350,7 @@ const initialStudyMaterial = {
 };
 
 export default function StudyResources() {
+  const user = JSON.parse(localStorage.getItem("personinfo"));
   const [studyMaterial, setStudyMaterial] = useState(initialStudyMaterial);
   const [selectedClass, setSelectedClass] = useState(6);
   const [noteTitle, setNoteTitle] = useState("");
@@ -356,18 +358,27 @@ export default function StudyResources() {
   const [selectedSubject, setSelectedSubject] = useState("");
   const classList = Object.keys(initialStudyMaterial).map(Number);
   const subjectList = Object.keys(initialStudyMaterial[selectedClass]);
+  // const [classNumber, setClassNumber] = useState(user?.class || "12");
+  const [notes, setNotes] = useState([]);
+  // const [selectedFile, setSelectedFile] = useState(null);
+  // const [subject, setSubject] = useState("");
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await fetch(" /api/Notes", {
+        const res = await fetch(`${backendURL}/api/notes/${selectedClass}`, {
           headers: {
-            "Content-Type": "application/json",
-            " Authorization": `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
+
+  useEffect(() => {
+    fetchNotes();
+  }, [classNumber]);
+
         const data = await res.json();
         if (res.ok) {
-          setNoteFile(data);
+          setNotes(data.notes || []);
+
           alert(data.message || "Notes uploaded successfully !!");
         } else {
           alert(data.message || "Failed to upload notes");
@@ -383,7 +394,7 @@ export default function StudyResources() {
   const handleNoteUpload = () => {
     if (noteTitle && selectedClass && selectedSubject && noteFile) {
       // const fileURL = URL.createObjectURL(noteFile);
-         const newNote = { title: noteTitle, link: noteFile.noteFile }; 
+      const newNote = { title: noteTitle, link: noteFile.noteFile };
 
       setStudyMaterial((prev) => {
         const updated = { ...prev };
@@ -407,28 +418,28 @@ export default function StudyResources() {
       alert("❗ Please fill all fields before uploading.");
     }
   };
-const uploadNoteToServer = async () => {
-  const formData = new FormData();
-  formData.append('file', noteFile); // Actual file, not base64
-  formData.append('title', noteTitle);
-  formData.append('class', selectedClass);
-  formData.append('subject', selectedSubject);
+  const uploadNoteToServer = async () => {
+    const formData = new FormData();
+    formData.append("file", noteFile);
+    formData.append("title", noteTitle);
+    formData.append("class", selectedClass);
+    formData.append("subject", selectedSubject);
 
-  const res = await fetch('/api/Notes/upload', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
-    },
-    body: formData,
-  });
+    const res = await fetch("/api/Notes/upload", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: formData,
+    });
 
-  const data = await res.json();
-  if (res.ok) {
-    alert("Uploaded to server");
-  } else {
-    alert(data.message || "Server upload failed");
-  }
-};
+    const data = await res.json();
+    if (res.ok) {
+      alert("Uploaded to server");
+    } else {
+      alert(data.message || "Server upload failed");
+    }
+  };
 
   return (
     <div className=" bg-gradient-to-br from-white via-blue-50 to-blue-100 rounded-2xl shadow-lg">
@@ -474,19 +485,21 @@ const uploadNoteToServer = async () => {
                 <BookOpen className="w-5 h-5 mr-2" /> {subject}
               </h3>
               <ul className="space-y-2 text-sm">
-                {files.map((file, idx) => (
-                  <li key={idx} className="flex justify-between items-center">
-                    <span>{file.title}</span>
-                    <a
-                      href={file.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800"
-                    >
-                      <DownloadCloud className="w-5 h-5" />
-                    </a>
-                  </li>
-                ))}
+                {[...files, ...(subject === selectedSubject ? notes : [])].map(
+                  (file, idx) => (
+                    <li key={idx} className="flex justify-between items-center">
+                      <span>{file.title}</span>
+                      <a
+                        href={file.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800"
+                      >
+                        <DownloadCloud className="w-5 h-5" />
+                      </a>
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           )
@@ -530,11 +543,7 @@ const uploadNoteToServer = async () => {
               accept=".pdf"
               onChange={(e) => {
                 const file = e.target.files[0];
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                  setNoteFile({ ...noteFile, noteFile: reader.result });
-                };
-                if (file) reader.readAsDataURL(file);
+                setNoteFile(file); // directly store File object
               }}
               className="w-full border border-gray-300 p-2 rounded file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
             />
@@ -542,7 +551,10 @@ const uploadNoteToServer = async () => {
 
           <div className="col-span-2">
             <button
-              onClick={handleNoteUpload}
+              onClick={() => {
+                handleNoteUpload(); // update frontend state
+                uploadNoteToServer(); // send to backend
+              }}
               className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
             >
               Upload Note
