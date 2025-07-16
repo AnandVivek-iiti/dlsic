@@ -21,7 +21,7 @@ const StudentProfile = () => {
     subjects: [],
     extraCurriculars: [],
   };
-
+console.log("Calling API:", `${backendURL}/api/auth/profile`);
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -32,6 +32,9 @@ const StudentProfile = () => {
           },
         });
         const data = await res.json();
+
+console.log("Status:", res.status);
+console.log("Response data:", data);
         if (res.ok) {
           setProfile(data);
           setEditedProfile(data);
@@ -140,13 +143,31 @@ const StudentProfile = () => {
       toast.error("Upload failed");
     }
   };
-  if (!profile && isGuest) {
-    return (
-      <div className="text-center mt-10 text-gray-600">
-        <StudentCard profile={dummyProfile} />
+ if (!profile && isGuest) {
+  return (
+    <div className="text-center mt-10 text-gray-600">
+      <div className="bg-white rounded-xl shadow p-6 max-w-md mx-auto">
+        <img
+          src={dummyProfile.profileImage}
+          alt="Guest"
+          className="w-24 h-24 mx-auto rounded-full mb-4"
+        />
+        <h2 className="text-xl font-bold">{dummyProfile.username}</h2>
+        <p>{dummyProfile.email}</p>
+        <p>{dummyProfile.remarks}</p>
       </div>
-    );
-  }
+    </div>
+  );
+}
+
+if (!profile) {
+  return (
+    <div className="text-center text-gray-600 mt-10">
+      <p>Loading your profile...</p>
+    </div>
+  );
+}
+
 
   const user = JSON.parse(localStorage.getItem("personinfo"));
   const role = user?.role;
@@ -158,6 +179,8 @@ const StudentProfile = () => {
     "from-pink-100 to-pink-50 border-pink-300 text-pink-700",
     "from-purple-100 to-purple-50 border-purple-300 text-purple-700",
   ];
+console.log("Profile:", profile);
+console.log("Is Guest:", isGuest);
 
   return (
     <section className="bg-gradient-to-br from-blue-50 via-slate-100 to-purple-50 py-10 rounded-xl shadow-inner">

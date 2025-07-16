@@ -12,7 +12,7 @@ import Alumni from "./components/Main/Alumni";
 import StudentDashboard from "./components/Main/student/Students";
 import Academic from "./components/Main/Academic";
 import StudyResources from "./components/Main/student/StudyResources";
-import Doubts from "./components/Main/student/DoubtSolver";
+import Doubts from "./components/Main/student/StudentSupport";
 import Footer1 from "./components/Footer/Footer1";
 import Profile from "./components/Main/student/StudentProfile";
 import AcedemicDetails from "./components/Main/AcademicDetails";

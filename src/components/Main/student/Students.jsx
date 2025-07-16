@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import StudentResources from './StudyResources';
-import DoubtSolver from './DoubtSolver';
+import DoubtSolver from './StudentSupport';
 // import DoubtSolver from './Doubtform';
 // import Doubtlist from './DoubtList';
 // import Mentor from './MentorDashboard';
@@ -100,7 +100,7 @@ useEffect(() => {
     btnColor :  'from-pink-300 to-pink-200 border-pink-500 ',
     },
   ];
-    
+
   const handleCardClick = (action) => {
     if (action) {
       setCurrentView(action);
@@ -220,8 +220,8 @@ useEffect(() => {
           </div>
         ))}
       </div>
-     
+
     </section>
-    </div> 
+    </div>
   );
 }
