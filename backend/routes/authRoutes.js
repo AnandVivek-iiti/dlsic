@@ -10,7 +10,7 @@ const isEmail = (str) => /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(str);
 
 // SIGNUP
 router.post("/signup", async (req, res) => {
-   console.log("welcome to signup");
+  console.log("welcome to signup");
   try {
     const {
       username,
@@ -30,7 +30,8 @@ router.post("/signup", async (req, res) => {
     } = req.body;
 
     // Required field check
-    if (!username || !phone || !email || !password ) {                   // || !role
+    if (!username || !phone || !email || !password) {
+      // || !role
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -59,18 +60,29 @@ router.post("/signup", async (req, res) => {
     });
 
     await user.save();
-console.log("Signup request received:", req.body);
+    console.log("Signup request received:", req.body);
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
     console.log("Signup Payload:", req.body);
     res.status(201).json({ message: "Signup successful!", token, user });
-  }
-   catch (err) {
-    console.error("Signup error:", err);
+  } catch (error) {
+    if (error.code === 11000) {
+      // Duplicate key error
+      const duplicateField = Object.keys(error.keyPattern)[0]; // e.g., 'phone'
+      return res.status(409).json({
+        message: `${duplicateField} already exists`,
+        field: duplicateField,
+      });
+    } else if (err.response?.status === 409) {
+      alert(err.response.data.message); // e.g., "phone already exists"
+    } else {
+      alert("Signup failed. Try again.");
+      console.error("Signup error:", err.response?.data || err.message);
+    }
+    // Generic server error
     res.status(500).json({
       message: "Server error during signup",
-      error: err.message,
-      details: err.errors || null,
+      error: error.message,
     });
   }
 });
