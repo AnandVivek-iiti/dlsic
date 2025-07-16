@@ -10,7 +10,7 @@ const isEmail = (str) => /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(str);
 
 // SIGNUP
 router.post("/signup", async (req, res) => {
-   res.send("welcome to signup");
+   console.log("welcome to signup");
   try {
     const {
       username,
@@ -59,6 +59,7 @@ router.post("/signup", async (req, res) => {
     });
 
     await user.save();
+console.log("Signup request received:", req.body);
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
     console.log("Signup Payload:", req.body);
@@ -76,7 +77,7 @@ router.post("/signup", async (req, res) => {
 
 // LOGIN
 router.post("/login", async (req, res) => {
-  console.log("welcome to login");
+  // console.log("welcome to login");
   const { identifier, password } = req.body;
 
   if (!identifier || !password) {
