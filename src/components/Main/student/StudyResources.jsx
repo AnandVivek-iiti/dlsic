@@ -373,7 +373,7 @@ export default function StudyResources() {
 
   useEffect(() => {
     fetchNotes();
-  }, [classNumber]);
+  }, [selectedClass]);
 
         const data = await res.json();
         if (res.ok) {
