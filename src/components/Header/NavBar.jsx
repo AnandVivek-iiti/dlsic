@@ -7,6 +7,7 @@ import saraswatiLogo from "../assets/Saraswati.png";
 import U from "../assets/user.png";
 import LanguageSwitcher from "../LanguageSwitcher";
 import { useLanguage } from "../Main/context/Languagecontext.jsx";
+import ThemeToggle from "../Main/ThemeToggle";
 
 export default function NavBar(props) {
  const user = props.personinfo;
