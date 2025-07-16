@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 import { useLanguage } from "../Main/context/Languagecontext";
 import imageCompression from "browser-image-compression";
+import { toast } from "react-toastify";
 export default function Register(props) {
   // const [selectedRole, setSelectedRole] = useState(null);
   const { language, t } = useLanguage();
@@ -98,41 +99,45 @@ export default function Register(props) {
     setPreview(base64String);
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
 
     try {
       const { confirmPassword, ...payload } = formData;
 
-      const res = await axios.post(`/api/auth/signup`, {  //`${backendURL}/api/signup`
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-        credentials: "include",
+      // const res = await axios.post(`/api/auth/signup`, {  //`${backendURL}/api/signup`
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(payload),
+      //   credentials: "include",
+      // });
+      const res = await axios.post(`/api/auth/signup`, payload, {
+        withCredentials: true,
       });
+
       const data = await res.json();
       if (data.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("personinfo", JSON.stringify(data.user));
         props.setpersoninfo(data.user);
         props.setissignup(true);
-        alert("Signup successful!");
+        toast.dismiss();
+        toast.success("Signup successful!");
         navigate("/");
       }
     } catch (err) {
       if (err.response?.status === 409) {
-        alert("User already exists");
+        toast.error("User already exists");
       } else {
         console.error("Signup error:", err.response?.data || err.message);
-        alert(err.response?.data?.message || "Signup failed");
+        toast.error(err.response?.data?.message || "Signup failed");
       }
     }
   };

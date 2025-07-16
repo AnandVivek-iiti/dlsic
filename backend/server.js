@@ -22,10 +22,10 @@ const PORT = process.env.PORT || 5000; //
 app.use(
   cors({
     origin: [
-      process.env.FRONTEND_URL,
-      "https://dlsic.vercel.app",
-      "https://dlsic.onrender.com",
-      " http://localhost:5173/",
+      // process.env.FRONTEND_URL,
+      // "https://dlsic.vercel.app",
+      // "https://dlsic.onrender.com",
+      " http://localhost:5173"
     ],
     credentials: true,
   })
