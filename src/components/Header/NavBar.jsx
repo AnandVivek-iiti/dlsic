@@ -1,17 +1,31 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import saraswatiLogo from "../assets/Saraswati.png";
-import U from "../assets/user.png";
+import U from "../assets/Saraswati.png";
 import LanguageSwitcher from "../LanguageSwitcher";
 import { useLanguage } from "../Main/context/Languagecontext.jsx";
 import ThemeToggle from "../Main/ThemeSwitcher.jsx";
 
-export default function NavBar(props) {
- const user = props.personinfo;
 
+export default function NavBar({
+  changestatus,
+  setissignup,
+  closeset,
+  personinfo,
+  setpersoninfo,
+  issignup,
+  darkMode,
+  setDarkMode,
+}) {
+  const [user] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("personinfo") || "null");
+    } catch {
+      return null;
+    }
+  });
 
   const navigate = useNavigate();
   const [isuserinfoopen, setisuserinfoopen] = useState(false);
@@ -23,8 +37,8 @@ export default function NavBar(props) {
     { name: "Academic", path: "/Academic" },
     { name: "Student", path: "/Student" },
     { name: "Alumni", path: "/Alumni" },
-    { name: "Contact Us", path: "/contact" },
-    ...(!props.issignup ? [{ name: "Signup", path: "/signup" }] : []),
+    { name: "Contact Us", path: "/Contact" },
+    ...(!issignup ? [{ name: "Signup", path: "/signup" }] : []),
   ];
 
   return (
@@ -32,7 +46,8 @@ export default function NavBar(props) {
       <header className="bg-gradient-to-br from-indigo-200 to-slate-200 text-black shadow-md">
         <div className="max-w-[99%] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Logo + College Name */}
+
+                {/* Logo + College Name */}
             <div className="flex items-center space-x-4">
               <img
                 src={saraswatiLogo}
@@ -57,6 +72,8 @@ export default function NavBar(props) {
               </motion.h1>
             </div>
 
+            
+
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-6 p-4">
               {navigation.map((item) => (
@@ -72,22 +89,26 @@ export default function NavBar(props) {
                   {item.name}
                 </Link>
               ))}
+
               <LanguageSwitcher className="bg-gray-600 text-white hover:bg-gray-700" />
-              {props.issignup && (
+
+              <div className="flex items-center gap-2">
+                <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+              </div>
+
+              {issignup && (
                 <div className="relative">
                   <img
-                    src={user?.profileImage || U}
+                    src={U}
                     alt="User"
-                    className="w-11 h-11 rounded-full border border-gray-300 object-cover cursor-pointer hover:opacity-80"
+                    className="w-11 h-11 cursor-pointer hover:opacity-80"
                     onClick={() => setisuserinfoopen(!isuserinfoopen)}
                   />
                   {isuserinfoopen && (
                     <div className="absolute top-16 right-0 z-50 w-80 bg-white rounded-md border shadow-lg p-4">
                       <div className="text-center mb-3">
-                        <p className="font-semibold">
-                          {props.personinfo?.username || "No name"}
-                        </p>
-                        <p className="text-sm">{props.personinfo?.email}</p>
+                        <p className="font-semibold">{personinfo?.name || "No name"}</p>
+                        <p className="text-sm">{personinfo?.email}</p>
                         <p className="text-sm">{user?.phone}</p>
                       </div>
                       <button
@@ -103,8 +124,8 @@ export default function NavBar(props) {
                         onClick={() => {
                           if (window.confirm("Do you want to logout?")) {
                             localStorage.removeItem("personinfo");
-                            props.setissignup(false);
-                            props.setpersoninfo(null);
+                            setissignup(false);
+                            setpersoninfo(null);
                             setisuserinfoopen(false);
                             navigate("/signup");
                           }
@@ -141,18 +162,11 @@ export default function NavBar(props) {
               transition={{ duration: 0.4, ease: "easeInOut" }}
               className="fixed top-0 left-0 w-full h-screen bg-white z-50 shadow-lg flex flex-col overflow-y-auto"
             >
-              {/* Header with Close and Logo */}
+              {/* Mobile Header */}
               <div className="flex items-center justify-between px-4 py-4 border-b">
                 <div className="flex items-center gap-2">
-                  <img
-                    src={user?.profileImage || U}
-                    alt="User"
-                    className="w-12 h-12 border-2 border-indigo-300 rounded-full object-cover"
-                  />
-
-                  <h1 className="text-lg font-bold text-blue-700">
-                    DLS Inter College
-                  </h1>
+                  <img src={U} alt="Logo" className="w-12 h-12 border-2 border-indigo-300 rounded-full " />
+                  <h1 className="text-lg font-bold text-blue-700">DLS Inter College</h1>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
@@ -162,14 +176,14 @@ export default function NavBar(props) {
                 </button>
               </div>
 
-              {/* Navigation Links */}
+              {/* Mobile Links */}
               <div className="flex flex-col px-4 py-6 space-y-3">
                 {navigation.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
                     onClick={() => setIsOpen(false)}
-                    className={`block py-3 px-4 rounded-lg transition-all duration-200 text-base font-medium ${
+                    className={`block py-3 px-4 rounded-lg text-base font-medium ${
                       location.pathname === item.path
                         ? "bg-orange-100 text-blue-700 font-semibold"
                         : "hover:bg-gray-200 text-gray-800"
@@ -180,25 +194,26 @@ export default function NavBar(props) {
                 ))}
               </div>
 
-              {/* Language Switcher */}
+              {/* Language & Theme */}
               <div className="px-4 pt-4 border-t border-gray-200">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm text-gray-600">Language / भाषा</span>
-                  <LanguageSwitcher className="bg-white text-blue-600 border border-gray-300 px-4 py-1 rounded-md shadow-sm hover:bg-gray-100 transition duration-200 text-sm font-semibold" />
+                  <LanguageSwitcher className="bg-white text-blue-600 border border-gray-300 px-4 py-1 rounded-md shadow-sm hover:bg-gray-100 text-sm font-semibold" />
+                </div>
+                <div className="flex justify-between items-center mt-2">
+                  <span className="text-sm text-gray-600">Theme / थीम</span>
+                  <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
                 </div>
               </div>
 
-              {/* User Info */}
-              {props.issignup && (
+              {/* Mobile User Info */}
+              {issignup && (
                 <div className="px-4 pt-4 border-t border-gray-200">
                   <div className="mb-2 text-gray-700">
-                    <div className="font-semibold">
-                      {props.personinfo?.name || "No name"}
-                    </div>
-                    <div className="text-sm">{props.personinfo?.email}</div>
+                    <div className="font-semibold">{personinfo?.name || "No name"}</div>
+                    <div className="text-sm">{personinfo?.email}</div>
                     <div className="text-sm">{user?.phone}</div>
                   </div>
-
                   <div className="flex flex-col space-y-2 mt-3">
                     <button
                       onClick={() => {
@@ -213,8 +228,8 @@ export default function NavBar(props) {
                       onClick={() => {
                         if (window.confirm("Do you want to logout?")) {
                           localStorage.removeItem("personinfo");
-                          props.setissignup(false);
-                          props.setpersoninfo(null);
+                          setissignup(false);
+                          setpersoninfo(null);
                           setIsOpen(false);
                           navigate("/signup");
                         }
@@ -233,3 +248,4 @@ export default function NavBar(props) {
     </div>
   );
 }
+
