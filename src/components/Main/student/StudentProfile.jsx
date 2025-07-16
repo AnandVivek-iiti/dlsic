@@ -8,6 +8,19 @@ const StudentProfile = () => {
   const [profile, setProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfile, setEditedProfile] = useState(null);
+  const isGuest = !localStorage.getItem("token");
+
+  const dummyProfile = {
+    username: "Guest User",
+    email: "guest@example.com",
+    phone: "0000000000",
+    profileImage: image,
+    percentage: "0%",
+    attendance: "0%",
+    remarks: "Please login to see your performance.",
+    subjects: [],
+    extraCurriculars: [],
+  };
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -127,13 +140,16 @@ const StudentProfile = () => {
       toast.error("Upload failed");
     }
   };
-
-  if (!profile)
+  if (!profile && isGuest) {
     return (
-      <div className="text-center mt-10 text-gray-600">Loading profile...</div>
+      <div className="text-center mt-10 text-gray-600">
+        <StudentCard profile={dummyProfile} />
+      </div>
     );
-const user = JSON.parse(localStorage.getItem("personinfo"));
-const role = user?.role;
+  }
+
+  const user = JSON.parse(localStorage.getItem("personinfo"));
+  const role = user?.role;
 
   const colors = [
     "from-green-100 to-green-50 border-green-300 text-green-700",
@@ -170,6 +186,14 @@ const role = user?.role;
             ✏️ Edit
           </button>
         </motion.div>
+        {!isGuest && (
+          <button
+            onClick={() => setIsEditing(true)}
+            className="absolute top-5 right-5 text-blue-600 hover:text-blue-800 text-sm"
+          >
+            ✏️ Edit
+          </button>
+        )}
 
         {/* Edit Modal */}
         {isEditing && (
