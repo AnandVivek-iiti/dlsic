@@ -122,7 +122,7 @@ export default function Register(props) {
         withCredentials: true,
       });
 
-      const data = await res.json();
+      const data =res.data; //res.json()
       if (data.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("personinfo", JSON.stringify(data.user));
