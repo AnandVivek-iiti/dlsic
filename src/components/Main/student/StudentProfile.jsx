@@ -12,7 +12,7 @@ const StudentProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch(`${backendURL}/api/profile`, {
+        const res = await fetch(`${backendURL}/api/auth/profile`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
