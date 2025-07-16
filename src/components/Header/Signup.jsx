@@ -110,7 +110,7 @@ export default function Register(props) {
     try {
       const { confirmPassword, ...payload } = formData;
 
-      // const res = await axios.post(`/api/auth/signup`, {  //`${backendURL}/api/signup`
+      // const res = await axios.post(`/api/auth/signup`, {  ///api/signup`
       //   method: "POST",
       //   headers: {
       //     "Content-Type": "application/json",
@@ -118,7 +118,7 @@ export default function Register(props) {
       //   body: JSON.stringify(payload),
       //   credentials: "include",
       // });
-      const res = await axios.post(`/api/auth/signup`, payload, {
+      const res = await axios.post(`${backendURL}/api/auth/signup`, payload, {
         withCredentials: true,
       });
 

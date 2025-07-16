@@ -28,7 +28,7 @@ export default function Login(props) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/api/auth/login', loginInfo, {  //(`${backendURL}/api/login`, loginInfo
+      const res = await axios.post(`${backendURL}/api/auth/login`, loginInfo, {  //(`${backendURL}/api/login`, loginInfo
         withCredentials: true,
       });
 

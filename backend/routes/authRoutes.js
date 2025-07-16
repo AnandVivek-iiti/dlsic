@@ -10,6 +10,7 @@ const isEmail = (str) => /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(str);
 
 // SIGNUP
 router.post("/signup", async (req, res) => {
+   res.send("welcome to signup");
   try {
     const {
       username,
@@ -75,6 +76,7 @@ router.post("/signup", async (req, res) => {
 
 // LOGIN
 router.post("/login", async (req, res) => {
+  console.log("welcome to login");
   const { identifier, password } = req.body;
 
   if (!identifier || !password) {

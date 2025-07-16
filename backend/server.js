@@ -22,9 +22,9 @@ const PORT = process.env.PORT || 5000; //
 app.use(
   cors({
     origin: [
-      // process.env.FRONTEND_URL,
-      // "https://dlsic.vercel.app",
-      // "https://dlsic.onrender.com",
+      process.env.FRONTEND_URL,
+      "https://dlsic.vercel.app",
+      "https://dlsic.onrender.com",
       " http://localhost:5173"
     ],
     credentials: true,
@@ -34,7 +34,7 @@ app.use(
 app.use(express.json({ limit: "5mb" }));
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/todo") //process.env.MONGO_URI || "mongodb://127.0.0.1:27017/todo"
+  .connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/todo") //process.env.MONGO_URI || "mongodb://127.0.0.1:27017/todo"
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
@@ -191,16 +191,16 @@ app.use("/upload", express.static("upload"));
 // });
 
 // GET profile (protected)
-app.get("/api/profile", verifyToken, async (req, res) => {
-  try {
-    const user = await User.findById(req.userId).select("-password");
-    if (!user) return res.status(404).json({ message: "User not found" });
-    res.json(user);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
-  }
-});
+// app.get("/api/profile", verifyToken, async (req, res) => {
+//   try {
+//     const user = await User.findById(req.userId).select("-password");
+//     if (!user) return res.status(404).json({ message: "User not found" });
+//     res.json(user);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
 app.use("/api", roleRoutes); // /api/teacher-only, etc.
 // PUT profile (protected)
 app.put("/api/profile", verifyToken, async (req, res) => {
@@ -239,5 +239,5 @@ app.get("/api/ping", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on address http://localhost:${PORT}`);
+  console.log(`Server running on address ${PORT}`); //http://localhost:
 });
