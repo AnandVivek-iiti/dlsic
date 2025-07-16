@@ -5,13 +5,19 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import U from "../../assets/user.png";
+import ThemeToggle from "../ThemeSwitcher";
 <ToastContainer position="bottom-center" autoClose={3000} />;
 
 const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
-const StudentProfile = () => {
+const StudentProfile = ({ darkMode, setDarkMode }) => {
+  <div className="flex justify-end">
+    <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+  </div>;
+
   const [profile, setProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfile, setEditedProfile] = useState(null);
+  const [isGuestView, setIsGuestView] = useState(false); // <-- new
   const isGuest = !localStorage.getItem("token");
   const dummyProfile = {
     username: "Anand Vivek",
@@ -20,7 +26,7 @@ const StudentProfile = () => {
     profileImage: U,
     percentage: "95%",
     attendance: "87%",
-    remarks: "Login to access your detailed academic and performance stats.",
+    remarks: "Login to access advanced features and academic analytics.",
     subjects: [
       { name: "Maths", marks: "96" },
       { name: "Physics", marks: "97" },
@@ -34,41 +40,47 @@ const StudentProfile = () => {
   };
 
   console.log("Calling API:", `${backendURL}/api/auth/profile`);
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await fetch(`${backendURL}/api/auth/profile`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        const data = await res.json();
+ useEffect(() => {
+  const fetchProfile = async () => {
+    const token = localStorage.getItem("token");
 
-        console.log("Status:", res.status);
-        console.log("Response data:", data);
-        if (res.ok) {
-          setProfile(data);
-          setEditedProfile(data);
-        } else {
-          if (res.status === 401) {
-            toast.error("Session expired. Please login again.");
-            localStorage.removeItem("token");
-            localStorage.removeItem("personinfo");
+    // No token? Show dummy view permanently
+    if (!token) {
+      setIsGuestView(true);
+      return;
+    }
 
-            // window.location.href = "/#/login";
-          } else {
-            toast.error(data.message || "Failed to load profile");
-          }
-        }
-      } catch (err) {
-        console.error("Fetch error:", err);
-        toast.error("Server error. Please try again later.");
+    try {
+      const res = await fetch(`${backendURL}/api/auth/profile`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setProfile(data);
+        setEditedProfile(data);
+        setIsGuestView(false); // Explicitly using real profile
+      } else {
+        // Invalid token or error
+        toast.error(data.message || "Session expired.");
+        localStorage.removeItem("token");
+        localStorage.removeItem("personinfo");
+        setIsGuestView(true); // Switch to dummy view
       }
-    };
-    fetchProfile();
-    // localStorage.setItem("personinfo", JSON.stringify(response.user));
-  }, []);
+    } catch (err) {
+      console.error("Fetch error:", err);
+      toast.error("Server error.");
+      setIsGuestView(true); // On error also fallback to dummy
+    }
+  };
+
+  fetchProfile();
+}, []);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -164,7 +176,8 @@ const StudentProfile = () => {
       toast.error("Upload failed");
     }
   };
-  if (!profile && isGuest) {
+ if (isGuestView) {
+
     return (
       <section className="bg-gradient-to-br from-blue-50 via-slate-100 to-purple-50 py-10 rounded-xl shadow-inner">
         <div className="max-w-6xl mx-auto px-4">
@@ -186,15 +199,35 @@ const StudentProfile = () => {
             <p className="text-gray-600 text-sm">Phone: {dummyProfile.phone}</p>
 
             <div className="mt-6 text-left max-w-md mx-auto text-sm text-gray-700">
-              <p>
-                <strong>Percentage:</strong> {dummyProfile.percentage}
-              </p>
-              <p>
-                <strong>Attendance:</strong> {dummyProfile.attendance}
-              </p>
-              <p>
-                <strong>Remarks:</strong> {dummyProfile.remarks}
-              </p>
+              <div className="mb-2">
+                <div className="flex justify-between text-xs font-medium">
+                  <span>Percentage</span>
+                  <span>{dummyProfile.percentage}</span>
+                </div>
+                {parseInt(dummyProfile.percentage) >= 90 && (
+                  <span className="absolute top-1 left-1 text-xl">🏅</span>
+                )}
+
+                <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
+                  <div
+                    className="bg-green-500 h-full rounded-full"
+                    style={{ width: dummyProfile.percentage }}
+                  ></div>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <div className="flex justify-between text-xs font-medium">
+                  <span>Attendance</span>
+                  <span>{dummyProfile.attendance}</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
+                  <div
+                    className="bg-blue-500 h-full rounded-full"
+                    style={{ width: dummyProfile.attendance }}
+                  ></div>
+                </div>
+              </div>
 
               {dummyProfile.subjects.length > 0 && (
                 <div className="mt-4">
@@ -237,9 +270,112 @@ const StudentProfile = () => {
 
   if (!profile) {
     return (
-      <div className="text-center text-gray-600 mt-10">
-        <p>Loading your profile...</p>
-      </div>
+      <section className="bg-gradient-to-br from-blue-50 via-slate-100 to-purple-50 py-10 rounded-xl shadow-inner">
+        <div className="max-w-6xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-white rounded-2xl shadow-2xl p-8 md:p-10 text-center mb-10 relative"
+          >
+            <img
+              src={dummyProfile.profileImage}
+              alt="Guest"
+              className="w-28 h-28 mx-auto rounded-full border-4 border-indigo-300 shadow-lg mb-4 object-cover"
+            />
+            <h2 className="text-3xl font-bold text-indigo-700">
+              {dummyProfile.username}
+            </h2>
+            <p className="text-gray-600 mt-1 text-sm">{dummyProfile.email}</p>
+            <p className="text-gray-600 text-sm">Phone: {dummyProfile.phone}</p>
+
+            <div className="mt-6 text-left max-w-md mx-auto text-sm text-gray-700">
+              {/* Progress bars */}
+              <div className="mb-2">
+                <div className="flex justify-between text-xs font-medium">
+                  <span>Percentage</span>
+                  <span>{dummyProfile.percentage}</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
+                  <div
+                    className="bg-green-500 h-full rounded-full"
+                    style={{ width: dummyProfile.percentage }}
+                  ></div>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <div className="flex justify-between text-xs font-medium">
+                  <span>Attendance</span>
+                  <span>{dummyProfile.attendance}</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
+                  <div
+                    className="bg-blue-500 h-full rounded-full"
+                    style={{ width: dummyProfile.attendance }}
+                  ></div>
+                </div>
+              </div>
+
+              {/* Rewards */}
+              <div className="mt-4">
+                <h4 className="font-semibold text-indigo-800 mb-1">
+                  🏆 Rewards
+                </h4>
+                <ul className="text-sm text-gray-700 space-y-1">
+                  {parseInt(dummyProfile.percentage) >= 90 && (
+                    <li>🎖️ Academic Excellence Badge</li>
+                  )}
+                  {parseInt(dummyProfile.attendance) >= 85 && (
+                    <li>🕒 Punctuality Star</li>
+                  )}
+                  {parseInt(dummyProfile.percentage) >= 75 &&
+                    parseInt(dummyProfile.attendance) >= 75 && (
+                      <li>🌟 Consistent Performer</li>
+                    )}
+                </ul>
+              </div>
+
+              {/* Subjects */}
+              {dummyProfile.subjects.length > 0 && (
+                <div className="mt-6">
+                  <h4 className="font-semibold text-indigo-800 mb-1">
+                    📚 Subjects
+                  </h4>
+                  <ul className="text-sm text-gray-700 space-y-1">
+                    {dummyProfile.subjects.map((subj, i) => (
+                      <li key={i}>
+                        {subj.name}: <strong>{subj.marks}</strong>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Extra Curricular */}
+              {dummyProfile.extraCurriculars.length > 0 && (
+                <div className="mt-4">
+                  <h4 className="font-semibold text-indigo-800 mb-1">
+                    🎯 Extra Curriculars
+                  </h4>
+                  <ul className="text-sm text-gray-700 space-y-1">
+                    {dummyProfile.extraCurriculars.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            <a
+              href="/#/login"
+              className="inline-block mt-6 px-6 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition"
+            >
+              🔐 Login to Access Full Profile
+            </a>
+          </motion.div>
+        </div>
+      </section>
     );
   }
 
@@ -537,6 +673,28 @@ const StudentProfile = () => {
                     </p>
                   )}
                 </div>
+                {profile.percentage && profile.attendance && (
+                  <div className="mt-4">
+                    <h4 className="text-md font-semibold text-indigo-700 mb-1">
+                      🏆 Rewards
+                    </h4>
+                    <ul className="text-sm text-gray-700 space-y-1">
+                      {parseInt(profile.percentage) >= 90 && (
+                        <li>🎖️ Academic Excellence Badge</li>
+                      )}
+                      {parseInt(profile.attendance) >= 85 && (
+                        <li>🕒 Punctuality Star</li>
+                      )}
+                      {parseInt(profile.percentage) >= 75 &&
+                        parseInt(profile.attendance) >= 75 && (
+                          <li>🌟 Consistent Performer</li>
+                        )}
+                      {parseInt(profile.percentage) < 60 && (
+                        <li>📈 Keep pushing! Rewards coming soon!</li>
+                      )}
+                    </ul>
+                  </div>
+                )}
               </ul>
             </motion.div>
           )}
