@@ -28,9 +28,12 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
     attendance: "87%",
     remarks: "Login to access advanced features and academic analytics.",
     subjects: [
-      { name: "Maths", marks: "96" },
-      { name: "Physics", marks: "97" },
-      { name: "Chemistry", marks: "97" },
+      // { name: "Maths", marks: "96" },
+      // { name: "Physics", marks: "97" },
+      // { name: "Chemistry", marks: "97" },
+      //   { "Maths":"96"},
+      // {"Physics":"97" },
+      // {"Chemistry":"97" },
     ],
     extraCurriculars: [
       "Programming Club @ IIT Indore",
