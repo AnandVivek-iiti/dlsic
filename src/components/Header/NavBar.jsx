@@ -9,13 +9,8 @@ import LanguageSwitcher from "../LanguageSwitcher";
 import { useLanguage } from "../Main/context/Languagecontext.jsx";
 
 export default function NavBar(props) {
-  const [user, setUser] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem("personinfo") || "null");
-    } catch {
-      return null;
-    }
-  });
+ const user = props.personinfo;
+
 
   const navigate = useNavigate();
   const [isuserinfoopen, setisuserinfoopen] = useState(false);
@@ -89,7 +84,7 @@ export default function NavBar(props) {
                     <div className="absolute top-16 right-0 z-50 w-80 bg-white rounded-md border shadow-lg p-4">
                       <div className="text-center mb-3">
                         <p className="font-semibold">
-                          {props.personinfo?.name || "No name"}
+                          {props.personinfo?.username || "No name"}
                         </p>
                         <p className="text-sm">{props.personinfo?.email}</p>
                         <p className="text-sm">{user?.phone}</p>
