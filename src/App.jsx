@@ -11,7 +11,7 @@ import Alumni from "./components/Main/Alumni";
 import StudentDashboard from "./components/Main/student/Students";
 import Academic from "./components/Main/Academic";
 import StudyResources from "./components/Main/student/StudyResources";
-import Doubts from "./components/Main/student/StudentSupport";
+import Support from "./components/Main/student/DoubtSolver";
 import Footer1 from "./components/Footer/Footer1";
 import Profile from "./components/Main/student/StudentProfile";
 import AcedemicDetails from "./components/Main/AcademicDetails";
@@ -19,7 +19,13 @@ import Contacts from "./components/Main/Contact";
 import Set from "./components/Header/Set";
 import { motion, AnimatePresence } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
-
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import StudentSupportPage from './components/Main/student/StudentSupportPage';
+import CounsellingPage from "./components/Main/student/CounsellingPage";
+import FeedbackPage from "./components/Main/student/FeedbackPage";
+import GrievancePage from "./components/Main/student/GrievancePage";
+import MentorshipPage from "./components/Main/student/MentorshipPage";
+import HelplinePage from "./components/Main/student/HelplinePage";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [issignup, setissignup] = useState(false);
@@ -28,13 +34,6 @@ function App() {
 
   const changestatus = () => setIsOpen(!isOpen);
   const closeset = () => setIsOpen(false);
-const token = localStorage.getItem("token");
-
-useEffect(() => {
-  if (token) {
-    fetchProfile(); // Fetch user data using token
-  }
-}, []);
 
   useEffect(() => {
     if (darkMode) {
@@ -65,21 +64,21 @@ useEffect(() => {
               दरबारी लाल शर्मा इंटर कॉलेज, रिठौरा बरेली
             </p> */}
             <motion.h1
-                className="text-lg mx-auto sm:text-xl md:text-2xl font-semibold text-center w-full sm:w-auto mb-2 sm:mb-0 text-white glow"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
-              >
-                <Typewriter
-                  words={["दरबारी लाल शर्मा इंटर कॉलेज, रिठौरा बरेली"]}
-                  loop={0}
-                  cursor
-                  cursorStyle="-"
-                  typeSpeed={100}
-                  deleteSpeed={50}
-                  delaySpeed={3000}
-                />
-              </motion.h1>
+              className="text-lg mx-auto sm:text-xl md:text-2xl font-semibold text-center w-full sm:w-auto mb-2 sm:mb-0 text-white glow"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <Typewriter
+                words={["दरबारी लाल शर्मा इंटर कॉलेज, रिठौरा बरेली"]}
+                loop={0}
+                cursor
+                cursorStyle="-"
+                typeSpeed={100}
+                deleteSpeed={50}
+                delaySpeed={3000}
+              />
+            </motion.h1>
           </div>
         </div>
 
@@ -150,9 +149,7 @@ useEffect(() => {
             />
             <Route
               path="/Alumni"
-              element={
-                <Alumni darkMode={darkMode} setDarkMode={setDarkMode} />
-              }
+              element={<Alumni darkMode={darkMode} setDarkMode={setDarkMode} />}
             />
             <Route
               path="/Academic"
@@ -180,10 +177,30 @@ useEffect(() => {
               }
             />
             <Route
-              path="/student/doubts"
+              path="/student/support"
               element={
-                <Doubts darkMode={darkMode} setDarkMode={setDarkMode} />
+                <Support darkMode={darkMode} setDarkMode={setDarkMode} />
               }
+            />
+            <Route
+              path="/student/support/counselling"
+              element={<CounsellingPage />}
+            />
+            <Route
+              path="/student/support/mentorship"
+              element={<MentorshipPage />}
+            />
+            <Route
+              path="/student/support/grievance"
+              element={<GrievancePage />}
+            />
+            <Route
+              path="/student/support/feedback"
+              element={<FeedbackPage />}
+            />
+            <Route
+              path="/student/support/helpline"
+              element={<HelplinePage />}
             />
             <Route
               path="/academic-details"
