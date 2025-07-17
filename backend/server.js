@@ -292,6 +292,7 @@ app.post('/counselling', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: "Failed to save" });
   }
+  
 });
 // routes/feedback.js
 app.post("/feedback", async (req, res) => {

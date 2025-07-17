@@ -28,7 +28,7 @@ import CounsellingPage from "./components/Main/student/CounsellingPage";
 import FeedbackPage from "./components/Main/student/FeedbackPage";
 import GrievancePage from "./components/Main/student/GrievancePage";
 import MentorshipPage from "./components/Main/student/MentorshipPage";
-import HelplinePage from "./components/Main/student/HelplinePage";
+// import HelplinePage from "./components/Main/student/HelplinePage";
 import LoadingSpinner from "./components/Loading";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -227,10 +227,10 @@ const PrivateRoute = ({ children }) => {
               path="/student/support/feedback"
               element={<FeedbackPage />}
             />
-            <Route
+            {/* <Route
               path="/student/support/helpline"
               element={<HelplinePage />}
-            />
+            /> */}
             <Route
               path="/academic-details"
               element={

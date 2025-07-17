@@ -3,12 +3,18 @@ import { verifyToken } from "./middlewares/authMiddleware.js";
 import { User } from "../models/UserSchema.js";
 
 const router = express.Router();
+
 router.get("/", verifyToken, async (req, res) => {
   const userId = req.user.userId;
   try {
-    const user = await User.findById(userId).select("-password"); // exclude password
+    const user = await User.findById(userId).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
+    }
+
+    // ✅ Allow only 'student' role to access profile editing
+    if (user.role !== "student") {
+      return res.status(403).json({ message: "Access denied. Only students can edit their profile." });
     }
 
     res.json({

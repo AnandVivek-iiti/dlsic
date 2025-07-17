@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import image from "../../assets/image.png";
 import { ErrorBoundary } from "react-error-boundary";
 import { ToastContainer, toast } from "react-toastify";
@@ -7,17 +7,19 @@ import "react-toastify/dist/ReactToastify.css";
 import U from "../../assets/user.png";
 import ThemeToggle from "../ThemeSwitcher";
 import { useAuth } from "../context/AuthContext";
-
+import { useNavigate } from "react-router";
 const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 const StudentProfile = ({ darkMode, setDarkMode }) => {
-const { user, logout } = useAuth();
-
+  const { user, logout } = useAuth();
+  const token = useMemo(() => localStorage.getItem("token"), []);
 
   const [profile, setProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfile, setEditedProfile] = useState(null);
-  const [isGuestView, setIsGuestView] = useState(false); // <-- new
+  const [isGuestView, setIsGuestView] = useState(false);
+  const [loading, setLoading] = useState(true);
   const isGuest = !localStorage.getItem("token");
+
   const dummyProfile = {
     username: "Anand Vivek",
     email: "anandvivek@iitindore.ac.in",
@@ -71,30 +73,30 @@ const { user, logout } = useAuth();
         if (res.ok) {
           setProfile(data);
           setEditedProfile(data);
-          setIsGuestView(false); // Explicitly using real profile
+          setIsGuestView(false);
+          setLoading(false); // ✅ Add this
         } else {
-          // Invalid token or error
           toast.error(data.message || "Session expired.");
           localStorage.removeItem("token");
-          localStorage.removeItem("personinfo");
-          setIsGuestView(true); // Switch to dummy view
+          setIsGuestView(true);
+          setLoading(false); // ✅ Add this
         }
       } catch (err) {
         console.error("Fetch error:", err);
         toast.error("Server error.");
-        setIsGuestView(true); // On error also fallback to dummy
+        setIsGuestView(true);
+        setLoading(false); // ✅ Add this
       }
     };
 
-   if (user?.email) {
+    if (user?.email) {
       fetchProfile();
     }
   }, [user]);
-
-const handleLogout = () => {
-  localStorage.removeItem("token");
-  navigate("/login");
-};
+  const handleLogout = () => {
+    logout(); // clears token/context
+    navigate("/login");
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -165,6 +167,7 @@ const handleLogout = () => {
       alert("Error updating profile");
     }
   };
+
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -190,11 +193,17 @@ const handleLogout = () => {
       toast.error("Upload failed");
     }
   };
+  if (loading)
+    return (
+      <div className="animate-pulse text-center p-8 text-gray-400">
+        Loading profile...
+      </div>
+    );
+
   if (isGuestView) {
     return (
       <section className="bg-gradient-to-br from-blue-50 via-slate-100 to-purple-50 py-10 rounded-xl shadow-inner">
         <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
-<ToastContainer />
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -289,7 +298,6 @@ const handleLogout = () => {
     return (
 
       <section className="bg-gradient-to-br from-blue-50 via-slate-100 to-purple-50 py-10 rounded-xl shadow-inner">
-        <ToastContainer />
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -386,12 +394,12 @@ const handleLogout = () => {
               )}
             </div>
 
-            <a
-              href="/#/login"
+            <button
+              onClick={() => navigate("/login")}
               className="inline-block mt-6 px-6 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition"
             >
               🔐 Login to Access Full Profile
-            </a>
+            </button>
           </motion.div>
         </div>
       </section>
@@ -413,6 +421,7 @@ const handleLogout = () => {
 
   return (
     <>
+      <ErrorBoundary fallback={<div>Something went wrong in Profile</div>}>
       <section className="bg-gradient-to-br from-blue-50 via-slate-100 to-purple-50 py-10 rounded-xl shadow-inner">
         <ToastContainer />
         <div className="max-w-6xl mx-auto px-4">
@@ -433,14 +442,15 @@ const handleLogout = () => {
             </h2>
             <p className="text-gray-600 mt-1 text-sm">{profile.email}</p>
             <p className="text-gray-600 text-sm">Phone: {profile.phone}</p>
-            <button
-              onClick={() => setIsEditing(true)}
-              className="absolute top-5 right-5 text-blue-600 hover:text-blue-800 text-sm"
-            >
-              ✏️ Edit
-            </button>
+            {profile?.role === "student" && (
+              <button
+                onClick={() => setIsEditing(true)}
+                className="absolute top-5 right-5 text-blue-600 hover:text-blue-800 text-sm"
+              >
+                ✏️ Edit
+              </button>
+            )}
           </motion.div>
-
 
           {/* Edit Modal */}
           {isEditing && (
@@ -528,7 +538,11 @@ const handleLogout = () => {
                           type="text"
                           value={subject.name}
                           onChange={(e) =>
-                            updateSubject(index, "name", e.target.value)
+                            updateSubject(
+                              index,
+                              "name.subjectName",
+                              e.target.value
+                            )
                           }
                           placeholder="Subject"
                           className="flex-1 border rounded px-2 py-1"
@@ -758,10 +772,9 @@ const handleLogout = () => {
               </a>
             </div>
           </motion.div>
-<button onClick={handleLogout} className="text-red-500 px-4 py-2">
-  Logout
-</button>
-
+          <button onClick={handleLogout} className="text-red-500 px-4 py-2">
+            Logout
+          </button>
         </div>
       </section>
       <div className="mt-6">
@@ -772,6 +785,7 @@ const handleLogout = () => {
         </blockquote>
         <ToastContainer position="bottom-center" autoClose={3000} />
       </div>
+      </ErrorBoundary>
     </>
   );
 };
