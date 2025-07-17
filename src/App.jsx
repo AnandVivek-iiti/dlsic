@@ -11,7 +11,7 @@ import Alumni from "./components/Main/Alumni";
 import StudentDashboard from "./components/Main/student/Students";
 import Academic from "./components/Main/Academic";
 import StudyResources from "./components/Main/student/StudyResources";
-import Doubts from "./components/Main/student/StudentSupport";
+import Support from "./components/Main/student/StudentSupport";
 import Footer1 from "./components/Footer/Footer1";
 import Profile from "./components/Main/student/StudentProfile";
 import AcedemicDetails from "./components/Main/AcademicDetails";
@@ -19,7 +19,13 @@ import Contacts from "./components/Main/Contact";
 import Set from "./components/Header/Set";
 import { motion, AnimatePresence } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
-
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import StudentSupportPage from './components/Main/student/StudentSupportPage';
+import CounsellingPage from "./components/Main/student/CounsellingPage";
+import FeedbackPage from "./components/Main/student/FeedbackPage";
+import GrievancePage from "./components/Main/student/GrievancePage";
+import MentorshipPage from "./components/Main/student/MentorshipPage";
+import HelplinePage from "./components/Main/student/HelplinePage";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [issignup, setissignup] = useState(false);
@@ -180,8 +186,30 @@ function App() {
               }
             />
             <Route
-              path="/student/doubts"
-              element={<Doubts darkMode={darkMode} setDarkMode={setDarkMode} />}
+              path="/student/support"
+              element={
+                <Support darkMode={darkMode} setDarkMode={setDarkMode} />
+              }
+            />
+            <Route
+              path="/student/support/counselling"
+              element={<CounsellingPage />}
+            />
+            <Route
+              path="/student/support/mentorship"
+              element={<MentorshipPage />}
+            />
+            <Route
+              path="/student/support/grievance"
+              element={<GrievancePage />}
+            />
+            <Route
+              path="/student/support/feedback"
+              element={<FeedbackPage />}
+            />
+            <Route
+              path="/student/support/helpline"
+              element={<HelplinePage />}
             />
             <Route
               path="/academic-details"

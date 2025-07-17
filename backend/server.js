@@ -284,6 +284,53 @@ app.use("/api", roleRoutes);
 app.use("/api/upload", uploadRoute);
 app.use("/api/notes", uploadNotesRoutes);
 app.use("/upload", express.static("upload")); // For serving local uploads if any
+router.post('/counselling', async (req, res) => {
+  try {
+    const { name, class: studentClass, reason } = req.body;
+    await CounsellingModel.create({ name, class: studentClass, reason, createdAt: new Date() });
+    res.status(200).json({ message: "Saved successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to save" });
+  }
+});
+// routes/feedback.js
+app.post("/feedback", async (req, res) => {
+  try {
+    const { name, class: studentClass, subject, description, feedbackType, isAnonymous } = req.body;
+
+    await FeedbackModel.create({
+      name: isAnonymous ? undefined : name,
+      class: isAnonymous ? undefined : studentClass,
+      subject,
+      description,
+      feedbackType,
+      isAnonymous,
+      createdAt: new Date(),
+    });
+
+    res.status(200).json({ message: "Feedback saved" });
+  } catch (error) {
+    console.error("Error saving feedback:", error);
+    res.status(500).json({ error: "Submission failed" });
+  }
+});
+// POST /api/grievances
+app.post("/grievances", async (req, res) => {
+  try {
+    const { grievanceType, description, isAnonymous, name, class: studentClass } = req.body;
+    await GrievanceModel.create({
+      grievanceType,
+      description,
+      isAnonymous,
+      name: isAnonymous ? undefined : name,
+      class: isAnonymous ? undefined : studentClass,
+      createdAt: new Date(),
+    });
+    res.status(200).json({ message: "Grievance submitted" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to submit grievance" });
+  }
+});
 
 // Home route
 app.get("/", (req, res) => {
