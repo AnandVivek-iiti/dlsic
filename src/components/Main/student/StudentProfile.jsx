@@ -86,6 +86,10 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
 
     fetchProfile();
   }, []);
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  navigate("/login");
+};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -746,8 +750,10 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
               </a>
             </div>
           </motion.div>
+<button onClick={handleLogout} className="text-red-500 px-4 py-2">
+  Logout
+</button>
 
-          <ToastContainer position="bottom-center" autoClose={3000} />
         </div>
       </section>
       <div className="mt-6">

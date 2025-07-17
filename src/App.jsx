@@ -28,13 +28,13 @@ function App() {
 
   const changestatus = () => setIsOpen(!isOpen);
   const closeset = () => setIsOpen(false);
-const token = localStorage.getItem("token");
 
-useEffect(() => {
-  if (token) {
-    fetchProfile(); // Fetch user data using token
-  }
-}, []);
+  const token = localStorage.getItem("token")
+  useEffect(() => {
+    if (token) {
+      fetchProfile(); // Fetch user data using token
+    }
+  }, []);
 
   useEffect(() => {
     if (darkMode) {
@@ -65,21 +65,21 @@ useEffect(() => {
               दरबारी लाल शर्मा इंटर कॉलेज, रिठौरा बरेली
             </p> */}
             <motion.h1
-                className="text-lg mx-auto sm:text-xl md:text-2xl font-semibold text-center w-full sm:w-auto mb-2 sm:mb-0 text-white glow"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
-              >
-                <Typewriter
-                  words={["दरबारी लाल शर्मा इंटर कॉलेज, रिठौरा बरेली"]}
-                  loop={0}
-                  cursor
-                  cursorStyle="-"
-                  typeSpeed={100}
-                  deleteSpeed={50}
-                  delaySpeed={3000}
-                />
-              </motion.h1>
+              className="text-lg mx-auto sm:text-xl md:text-2xl font-semibold text-center w-full sm:w-auto mb-2 sm:mb-0 text-white glow"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <Typewriter
+                words={["दरबारी लाल शर्मा इंटर कॉलेज, रिठौरा बरेली"]}
+                loop={0}
+                cursor
+                cursorStyle="-"
+                typeSpeed={100}
+                deleteSpeed={50}
+                delaySpeed={3000}
+              />
+            </motion.h1>
           </div>
         </div>
 
@@ -142,17 +142,17 @@ useEffect(() => {
             <Route
               path="/Student"
               element={
-                <StudentDashboard
-                  darkMode={darkMode}
-                  setDarkMode={setDarkMode}
-                />
+
+                  <StudentDashboard
+                    darkMode={darkMode}
+                    setDarkMode={setDarkMode}
+                  />
+
               }
             />
             <Route
               path="/Alumni"
-              element={
-                <Alumni darkMode={darkMode} setDarkMode={setDarkMode} />
-              }
+              element={<Alumni darkMode={darkMode} setDarkMode={setDarkMode} />}
             />
             <Route
               path="/Academic"
@@ -181,9 +181,7 @@ useEffect(() => {
             />
             <Route
               path="/student/doubts"
-              element={
-                <Doubts darkMode={darkMode} setDarkMode={setDarkMode} />
-              }
+              element={<Doubts darkMode={darkMode} setDarkMode={setDarkMode} />}
             />
             <Route
               path="/academic-details"
