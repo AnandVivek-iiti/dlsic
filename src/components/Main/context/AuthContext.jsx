@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
-// Create Auth Context
+// [1] Create Auth Context
 const AuthContext = createContext({
   user: null,
   loading: true,
@@ -10,22 +10,51 @@ const AuthContext = createContext({
   logout: () => {},
 });
 
+// [2] AuthProvider Component
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load from localStorage on mount
+ 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
-    if (token && storedUser) {
-      setUser(JSON.parse(storedUser));
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    }
-    setLoading(false);
+    const interceptor = axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response?.status === 401) {
+          logout(); // 🔁 Auto logout on 401
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    return () => axios.interceptors.response.eject(interceptor); // Clean up
   }, []);
 
-  // Login function
+  // [4] Load profile from token on mount
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = localStorage.getItem("token");
+      const storedUser = localStorage.getItem("user");
+
+      if (token) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        try {
+          const res = await axios.get("/api/auth/profile"); // ⏳ Secure profile fetch
+          setUser(res.data.user); // Or `res.data` based on your backend
+        } catch (err) {
+          console.error("Profile fetch failed:", err);
+        }
+      } else if (storedUser) {
+        setUser(JSON.parse(storedUser)); // fallback
+      }
+
+      setLoading(false); // Done loading
+    };
+
+    fetchProfile();
+  }, []);
+
+  // [5] Login
   const login = async (email, password) => {
     const res = await axios.post("/api/login", { email, password });
     localStorage.setItem("token", res.data.token);
@@ -34,7 +63,7 @@ export const AuthProvider = ({ children }) => {
     setUser(res.data.user);
   };
 
-  // Signup function
+  // [6] Signup
   const signup = async (formData) => {
     const res = await axios.post("/api/signup", formData);
     localStorage.setItem("token", res.data.token);
@@ -43,7 +72,7 @@ export const AuthProvider = ({ children }) => {
     setUser(res.data.user);
   };
 
-  // Logout function
+  // [7] Logout
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -58,5 +87,5 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Hook to use auth context
+// [8] Hook to use Auth
 export const useAuth = () => useContext(AuthContext);

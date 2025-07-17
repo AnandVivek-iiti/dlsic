@@ -3,7 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import saraswatiLogo from "../assets/Saraswati.png";
-import U from "../assets/Saraswati.png";
+import U from "../assets/user.png";
 import LanguageSwitcher from "../LanguageSwitcher";
 import { useLanguage } from "../Main/context/Languagecontext.jsx";
 import ThemeToggle from "../Main/ThemeSwitcher.jsx";
@@ -72,7 +72,7 @@ export default function NavBar({
               </motion.h1>
             </div>
 
-            
+
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-6 p-4">
@@ -210,8 +210,8 @@ export default function NavBar({
               {issignup && (
                 <div className="px-4 pt-4 border-t border-gray-200">
                   <div className="mb-2 text-gray-700">
-                    <div className="font-semibold">{personinfo?.name || "No name"}</div>
-                    <div className="text-sm">{personinfo?.email}</div>
+                    <div className="font-semibold">{user?.name || "No name"}</div>
+                    <div className="text-sm">{user?.email}</div>
                     <div className="text-sm">{user?.phone}</div>
                   </div>
                   <div className="flex flex-col space-y-2 mt-3">

@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+import { useAuth } from "./components/Main/context/AuthContext"; // adjust path if needed
+import axios from "axios";
 
 // Components
 import Header1 from "./components/Header/NavBar";
@@ -26,6 +29,7 @@ import FeedbackPage from "./components/Main/student/FeedbackPage";
 import GrievancePage from "./components/Main/student/GrievancePage";
 import MentorshipPage from "./components/Main/student/MentorshipPage";
 import HelplinePage from "./components/Main/student/HelplinePage";
+import LoadingSpinner from "./components/Loading";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [issignup, setissignup] = useState(false);
@@ -35,12 +39,24 @@ function App() {
   const changestatus = () => setIsOpen(!isOpen);
   const closeset = () => setIsOpen(false);
 
-  const token = localStorage.getItem("token")
-  useEffect(() => {
-    if (token) {
-      fetchProfile(); // Fetch user data using token
+
+const PrivateRoute = ({ children }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) return <div>Loading...</div>;
+  return user ? children : <Navigate to="/login" />;
+};
+  axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response && error.response.status === 401) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
+      }
+      return Promise.reject(error);
     }
-  }, []);
+  );
 
   useEffect(() => {
     if (darkMode) {
@@ -56,6 +72,10 @@ function App() {
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme === "dark") setDarkMode(true);
   }, []);
+
+  const { user, loading, logout } = useAuth();
+
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div className="w-full overflow-x-hidden">
@@ -80,7 +100,7 @@ function App() {
                 words={["दरबारी लाल शर्मा इंटर कॉलेज, रिठौरा बरेली"]}
                 loop={0}
                 cursor
-                cursorStyle="-"
+                cursorStyle="|"
                 typeSpeed={100}
                 deleteSpeed={50}
                 delaySpeed={3000}
@@ -94,8 +114,8 @@ function App() {
           changestatus={changestatus}
           setissignup={setissignup}
           closeset={closeset}
-          personinfo={personinfo}
-          setpersoninfo={setpersoninfo}
+          personinfo={user}
+          setpersoninfo={useAuth}
           issignup={issignup}
           isOpen={isOpen}
           darkMode={darkMode}
@@ -148,12 +168,12 @@ function App() {
             <Route
               path="/Student"
               element={
-
+                // <PrivateRoute>
                   <StudentDashboard
                     darkMode={darkMode}
                     setDarkMode={setDarkMode}
                   />
-
+                // {/* </PrivateRoute> */}
               }
             />
             <Route

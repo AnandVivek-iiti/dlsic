@@ -284,7 +284,7 @@ app.use("/api", roleRoutes);
 app.use("/api/upload", uploadRoute);
 app.use("/api/notes", uploadNotesRoutes);
 app.use("/upload", express.static("upload")); // For serving local uploads if any
-router.post('/counselling', async (req, res) => {
+app.post('/counselling', async (req, res) => {
   try {
     const { name, class: studentClass, reason } = req.body;
     await CounsellingModel.create({ name, class: studentClass, reason, createdAt: new Date() });

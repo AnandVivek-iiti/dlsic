@@ -6,10 +6,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import U from "../../assets/user.png";
 import ThemeToggle from "../ThemeSwitcher";
+import { useAuth } from "../context/AuthContext";
 
 const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 const StudentProfile = ({ darkMode, setDarkMode }) => {
-  <div className="flex justify-end"></div>;
+const { user, logout } = useAuth();
+
 
   const [profile, setProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -26,16 +28,16 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
     remarks: "Login to access advanced features and academic analytics.",
     subjects: [
       {
-        name: { subjectName: "Engineering Physics" },
-        marks: { marks: "78" },
+        name: { subjectName: "Physics" },
+        marks: { marks: "97" },
       },
       {
-        name: { subjectName: "Calculus" },
-        marks: { marks: "85" },
+        name: { subjectName: "maths" },
+        marks: { marks: "96" },
       },
       {
-        name: { subjectName: "Basic Electrical" },
-        marks: { marks: "67" },
+        name: { subjectName: "chemistry" },
+        marks: { marks: "97" },
       },
     ],
     extraCurriculars: [
@@ -84,8 +86,11 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
       }
     };
 
-    fetchProfile();
-  }, []);
+   if (user?.email) {
+      fetchProfile();
+    }
+  }, [user]);
+
 const handleLogout = () => {
   localStorage.removeItem("token");
   navigate("/login");
@@ -189,7 +194,7 @@ const handleLogout = () => {
     return (
       <section className="bg-gradient-to-br from-blue-50 via-slate-100 to-purple-50 py-10 rounded-xl shadow-inner">
         <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
-
+<ToastContainer />
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -282,7 +287,9 @@ const handleLogout = () => {
 
   if (!profile) {
     return (
+
       <section className="bg-gradient-to-br from-blue-50 via-slate-100 to-purple-50 py-10 rounded-xl shadow-inner">
+        <ToastContainer />
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -391,7 +398,7 @@ const handleLogout = () => {
     );
   }
 
-  const user = JSON.parse(localStorage.getItem("personinfo"));
+  // const user = JSON.parse(localStorage.getItem("personinfo"));
   const role = user?.role;
 
   const colors = [
@@ -407,6 +414,7 @@ const handleLogout = () => {
   return (
     <>
       <section className="bg-gradient-to-br from-blue-50 via-slate-100 to-purple-50 py-10 rounded-xl shadow-inner">
+        <ToastContainer />
         <div className="max-w-6xl mx-auto px-4">
           {/* Profile Card */}
           <motion.div
