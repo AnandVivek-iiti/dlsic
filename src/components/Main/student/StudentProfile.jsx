@@ -428,7 +428,7 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
               ✏️ Edit
             </button>
           </motion.div>
-          
+
 
           {/* Edit Modal */}
           {isEditing && (
@@ -756,7 +756,7 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
           "You don’t have to be great to start, but you have to start to be
           great."
         </blockquote>
-        <ToastContainer position="bottom-center" autoClose={3000} />;
+        <ToastContainer position="bottom-center" autoClose={3000} />
       </div>
     </>
   );

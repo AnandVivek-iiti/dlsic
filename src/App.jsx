@@ -28,6 +28,13 @@ function App() {
 
   const changestatus = () => setIsOpen(!isOpen);
   const closeset = () => setIsOpen(false);
+const token = localStorage.getItem("token");
+
+useEffect(() => {
+  if (token) {
+    fetchProfile(); // Fetch user data using token
+  }
+}, []);
 
   useEffect(() => {
     if (darkMode) {

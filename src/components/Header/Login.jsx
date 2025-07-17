@@ -44,6 +44,9 @@ export default function Login(props) {
         toast.dismiss();
 
         toast.success("Login successful!");
+        // On successful login (after API response)
+localStorage.setItem("token", res.data.token);
+
         navigate("/");
       } else {
         toast.error(data.message || "Login failed with err");
