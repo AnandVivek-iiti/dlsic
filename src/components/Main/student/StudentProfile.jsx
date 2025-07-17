@@ -6,13 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import U from "../../assets/user.png";
 import ThemeToggle from "../ThemeSwitcher";
-<ToastContainer position="bottom-center" autoClose={3000} />;
 
 const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 const StudentProfile = ({ darkMode, setDarkMode }) => {
-  <div className="flex justify-end">
-    <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
-  </div>;
+  <div className="flex justify-end"></div>;
 
   const [profile, setProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -28,12 +25,18 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
     attendance: "87%",
     remarks: "Login to access advanced features and academic analytics.",
     subjects: [
-      // { name: "Maths", marks: "96" },
-      // { name: "Physics", marks: "97" },
-      // { name: "Chemistry", marks: "97" },
-      //   { "Maths":"96"},
-      // {"Physics":"97" },
-      // {"Chemistry":"97" },
+      {
+        name: { subjectName: "Engineering Physics" },
+        marks: { marks: "78" },
+      },
+      {
+        name: { subjectName: "Calculus" },
+        marks: { marks: "85" },
+      },
+      {
+        name: { subjectName: "Basic Electrical" },
+        marks: { marks: "67" },
+      },
     ],
     extraCurriculars: [
       "Programming Club @ IIT Indore",
@@ -43,47 +46,46 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
   };
 
   console.log("Calling API:", `${backendURL}/api/auth/profile`);
- useEffect(() => {
-  const fetchProfile = async () => {
-    const token = localStorage.getItem("token");
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = localStorage.getItem("token");
 
-    // No token? Show dummy view permanently
-    if (!token) {
-      setIsGuestView(true);
-      return;
-    }
-
-    try {
-      const res = await fetch(`${backendURL}/api/auth/profile`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setProfile(data);
-        setEditedProfile(data);
-        setIsGuestView(false); // Explicitly using real profile
-      } else {
-        // Invalid token or error
-        toast.error(data.message || "Session expired.");
-        localStorage.removeItem("token");
-        localStorage.removeItem("personinfo");
-        setIsGuestView(true); // Switch to dummy view
+      // No token? Show dummy view permanently
+      if (!token) {
+        setIsGuestView(true);
+        return;
       }
-    } catch (err) {
-      console.error("Fetch error:", err);
-      toast.error("Server error.");
-      setIsGuestView(true); // On error also fallback to dummy
-    }
-  };
 
-  fetchProfile();
-}, []);
+      try {
+        const res = await fetch(`${backendURL}/api/auth/profile`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
+        const data = await res.json();
+
+        if (res.ok) {
+          setProfile(data);
+          setEditedProfile(data);
+          setIsGuestView(false); // Explicitly using real profile
+        } else {
+          // Invalid token or error
+          toast.error(data.message || "Session expired.");
+          localStorage.removeItem("token");
+          localStorage.removeItem("personinfo");
+          setIsGuestView(true); // Switch to dummy view
+        }
+      } catch (err) {
+        console.error("Fetch error:", err);
+        toast.error("Server error.");
+        setIsGuestView(true); // On error also fallback to dummy
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -179,10 +181,11 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
       toast.error("Upload failed");
     }
   };
- if (isGuestView) {
-
+  if (isGuestView) {
     return (
       <section className="bg-gradient-to-br from-blue-50 via-slate-100 to-purple-50 py-10 rounded-xl shadow-inner">
+        <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -239,7 +242,9 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
                   </h4>
                   <ul className="list-disc list-inside text-gray-700 space-y-1">
                     {dummyProfile.subjects.map((subj, i) => (
-                      <li key={i}>{subj}</li>
+                      <li key={i}>
+                        {subj.name.subjectName}: {subj.marks.marks}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -340,20 +345,20 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
               </div>
 
               {/* Subjects */}
-              {dummyProfile.subjects.length > 0 && (
-                <div className="mt-6">
-                  <h4 className="font-semibold text-indigo-800 mb-1">
-                    📚 Subjects
-                  </h4>
-                  <ul className="text-sm text-gray-700 space-y-1">
-                    {dummyProfile.subjects.map((subj, i) => (
-                      <li key={i}>
-                        {subj.name}: <strong>{subj.marks}</strong>
-                      </li>
-                    ))}
-                  </ul>
+              {dummyProfile.subjects.map((subject, index) => (
+                <div
+                  key={index}
+                  className={`bg-gradient-to-br border rounded-xl p-6 shadow-md hover:shadow-lg transition`}
+                >
+                  <h3 className="text-lg font-semibold mb-1">
+                    {subject.name?.subjectName}
+                  </h3>
+                  <p className="text-sm">
+                    Marks:{" "}
+                    <span className="font-bold">{subject.marks?.marks}</span>
+                  </p>
                 </div>
-              )}
+              ))}
 
               {/* Extra Curricular */}
               {dummyProfile.extraCurriculars.length > 0 && (
@@ -423,14 +428,7 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
               ✏️ Edit
             </button>
           </motion.div>
-          {!isGuest && (
-            <button
-              onClick={() => setIsEditing(true)}
-              className="absolute top-5 right-5 text-blue-600 hover:text-blue-800 text-sm"
-            >
-              ✏️ Edit
-            </button>
-          )}
+          
 
           {/* Edit Modal */}
           {isEditing && (
@@ -617,9 +615,14 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
                     colors[index % colors.length]
                   } border rounded-xl p-6 shadow-md hover:shadow-lg transition`}
                 >
-                  <h3 className="text-lg font-semibold mb-1">{subject.name}</h3>
+                  <h3 className="text-lg font-semibold mb-1">
+                    {subject.name?.subjectName || "Unknown Subject"}
+                  </h3>
                   <p className="text-sm">
-                    Marks: <span className="font-bold">{subject.marks}</span>
+                    Marks:{" "}
+                    <span className="font-bold">
+                      {subject.marks?.marks || "N/A"}
+                    </span>
                   </p>
                 </div>
               ))}
@@ -753,6 +756,7 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
           "You don’t have to be great to start, but you have to start to be
           great."
         </blockquote>
+        <ToastContainer position="bottom-center" autoClose={3000} />;
       </div>
     </>
   );
