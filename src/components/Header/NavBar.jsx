@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import saraswatiLogo from "../assets/Saraswati.png";
 import U from "../assets/Saraswati.png";
-import { ThemeToggle } from "../Main/ThemeSwitcher";
+import ThemeToggle  from "../Main/ThemeSwitcher";
 import { useTheme } from "../Main/context/ThemeContext";
 import LanguageSwitcher from '../LanguageSwitcher'
 import NotificationBell from "../NotificationBell";
