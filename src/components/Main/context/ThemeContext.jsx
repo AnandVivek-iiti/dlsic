@@ -33,15 +33,4 @@ export const ThemeProvider = ({ children }) => {
 
 export const useTheme = () => useContext(ThemeContext);
 
-// ✅ ThemeToggle component
-export const ThemeToggle = () => {
-  const { isDark, toggleTheme } = useTheme();
-  return (
-    <button
-      onClick={toggleTheme}
-      className="px-3 py-1 text-sm font-semibold rounded-md border bg-white text-gray-700 hover:bg-gray-100 transition"
-    >
-      {isDark ? "☀️ Light Mode" : "🌙 Dark Mode"}
-    </button>
-  );
-};
+

@@ -8,7 +8,7 @@ const NotificationBell = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/notifications");
+        const res = await fetch("/api/notifications");
         const data = await res.json();
         setNotifications(data);
       } catch (error) {
