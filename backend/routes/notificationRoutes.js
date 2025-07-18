@@ -1,6 +1,7 @@
-const express = require("express");
+import express from "express";
+import Notification from "../models/Notification.js";
+
 const router = express.Router();
-const Notification = require("../models/Notification");
 
 // GET /api/notifications - Get all notifications
 router.get("/", async (req, res) => {
@@ -12,7 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// OPTIONAL: POST route to add a notification
+// POST /api/notifications - Add a new notification
 router.post("/", async (req, res) => {
   const { title, message } = req.body;
   try {
@@ -24,4 +25,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
