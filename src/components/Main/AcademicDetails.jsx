@@ -9,6 +9,10 @@ import AS from '../assets/AS.png';
 const AcademicExcellence = () => {
   const [showMore, setShowMore] = useState(false);
 
+
+
+  
+
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-xl p-6 shadow-md">
       <h2 className="text-2xl font-bold text-gray-800 mb-2">🏆 Academic Excellence (शैक्षणिक उत्कृष्टता)</h2>
