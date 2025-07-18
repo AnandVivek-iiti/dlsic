@@ -19,7 +19,7 @@ import Feedback from "./routes/StudentRoutes/Feedback.js"
 import grievances from './routes/StudentRoutes/grievances.js'
 import { verifyToken } from "./routes/middlewares/authMiddleware.js";
 import { checkRole } from "./utils/checkRoles.js";
-import notificationRoutes from "./routes/notifications.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
