@@ -1,36 +1,51 @@
 import express from "express";
-import {Notification} from "../models/Notification.js";
+import Notification from "../models/Notification.js";
 
 const router = express.Router();
 
-// 🔔 GET /api/notifications - Get all notifications
+// Get all notifications
 router.get("/", async (req, res) => {
   try {
-    const notifs = await Notification.find({}, "_id title message timestamp")  // explicitly return only these fields
-      .sort({ timestamp: -1 }); // newest first
-
+    const notifs = await Notification.find().sort({ timestamp: -1 });
     res.status(200).json(notifs);
   } catch (error) {
-    console.error("Error fetching notifications:", error);
-    res.status(500).json({ message: "Error fetching notifications", error });
+    res.status(500).json({ message: "Error fetching notifications" });
   }
 });
 
-// 🔔 POST /api/notifications - Add a new notification
+// Add notification
 router.post("/", async (req, res) => {
   const { title, message } = req.body;
-
-  if (!title || !message) {
-    return res.status(400).json({ message: "Title and message are required" });
-  }
-
   try {
     const newNotif = new Notification({ title, message });
     await newNotif.save();
     res.status(201).json(newNotif);
   } catch (err) {
-    console.error("Failed to save notification:", err);
-    res.status(500).json({ message: "Failed to save notification", error: err });
+    res.status(400).json({ message: "Failed to save notification" });
+  }
+});
+
+// ✅ Mark as read
+router.patch("/:id/read", async (req, res) => {
+  try {
+    const notif = await Notification.findByIdAndUpdate(
+      req.params.id,
+      { read: true },
+      { new: true }
+    );
+    res.json(notif);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to mark as read" });
+  }
+});
+
+// 🗑 Delete notification
+router.delete("/:id", async (req, res) => {
+  try {
+    await Notification.findByIdAndDelete(req.params.id);
+    res.json({ message: "Notification deleted" });
+  } catch (err) {
+    res.status(500).json({ message: "Delete failed" });
   }
 });
 
