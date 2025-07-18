@@ -3,11 +3,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import saraswatiLogo from "../assets/Saraswati.png";
-import U from "../assets/user.png";
+import U from "../assets/Saraswati.png";
 import LanguageSwitcher from "../LanguageSwitcher";
-import { useLanguage } from "../Main/context/Languagecontext.jsx";
-import ThemeToggle from "../Main/ThemeSwitcher.jsx";
-
+import ThemeToggle from "../Main/ThemeToggle";
+import NotificationBell from "../NotificationBell";
 
 export default function NavBar({
   changestatus,
@@ -46,8 +45,7 @@ export default function NavBar({
       <header className="bg-gradient-to-br from-indigo-200 to-slate-200 text-black shadow-md">
         <div className="max-w-[99%] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-
-                {/* Logo + College Name */}
+            {/* Logo + College Name */}
             <div className="flex items-center space-x-4">
               <img
                 src={saraswatiLogo}
@@ -72,10 +70,8 @@ export default function NavBar({
               </motion.h1>
             </div>
 
-
-
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center space-x-6 p-4">
+            {/* Desktop Menu */}
+            <nav className="hidden md:flex items-center space-x-6">
               {navigation.map((item) => (
                 <Link
                   key={item.path}
@@ -90,12 +86,12 @@ export default function NavBar({
                 </Link>
               ))}
 
+              {/* Notification, Language, Theme */}
+              <NotificationBell />
               <LanguageSwitcher className="bg-gray-600 text-white hover:bg-gray-700" />
+              <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
 
-              <div className="flex items-center gap-2">
-                <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
-              </div>
-
+              {/* User Profile */}
               {issignup && (
                 <div className="relative">
                   <img
@@ -140,7 +136,7 @@ export default function NavBar({
               )}
             </nav>
 
-            {/* Mobile Menu Toggle */}
+            {/* Mobile Toggle Button */}
             <div className="md:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -162,10 +158,9 @@ export default function NavBar({
               transition={{ duration: 0.4, ease: "easeInOut" }}
               className="fixed top-0 left-0 w-full h-screen bg-white z-50 shadow-lg flex flex-col overflow-y-auto"
             >
-              {/* Mobile Header */}
               <div className="flex items-center justify-between px-4 py-4 border-b">
                 <div className="flex items-center gap-2">
-                  <img src={U} alt="Logo" className="w-12 h-12 border-2 border-indigo-300 rounded-full " />
+                  <img src={U} alt="Logo" className="w-12 h-12 border-2 border-indigo-300 rounded-full" />
                   <h1 className="text-lg font-bold text-blue-700">DLS Inter College</h1>
                 </div>
                 <button
@@ -194,15 +189,21 @@ export default function NavBar({
                 ))}
               </div>
 
-              {/* Language & Theme */}
-              <div className="px-4 pt-4 border-t border-gray-200">
-                <div className="flex justify-between items-center mb-2">
+              {/* Mobile Settings: Language, Theme, Notification */}
+              <div className="px-4 pt-4 border-t border-gray-200 space-y-4">
+                <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600">Language / भाषा</span>
                   <LanguageSwitcher className="bg-white text-blue-600 border border-gray-300 px-4 py-1 rounded-md shadow-sm hover:bg-gray-100 text-sm font-semibold" />
                 </div>
-                <div className="flex justify-between items-center mt-2">
+
+                <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600">Theme / थीम</span>
                   <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+                </div>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">Notifications</span>
+                  <NotificationBell />
                 </div>
               </div>
 
@@ -210,8 +211,8 @@ export default function NavBar({
               {issignup && (
                 <div className="px-4 pt-4 border-t border-gray-200">
                   <div className="mb-2 text-gray-700">
-                    <div className="font-semibold">{user?.name || "No name"}</div>
-                    <div className="text-sm">{user?.email}</div>
+                    <div className="font-semibold">{personinfo?.name || "No name"}</div>
+                    <div className="text-sm">{personinfo?.email}</div>
                     <div className="text-sm">{user?.phone}</div>
                   </div>
                   <div className="flex flex-col space-y-2 mt-3">
@@ -248,4 +249,3 @@ export default function NavBar({
     </div>
   );
 }
-
