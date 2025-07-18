@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import saraswatiLogo from "../assets/Saraswati.png";
 import U from "../assets/Saraswati.png";
-import LanguageSwitcher from "../LanguageSwitcher";
-import ThemeToggle from "../Main/context/ThemeContext";
+import { ThemeToggle } from "../Main/context/ThemeContext";
+
 import NotificationBell from "../NotificationBell";
 
 export default function NavBar({
@@ -15,8 +15,6 @@ export default function NavBar({
   personinfo,
   setpersoninfo,
   issignup,
-  darkMode,
-  setDarkMode,
 }) {
   const [user] = useState(() => {
     try {
@@ -89,7 +87,7 @@ export default function NavBar({
               {/* Notification, Language, Theme */}
               <NotificationBell />
               <LanguageSwitcher className="bg-gray-600 text-white hover:bg-gray-700" />
-              <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+              <ThemeToggle  />
 
               {/* User Profile */}
               {issignup && (
@@ -198,7 +196,7 @@ export default function NavBar({
 
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600">Theme / थीम</span>
-                  <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+                  <ThemeToggle />
                 </div>
 
                 <div className="flex justify-between items-center">

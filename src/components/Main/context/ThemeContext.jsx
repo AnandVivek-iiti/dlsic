@@ -1,4 +1,4 @@
-// context/ThemeContext.jsx
+// src/components/Main/context/ThemeContext.jsx
 import { createContext, useContext, useEffect, useState } from "react";
 
 const ThemeContext = createContext();
@@ -11,7 +11,7 @@ export const ThemeProvider = ({ children }) => {
     return false;
   });
 
-  const toggleTheme = () => setIsDark(prev => !prev);
+  const toggleTheme = () => setIsDark((prev) => !prev);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -32,3 +32,16 @@ export const ThemeProvider = ({ children }) => {
 };
 
 export const useTheme = () => useContext(ThemeContext);
+
+// ✅ ThemeToggle component
+export const ThemeToggle = () => {
+  const { isDark, toggleTheme } = useTheme();
+  return (
+    <button
+      onClick={toggleTheme}
+      className="px-3 py-1 text-sm font-semibold rounded-md border bg-white text-gray-700 hover:bg-gray-100 transition"
+    >
+      {isDark ? "☀️ Light Mode" : "🌙 Dark Mode"}
+    </button>
+  );
+};
