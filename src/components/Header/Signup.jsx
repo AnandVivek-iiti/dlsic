@@ -14,6 +14,7 @@ const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 import { useLanguage } from "../Main/context/Languagecontext";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-toastify";
+import LoadingSpinner from "../Loading";
 export default function Register(props) {
   // const [selectedRole, setSelectedRole] = useState(null);
   const { language, t } = useLanguage();
@@ -103,6 +104,8 @@ export default function Register(props) {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
+      <LoadingSpinner />;
+
       toast.error("Passwords do not match!");
       return;
     }
@@ -122,20 +125,26 @@ export default function Register(props) {
         withCredentials: true,
       });
 
-      const data =res.data; //res.json()
+      const data = res.data; //res.json()
       if (data.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("personinfo", JSON.stringify(data.user));
         props.setpersoninfo(data.user);
         props.setissignup(true);
         toast.dismiss();
+        <LoadingSpinner />;
+
         toast.success("Signup successful!");
         navigate("/");
       }
     } catch (err) {
       if (err.response?.status === 409) {
+        <LoadingSpinner />;
+
         toast.error("User already exists");
       } else {
+        <LoadingSpinner />;
+
         console.error("Signup error:", err.response?.data || err.message);
         toast.error(err.response?.data?.message || "Signup failed");
       }

@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { MessageSquarePlus, ShieldCheck, Loader2, Send, CheckCircle2 } from "lucide-react";
+import { useLanguage } from "../context/Languagecontext";
 
 const formSchema = z.object({
   feedbackType: z.string({ required_error: "Please select a feedback type." }),
@@ -21,7 +22,11 @@ const formSchema = z.object({
 const FeedbackPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmittedSuccessfully, setIsSubmittedSuccessfully] = useState(false);
+ const { language, toggleLanguage, t } = useLanguage();
 
+  useEffect(() => {
+    localStorage.setItem("lang", language);
+  }, [language]);
   const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -65,16 +70,16 @@ const FeedbackPage = () => {
         <div className="inline-block bg-orange-100 p-4 rounded-full border border-orange-300">
           <MessageSquarePlus className="h-10 w-10 text-orange-600" />
         </div>
-        <h1 className="text-3xl font-bold text-blue-700 mt-4">Feedback & Suggestions</h1>
-        <p className="text-gray-600 mt-2">Share your thoughts or issues to help us improve.</p>
+        <h1 className="text-3xl font-bold text-blue-700 mt-4">{t(  "student.support.feedback.title")}</h1>
+        <p className="text-gray-600 mt-2">{t("student.support.feedback.description")}</p>
       </div>
 
       <div className="rounded-lg border bg-blue-50 p-4 text-sm text-blue-700">
         <div className="flex items-start gap-4">
           <ShieldCheck className="h-6 w-6 mt-1" />
           <div>
-            <h4 className="font-bold">Your Feedback Matters</h4>
-            <p>We appreciate honest and constructive feedback. Submissions are confidential.</p>
+            {/* <h4 className="font-bold">{t("student.support.feedback.policy.title")}</h4> */}
+            <p>{t("student.support.feedback.policy.text")}</p>
           </div>
         </div>
       </div>
@@ -92,18 +97,18 @@ const FeedbackPage = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-3xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1">Feedback Type</label>
+              <label className="block text-sm font-medium mb-1">{t("student.support.feedback.form.type")}</label>
               <select {...register("feedbackType")} className="w-full border rounded p-2">
-                <option value="">Select a type</option>
-                <option value="suggestion">Suggestion</option>
-                <option value="complaint">Complaint</option>
-                <option value="compliment">Compliment</option>
-                <option value="other">Other</option>
+                <option value="">{t("student.support.feedback.form.typePlaceholder")}</option>
+                <option value="suggestion">{t("student.support.feedback.types.suggestion")}</option>
+                <option value="complaint">{t("student.support.feedback.types.complaint")}</option>
+                <option value="compliment">{t("student.support.feedback.types.compliment")}</option>
+                <option value="other">{t("student.support.feedback.types.other")}</option>
               </select>
               {errors.feedbackType && <p className="text-red-500 text-sm mt-1">{errors.feedbackType.message}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Subject</label>
+              <label className="block text-sm font-medium mb-1">{t("student.support.feedback.types.suggestion")}</label>
               <input {...register("subject")} className="w-full border rounded p-2" placeholder="Subject" />
               {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>}
             </div>

@@ -12,7 +12,7 @@ router.get("/", verifyToken, async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // ✅ Allow only 'student' role to access profile editing
+    //  Allow only 'student' role to access profile editing
     if (user.role !== "student") {
       return res.status(403).json({ message: "Access denied. Only students can edit their profile." });
     }

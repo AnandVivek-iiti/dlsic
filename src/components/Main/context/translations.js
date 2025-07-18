@@ -449,7 +449,7 @@ const translations = {
     "student.support.grievance.policy.text":
       "We are committed to providing a safe, fair, and harmonious environment. All grievances are handled with utmost confidentiality and urgency by the Grievance Redressal Cell.",
     "student.support.grievance.form.type": "Type of Grievance",
-    "student.support.grievance.form.typePlaceholder": "Select a category",
+    "student.support.grievance.form.typePlaceholder": "Select a type",
     "student.support.grievance.types.academic":
       "Academic (e.g., teaching, evaluation)",
     "student.support.grievance.types.administrative":
@@ -493,7 +493,7 @@ const translations = {
     "student.support.feedback.policy.text":
       "We encourage constructive feedback from all students. Every suggestion is reviewed by the appropriate committee to foster a better learning environment.",
     "student.support.feedback.form.type": "Type of Feedback",
-    "student.support.feedback.form.typePlaceholder": "Select a category",
+    "student.support.feedback.form.typePlaceholder": "Select a type",
     "student.support.feedback.types.suggestion": "Suggestion",
     "student.support.feedback.types.complaint": "Complaint",
     "student.support.feedback.types.compliment": "Compliment",

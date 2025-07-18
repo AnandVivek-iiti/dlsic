@@ -8,10 +8,11 @@ import U from "../../assets/user.png";
 import ThemeToggle from "../ThemeSwitcher";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
-const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const backendURL = import.meta.env.VITE_BACKEND_URL||"http://localhost:5000";
 const StudentProfile = ({ darkMode, setDarkMode }) => {
+  const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const token = useMemo(() => localStorage.getItem("token"), []);
+  // const token = useMemo(() => localStorage.getItem("token"), []);
 
   const [profile, setProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -49,7 +50,7 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
     ],
   };
 
-  console.log("Calling API:", `${backendURL}/api/auth/profile`);
+  console.log("Calling API:", `${backendURL}/api/profile`);
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
@@ -61,7 +62,7 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
       }
 
       try {
-        const res = await fetch(`${backendURL}/api/auth/profile`, {
+        const res = await fetch(`${backendURL}/api/profile`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -78,7 +79,7 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
           setProfile(data);
           setEditedProfile(data);
           setIsGuestView(false);
-          setLoading(false); // ✅ Add this
+          setLoading(false);
         } else {
           toast.error(data.message || "Session expired.");
           localStorage.removeItem("token");
@@ -197,12 +198,12 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
       toast.error("Upload failed");
     }
   };
-  if (loading)
-    return (
-      <div className="animate-pulse text-center p-8 text-gray-400">
-        Loading profile...
-      </div>
-    );
+  // if (loading)
+  //   return (
+  //     <div className="animate-pulse text-center p-8 text-gray-400">
+  //       Loading profile...
+  //     </div>
+  //   );
 
   if (isGuestView) {
     return (

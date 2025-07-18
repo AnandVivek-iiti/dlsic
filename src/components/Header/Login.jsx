@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../Main/context/AuthContext.jsx";
+import LoadingSpinner from "../Loading.jsx";
 const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
 export default function Login(props) {
@@ -13,8 +14,7 @@ export default function Login(props) {
   const [loginInfo, setLoginInfo] = useState({
     // email: "",
     password: "",
-    identifier:"",
-
+    identifier: "",
   });
 
   const handleChange = (e) => {
@@ -28,7 +28,8 @@ export default function Login(props) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${backendURL}/api/auth/login`, loginInfo, {  //(`${backendURL}/api/login`, loginInfo
+      const res = await axios.post(`${backendURL}/api/auth/login`, loginInfo, {
+        //(`${backendURL}/api/login`, loginInfo
         withCredentials: true,
       });
 
@@ -42,20 +43,23 @@ export default function Login(props) {
         props.setissignup(true);
         setLoginInfo({ identifier: "", password: "" });
         toast.dismiss();
-
+        <LoadingSpinner />;
         toast.success("Login successful!");
-// After successful login
-localStorage.setItem("user", JSON.stringify(response.data.user));
-localStorage.setItem("token", response.data.token);
-
+        // After successful login
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        localStorage.setItem("token", res.data.token);
 
         navigate("/");
       } else {
+        <LoadingSpinner />;
+
         toast.error(data.message || "Login failed with err");
       }
     } catch (err) {
-      console.error("Login error:", err.response?.data || err.message);
-      toast.error(err.response?.data?.message || "Login failed");
+      <LoadingSpinner />;
+
+      console.error("Login error:", err.res?.data || err.message);
+      toast.error(err.res?.data?.message || "Login failed");
     }
   };
 

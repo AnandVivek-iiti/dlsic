@@ -28,35 +28,29 @@ import CounsellingPage from "./components/Main/student/CounsellingPage";
 import FeedbackPage from "./components/Main/student/FeedbackPage";
 import GrievancePage from "./components/Main/student/GrievancePage";
 import MentorshipPage from "./components/Main/student/MentorshipPage";
-// import HelplinePage from "./components/Main/student/HelplinePage";
+import HelplinePage from "./components/Main/student/helplinePage";
 import LoadingSpinner from "./components/Loading";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [issignup, setissignup] = useState(false);
   const [personinfo, setpersoninfo] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
-
   const changestatus = () => setIsOpen(!isOpen);
   const closeset = () => setIsOpen(false);
 
 
-const PrivateRoute = ({ children }) => {
-  const { user, loading } = useAuth();
 
-  if (loading) return <div>Loading...</div>;
-  return user ? children : <Navigate to="/login" />;
-};
-  axios.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      if (error.response && error.response.status === 401) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        window.location.href = "/login";
-      }
-      return Promise.reject(error);
-    }
-  );
+  // axios.interceptors.response.use(
+  //   (response) => response,
+  //   (error) => {
+  //     if (error.response && error.response.status === 401) {
+  //       localStorage.removeItem("token");
+  //       localStorage.removeItem("user");
+  //       window.location.href = "/login";
+  //     }
+  //     return Promise.reject(error);
+  //   }
+  // );
 
   useEffect(() => {
     if (darkMode) {
@@ -227,10 +221,10 @@ const PrivateRoute = ({ children }) => {
               path="/student/support/feedback"
               element={<FeedbackPage />}
             />
-            {/* <Route
+            <Route
               path="/student/support/helpline"
               element={<HelplinePage />}
-            /> */}
+            />
             <Route
               path="/academic-details"
               element={
