@@ -5,7 +5,7 @@ import { Typewriter } from "react-simple-typewriter";
 import saraswatiLogo from "../assets/Saraswati.png";
 import U from "../assets/Saraswati.png";
 import { ThemeToggle } from "../Main/context/ThemeContext";
-
+import LanguageSwitcher from '../LanguageSwitcher'
 import NotificationBell from "../NotificationBell";
 
 export default function NavBar({
