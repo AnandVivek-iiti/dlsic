@@ -23,84 +23,57 @@ useEffect(() => {
     const last = localStorage.getItem('student_last_section');
     if (last) setCurrentView(last);
   }, []);
-
-  const studentCards = [
-    {
-      icon: '🗓',
-      title: 'Class Timetable',
-      items: [
-        'Daily schedule for all streams',
-        'Updated exam calendar',
-        'Lab & activity slots',
-      ],
-      btn: 'View Timetable',
-      action: 'TimeTable',
+const studentCards = [
+  {
+    icon: '🗓',
+    title: t("student.timetable.title"),
+    items: t("student.timetable.points", { returnObjects: true }),
+    btn: t("student.timetable.btn"),
+    action: 'TimeTable',
     cardColor: 'from-yellow-100 to-yellow-50 border-yellow-300 text-yellow-700',
-    },
-    {
-      icon: '📚',
-      title: 'Study Material',
-      items: [
-        'PDF notes & assignments',
-        'Recorded video lectures',
-        'Previous year question papers',
-      ],
-      btn: 'Access Materials',
-      action: 'material',
-       cardColor: 'from-pink-200 to-orange-100 border-red-400 text-red-600',
-    },
-    {
-      icon: '📈',
-      title: 'Progress Report',
-      items: [
-        'Marks & attendance',
-        'Term-wise performance',
-        'Parent-teacher comments',
-      ],
-      btn: 'Check Progress',
-      action: 'profile',
-      cardColor:'from-gray-200 to-blue-50 border-blue-300 text-blue-700',
-    },
-    {
-      icon: '🧠',
-      title: 'Student Support',
-      items: [
-        'Mentor & counselor help',
-        'Feedback & concerns',
-        'Wellbeing sessions',
-      ],
-      btn: 'Get Support',
-      action: 'doubts',
+  },
+  {
+    icon: '📚',
+    title: t("student.material.title"),
+    items: t("student.material.points", { returnObjects: true }),
+    btn: t("student.material.btn"),
+    action: 'material',
+    cardColor: 'from-pink-200 to-orange-100 border-red-400 text-red-600',
+  },
+  {
+    icon: '📈',
+    title: t("student.profile.title"),
+    items: t("student.profile.points", { returnObjects: true }),
+    btn: t("student.profile.btn"),
+    action: 'profile',
+    cardColor: 'from-gray-200 to-blue-50 border-blue-300 text-blue-700',
+  },
+  {
+    icon: '🧠',
+    title: t("student.support.title"),
+    items: t("student.support.points", { returnObjects: true }),
+    btn: t("student.support.btn"),
+    action: 'doubts',
     cardColor: 'from-green-100 to-green-50 border-green-300 text-green-700',
-
-    },
-    {
-      icon: '💡',
-      title: 'Career Guidance',
-      items: [
-        'Workshops & webinars',
-        'Competitive exam prep',
-        'Counselor sessions',
-      ],
-      btn: 'Explore Careers',
-      action: 'CareerGuidance',
+  },
+  {
+    icon: '💡',
+    title: t("student.career.title"),
+    items: t("student.career.points", { returnObjects: true }),
+    btn: t("student.career.btn"),
+    action: 'CareerGuidance',
     cardColor: 'from-blue-100 to-blue-50 border-blue-300 text-blue-700',
+  },
+  {
+    icon: '📌',
+    title: t("student.notice.title"),
+    items: t("student.notice.points", { returnObjects: true }),
+    btn: t("student.notice.btn"),
+    action: 'NoticeLinks',
+    cardColor: 'from-pink-100 to-pink-50 border-pink-300 text-pink-700',
+  },
+];
 
-    },
-    {
-      icon: '📌',
-      title: 'Notices & Links',
-      items: [
-        'Latest announcements',
-        'Download forms & circulars',
-        'School calendar & policies',
-      ],
-      btn: 'View Notices',
-      action: 'NoticeLinks',
-    cardColor:   'from-pink-100 to-pink-50 border-pink-300 text-pink-700',
-    btnColor :  'from-pink-300 to-pink-200 border-pink-500 ',
-    },
-  ];
 
   const handleCardClick = (action) => {
     if (action) {
@@ -199,11 +172,12 @@ useEffect(() => {
               <h3 className="text-xl font-semibold text-indigo-800 mb-3">{item.title}</h3>
             </div>
 
-            <ul className="list-disc pl-5 text-gray-700 mb-6 space-y-1  text-left">
-              {item.items.map((point, i) => (
-                <li key={i}>{point}</li>
-              ))}
-            </ul>
+            <ul className="list-disc pl-5 text-gray-700 mb-6 space-y-1 text-left">
+  {(Array.isArray(item.items) ? item.items : [item.items]).map((point, i) => (
+    <li key={i}>{point}</li>
+  ))}
+</ul>
+
 
             <div className="w-full flex justify-center mt-auto">
               <button
