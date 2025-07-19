@@ -10,7 +10,7 @@ import {
 import { Fragment } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const backendURL = import.meta.env.VITE_BACKEND_URL ;
 import { useLanguage } from "../Main/context/Languagecontext";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-toastify";

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../Main/context/AuthContext.jsx";
 import LoadingSpinner from "../Loading.jsx";
-const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const backendURL = import.meta.env.VITE_BACKEND_URL ;
 
 export default function Login(props) {
   const { login } = useAuth();

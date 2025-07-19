@@ -6,6 +6,7 @@ import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { MessageSquarePlus, ShieldCheck, Loader2, Send, CheckCircle2 } from "lucide-react";
 import { useLanguage } from "../context/Languagecontext";
+const backendURL = import.meta.env.VITE_BACKEND_URL ;
 
 const formSchema = z.object({
   feedbackType: z.string({ required_error: "Please select a feedback type." }),
@@ -44,7 +45,7 @@ const FeedbackPage = () => {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch("http://localhost:5000/api/feedback", {
+      const response = await fetch(`${backendURL}/api/feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

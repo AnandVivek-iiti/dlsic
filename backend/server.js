@@ -31,7 +31,6 @@ app.use(
       process.env.FRONTEND_URL,
       "https://dlsic.vercel.app",
       "https://dlsic.onrender.com",
-      "http://localhost:5173",
     ],
     credentials: true,
   })
@@ -69,5 +68,5 @@ app.get("/api/ping", (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🌐 Server running on http://localhost:${PORT}`);
+  console.log(`🌐 Server running on ${PORT}`);
 });

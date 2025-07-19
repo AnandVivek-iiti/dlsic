@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, DownloadCloud, UploadCloud } from "lucide-react";
 import axios from "axios";
-const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const backendURL = import.meta.env.VITE_BACKEND_URL;
 const subjectColors = {
   English: "bg-purple-100",
   Hindi: "bg-orange-100",

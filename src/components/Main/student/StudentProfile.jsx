@@ -8,7 +8,7 @@ import U from "../../assets/user.png";
 import ThemeToggle from "../ThemeSwitcher";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
-const backendURL = import.meta.env.VITE_BACKEND_URL||"http://localhost:5000";
+const backendURL = import.meta.env.VITE_BACKEND_URL;
 const StudentProfile = ({ darkMode, setDarkMode }) => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();

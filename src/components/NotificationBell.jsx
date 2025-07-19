@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Bell, Check, Trash2 } from "lucide-react";
 import { format } from "timeago.js";
 import toast from "react-hot-toast"; // npm install react-hot-toast
-const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const backendURL = import.meta.env.VITE_BACKEND_URL ;
 
 const NotificationBell = () => {
   const [notifications, setNotifications] = useState([]);
