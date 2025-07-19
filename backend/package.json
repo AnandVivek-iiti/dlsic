@@ -11,6 +11,8 @@
     "start": "nodemon server.js"
   },
   "dependencies": {
+    "@capacitor/cli": "^7.4.2",
+    "@capacitor/core": "^7.4.2",
     "axios": "^1.10.0",
     "bcrypt": "^6.0.0",
     "browser-image-compression": "^2.0.2",
