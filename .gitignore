@@ -30,3 +30,4 @@ dist-ssr
 */backend/.env
 */backend/.env.prod
 */backend/.env.dev
+* .env
