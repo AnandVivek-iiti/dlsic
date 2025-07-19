@@ -1,17 +1,19 @@
 const translations = {
   en: {
-    "header.home": "Home",
-    "header.academic": "Academic",
-    "header.student": "Student",
-    "header.alumni": "Alumni",
-    "header.contact": "Contact Us",
-    "header.login": "Sign Up",
-    "header.logout": "Log out",
-    "header.profile": "Profile",
-    "header.toggleLang": "हिन्दी",
-    "header.mobileLogin": "Sign Up",
-    "header.mobileProfile": "View Profile",
-    "header.mobileLogout": "Logout",
+
+  "header.home": "Home",
+  "header.academic": "Academic",
+  "header.student": "Student Zone",
+  "header.alumni": "Alumni",
+  "header.contact": "Contact Us",
+  "header.login": "Sign Up",
+  "header.logout": "Log out",
+  "header.profile": "Profile",
+  "header.toggleLang": "हिन्दी",   // Or "English" in Hindi file
+  "header.mobileLogin": "Sign Up",
+  "header.mobileProfile": "View Profile",
+  "header.mobileLogout": "Logout",
+
 
     // Footer
     "footer.collegeName": "DLS Inter College",
@@ -894,18 +896,18 @@ const translations = {
   },
   HI: {
     // Header
-    "header.home": "होम",
-    "header.academic": "अकादमिक",
-    "header.student": "छात्र ",
-    "header.alumni": "पूर्व छात्र",
-    "header.contact": "हमसे संपर्क करें",
-    "header.login": "साइन अप करें",
-    "header.logout": "लॉग आउट",
-    "header.profile": "प्रोफ़ाइल",
-    "header.toggleLang": "English",
-    "header.mobileLogin": "साइन अप करें",
-    "header.mobileProfile": "प्रोफ़ाइल देखें",
-    "header.mobileLogout": "लॉग आउट",
+   "header.home": "होम",
+  "header.academic": "शैक्षणिक",
+  "header.student": "छात्र",
+  "header.alumni": "पूर्व छात्र",
+  "header.contact": "संपर्क करें",
+  "header.login": "साइन अप ",
+  "header.logout": "लॉग आउट",
+  "header.profile": "प्रोफ़ाइल",
+  "header.toggleLang": "English",
+  "header.mobileLogin": "साइन अप",
+  "header.mobileProfile": "प्रोफ़ाइल ",
+  "header.mobileLogout": "लॉग आउट",
 
     // Footer
     "footer.collegeName": "डीएलएस इंटर कॉलेज",
