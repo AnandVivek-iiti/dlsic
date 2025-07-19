@@ -4,7 +4,7 @@ import { User } from "../models/UserSchema.js";
 
 const router = express.Router();
 
-router.get("/", verifyToken, async (req, res) => {
+router.get("/profile", verifyToken, async (req, res) => {
   const userId = req.user.userId;
   try {
     const user = await User.findById(userId).select("-password");

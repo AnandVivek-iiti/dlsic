@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Bell, Check, Trash2 } from "lucide-react";
 import { format } from "timeago.js";
 import toast from "react-hot-toast"; // npm install react-hot-toast
+const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
 const NotificationBell = () => {
   const [notifications, setNotifications] = useState([]);
@@ -13,7 +14,8 @@ const NotificationBell = () => {
 
   const fetchNotifications = async () => {
     try {
-      const res = await fetch("/api/notifications");
+      const res = await fetch(`${backendURL}/api/notifications`); //axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/notifications`);
+
       const data = await res.json();
       setNotifications(data);
       toast.success("🔔 Notifications fetched");
