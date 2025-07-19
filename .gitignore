@@ -27,6 +27,6 @@ dist-ssr
 .netlify
 
 # Ignore env files
-*.env
-*.env.prod
-*.env.dev
+*/backend/.env
+*/backend/.env.prod
+*/backend/.env.dev
