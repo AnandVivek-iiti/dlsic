@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate, Navigate } from "react-router-dom";
-import { useAuth } from "./components/Main/context/AuthContext"; // adjust path if needed
+import { useAuth } from "./components/Main/context/AuthContext"; 
 import axios from "axios";
 import { Toaster } from "react-hot-toast";
 // Components
@@ -31,15 +31,13 @@ import MentorshipPage from "./components/Main/student/MentorshipPage";
 import HelplinePage from "./components/Main/student/helplinePage";
 import LoadingSpinner from "./components/Loading";
 function App() {
-   <Toaster position="top-right" />
+  <Toaster position="top-right" />;
   const [isOpen, setIsOpen] = useState(false);
   const [issignup, setissignup] = useState(false);
   const [personinfo, setpersoninfo] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
   const changestatus = () => setIsOpen(!isOpen);
   const closeset = () => setIsOpen(false);
-
-
 
   // axios.interceptors.response.use(
   //   (response) => response,
@@ -164,10 +162,10 @@ function App() {
               path="/Student"
               element={
                 // <PrivateRoute>
-                  <StudentDashboard
-                    darkMode={darkMode}
-                    setDarkMode={setDarkMode}
-                  />
+                <StudentDashboard
+                  darkMode={darkMode}
+                  setDarkMode={setDarkMode}
+                />
                 // {/* </PrivateRoute> */}
               }
             />

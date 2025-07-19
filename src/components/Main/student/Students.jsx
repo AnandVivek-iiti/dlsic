@@ -10,12 +10,13 @@ import 'vanilla-tilt';
 import CareerGuidance from './CareerGuidance';
 import NoticeLinks from './NoticeLinks';
 import { useLanguage } from '../context/Languagecontext';
-export default function Student({ darkMode, setDarkMode },props) {
+export default function Student(props) {
   const [currentView, setCurrentView] = useState(null);
 const { language, toggleLanguage, t } = useLanguage();
 useEffect(() => {
   localStorage.setItem('lang', language);
 }, [language]);
+
 
 
   useEffect(() => {
@@ -110,9 +111,8 @@ useEffect(() => {
   if (currentView === 'material') {
     return (
       <section className="py-2 px-1">
-        <div className={`${
-            darkMode ? "bg-gray-300 text-black" : "bg-gray-400 text-black"
-          } max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6`}>
+        <div className={
+            "bg-gray-300 text-black max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6"}>
           {/* <button  className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
           <StudentResources />
         </div>

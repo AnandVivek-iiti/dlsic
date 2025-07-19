@@ -374,11 +374,11 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
                   className={`bg-gradient-to-br border rounded-xl p-6 shadow-md hover:shadow-lg transition`}
                 >
                   <h3 className="text-lg font-semibold mb-1">
-                    {subject.name?.subjectName}
+                    {subject.name?.subjectName||"subject"}
                   </h3>
                   <p className="text-sm">
                     Marks:{" "}
-                    <span className="font-bold">{subject.marks?.marks}</span>
+                    <span className="font-bold">{subject.marks?.marks||"marks"}</span>
                   </p>
                 </div>
               ))}
@@ -437,7 +437,7 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
               className="bg-white rounded-2xl shadow-2xl p-8 md:p-10 text-center mb-10 relative"
             >
               <img
-                src={profile?.profileImage || image}
+                src={profile?.profileImage || U}
                 alt="Student"
                 className="w-28 h-28 mx-auto rounded-full border-4 border-indigo-300 shadow-lg mb-4 object-cover"
               />

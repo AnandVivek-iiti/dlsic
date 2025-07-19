@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import saraswatiLogo from "../assets/Saraswati.png";
@@ -8,6 +8,7 @@ import ThemeToggle  from "../Main/ThemeSwitcher";
 import { useTheme } from "../Main/context/ThemeContext";
 import LanguageSwitcher from '../LanguageSwitcher'
 import NotificationBell from "../NotificationBell";
+import { useLanguage } from '../Main/context/Languagecontext';
 
 export default function NavBar({
   changestatus,
@@ -24,6 +25,11 @@ export default function NavBar({
       return null;
     }
   });
+  const { language, toggleLanguage, t } = useLanguage();
+  useEffect(() => {
+    localStorage.setItem('lang', language);
+  }, [language]);
+
 
   const navigate = useNavigate();
   const [isuserinfoopen, setisuserinfoopen] = useState(false);
@@ -31,12 +37,12 @@ export default function NavBar({
   const location = useLocation();
 
   const navigation = [
-    { name: "Home", path: "/" },
-    { name: "Academic", path: "/Academic" },
-    { name: "Student", path: "/Student" },
-    { name: "Alumni", path: "/Alumni" },
-    { name: "Contact Us", path: "/Contact" },
-    ...(!issignup ? [{ name: "Signup", path: "/signup" }] : []),
+    { name: t("header.home"), path: "/" },
+    { name: t("header.academic"), path: "/Academic" },
+    { name: t("header.student"), path: "/Student" },
+    { name: t("header.alumni"), path: "/Alumni" },
+    { name: t("header.contact"), path: "/Contact" },
+    ...(!issignup ? [{ name: t("header.login"), path: "/signup" }] : []),
   ];
 
   return (
@@ -210,7 +216,7 @@ export default function NavBar({
               {issignup && (
                 <div className="px-4 pt-4 border-t border-gray-200">
                   <div className="mb-2 text-gray-700">
-                    <div className="font-semibold">{personinfo?.name || "No name"}</div>
+                    <div className="font-semibold">{personinfo?.name }</div>
                     <div className="text-sm">{personinfo?.email}</div>
                     <div className="text-sm">{user?.phone}</div>
                   </div>
@@ -222,7 +228,7 @@ export default function NavBar({
                       }}
                       className="w-full bg-blue-600 text-white py-2 rounded-md font-semibold"
                     >
-                      📄 View Profile
+                      📄 {t("header.mobileProfile")}
                     </button>
                     <button
                       onClick={() => {
@@ -236,7 +242,7 @@ export default function NavBar({
                       }}
                       className="w-full bg-red-100 text-red-600 py-2 rounded-md font-semibold hover:bg-red-200 transition"
                     >
-                      🔓 Logout
+                      🔓 {t("header.mobilelogout")}
                     </button>
                   </div>
                 </div>

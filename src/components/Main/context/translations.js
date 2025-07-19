@@ -896,7 +896,7 @@ const translations = {
     // Header
     "header.home": "होम",
     "header.academic": "अकादमिक",
-    "header.student": "छात्र क्षेत्र",
+    "header.student": "छात्र ",
     "header.alumni": "पूर्व छात्र",
     "header.contact": "हमसे संपर्क करें",
     "header.login": "साइन अप करें",
