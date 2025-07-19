@@ -1,19 +1,17 @@
 const translations = {
   en: {
-
-  "header.home": "Home",
-  "header.academic": "Academic",
-  "header.student": "Student Zone",
-  "header.alumni": "Alumni",
-  "header.contact": "Contact Us",
-  "header.login": "Sign Up",
-  "header.logout": "Log out",
-  "header.profile": "Profile",
-  "header.toggleLang": "हिन्दी",   // Or "English" in Hindi file
-  "header.mobileLogin": "Sign Up",
-  "header.mobileProfile": "View Profile",
-  "header.mobileLogout": "Logout",
-
+    "header.home": "Home",
+    "header.academic": "Academic",
+    "header.student": "Student Zone",
+    "header.alumni": "Alumni",
+    "header.contact": "Contact Us",
+    "header.login": "Sign Up",
+    "header.logout": "Log out",
+    "header.profile": "Profile",
+    "header.toggleLang": "हिन्दी",
+    "header.mobileLogin": "Sign Up",
+    "header.mobileProfile": "View Profile",
+    "header.mobileLogout": "Logout",
 
     // Footer
     "footer.collegeName": "DLS Inter College",
@@ -301,57 +299,10 @@ const translations = {
     "profile.editDialog.nameLabel": "Name",
     "profile.editDialog.save": "Save changes",
 
- // student Main page
-
-
-  "student.pageTitle": "Student Dashboard",
-  "student.description": "Everything a DLS student needs in one place — from timetables and learning materials to support and progress tracking.",
-  "student.timetable.title": "Class Timetable",
-  "student.timetable.btn": "View Timetable",
-  "student.timetable.points": [
-    "Daily schedule for all streams",
-    "Updated exam calendar",
-    "Lab & activity slots"
-  ],
-  "student.material.title": "Study Material",
-  "student.material.btn": "Access Materials",
-  "student.material.points": [
-    "PDF notes & assignments",
-    "Recorded video lectures",
-    "Previous year question papers"
-  ],
-  "student.profile.title": "Progress Report",
-  "student.profile.btn": "Check Progress",
-  "student.profile.points": [
-    "Marks & attendance",
-    "Term-wise performance",
-    "Parent-teacher comments"
-  ],
-  "student.support.title": "Student Support",
-  "student.support.btn": "Get Support",
-  "student.support.points": [
-    "Mentor & counselor help",
-    "Feedback & concerns",
-    "Wellbeing sessions"
-  ],
-  "student.career.title": "Career Guidance",
-  "student.career.btn": "Explore Careers",
-  "student.career.points": [
-    "Workshops & webinars",
-    "Competitive exam prep",
-    "Counselor sessions"
-  ],
-  "student.notice.title": "Notices & Links",
-  "student.notice.btn": "View Notices",
-  "student.notice.points": [
-    "Latest announcements",
-    "Download forms & circulars",
-    "School calendar & policies",
-  ],
-
-
     // Student Zone
+    "student.pageTitle": "Student ",
 
+    "student.des" :" Everything a DLS student needs in one place — from timetables and learning materials to support and progress tracking.",
     "student.pageSubtitle":
       "Your central hub for all academic resources and support.",
     "student.exploreMore": "Explore More",
@@ -945,18 +896,18 @@ const translations = {
   },
   HI: {
     // Header
-   "header.home": "होम",
-  "header.academic": "शैक्षणिक",
-  "header.student": "छात्र",
-  "header.alumni": "पूर्व छात्र",
-  "header.contact": "संपर्क करें",
-  "header.login": "साइन अप ",
-  "header.logout": "लॉग आउट",
-  "header.profile": "प्रोफ़ाइल",
-  "header.toggleLang": "English",
-  "header.mobileLogin": "साइन अप",
-  "header.mobileProfile": "प्रोफ़ाइल ",
-  "header.mobileLogout": "लॉग आउट",
+    "header.home": "होम",
+    "header.academic": "अकादमिक",
+    "header.student": "छात्र क्षेत्र",
+    "header.alumni": "पूर्व छात्र",
+    "header.contact": " संपर्क",
+    "header.login": "साइन अप ",
+    "header.logout": "लॉग आउट",
+    "header.profile": "प्रोफ़ाइल",
+    "header.toggleLang": "English",
+    "header.mobileLogin": "साइन अप",
+    "header.mobileProfile": "प्रोफ़ाइल देखें",
+    "header.mobileLogout": "लॉग आउट",
 
     // Footer
     "footer.collegeName": "डीएलएस इंटर कॉलेज",
@@ -1241,66 +1192,13 @@ const translations = {
     "profile.editDialog.nameLabel": "नाम",
     "profile.editDialog.save": "परिवर्तन सहेजें",
 
-// student main page
-
-  "student.pageTitle": "विद्यार्थी डैशबोर्ड",
-  "student.description": "समय सारिणी, अध्ययन सामग्री, सहायता एवं प्रगति मूल्यांकन — सभी आवश्यक सुविधाएँ एक ही स्थान पर उपलब्ध।",
-
-  "student.timetable.title": "कक्षा समय सारिणी",
-  "student.timetable.btn": "समय सारिणी देखें",
-  "student.timetable.points": [
-    "सभी वर्गों की दैनिक समय सारिणी",
-    "संशोधित परीक्षा कार्यक्रम",
-    "प्रयोगशाला एवं सह-शैक्षिक गतिविधियों के समय"
-  ],
-
-  "student.material.title": "अध्ययन सामग्री",
-  "student.material.btn": "सामग्री प्राप्त करें",
-  "student.material.points": [
-    "पीडीएफ नोट्स एवं असाइनमेंट",
-    "रिकॉर्डेड वीडियो व्याख्यान",
-    "पूर्ववर्ती वर्षों के प्रश्नपत्र"
-  ],
-
-  "student.profile.title": "प्रगति विवरण",
-  "student.profile.btn": "प्रगति देखें",
-  "student.profile.points": [
-    "प्राप्तांक एवं उपस्थिति",
-    "सत्रानुसार प्रदर्शन",
-    "अभिभावक-शिक्षक टिप्पणियाँ"
-  ],
-
-  "student.support.title": "विद्यार्थी सहायता",
-  "student.support.btn": "सहायता प्राप्त करें",
-  "student.support.points": [
-    "मार्गदर्शक एवं परामर्शदाता सहयोग",
-    "प्रतिक्रिया एवं समस्याओं का समाधान",
-    "मानसिक स्वास्थ्य हेतु सत्र"
-  ],
-
-  "student.career.title": "कैरियर मार्गदर्शन",
-  "student.career.btn": "मार्गदर्शन प्राप्त करें",
-  "student.career.points": [
-    "कार्यशालाएँ एवं वेबिनार",
-    "प्रतियोगी परीक्षाओं की तैयारी",
-    "परामर्श सत्र"
-  ],
-
-  "student.notice.title": "सूचनाएँ एवं महत्त्वपूर्ण कड़ियाँ",
-  "student.notice.btn": "सूचनाएँ देखें",
-  "student.notice.points": [
-    "नवीनतम घोषणाएँ",
-    "प्रपत्र एवं परिपत्र डाउनलोड करें",
-    "विद्यालय पंचांग एवं नीतियाँ"
-  ]
-,
-
     // Student Zone
-
+    "student.pageTitle": "छात्र ज़ोन",
+    "student.des" :"समय सारणी, अध्ययन सामग्री, सहायता तथा प्रगति मूल्यांकन सहित, डी.एल.एस. छात्र की सभी आवश्यकताएँ एक ही स्थान पर।",
     "student.pageSubtitle":
       "आपके सभी शैक्षणिक संसाधनों और सहायता के लिए केंद्रीय केंद्र।",
     "student.exploreMore": "और अन्वेषण करें",
-
+    "student.timetable.title": "कक्षा समय सारणी",
     "student.timetable.description":
       "अपनी साप्ताहिक कक्षा समय-सारणी तक पहुंचें और किसी भी बदलाव की जानकारी पाएं।",
     "student.timetable.pageTitle": "कक्षा समय सारणी",
@@ -1356,7 +1254,7 @@ const translations = {
     "student.progressReport.saveSuccess.description":
       "छात्र की प्रगति रिपोर्ट सहेजी गई है।",
 
- 
+    "student.support.title": "छात्र सहायता",
     "student.support.description":
       "शैक्षणिक या व्यक्तिगत समस्याओं के लिए हमारी समर्पित टीम से सहायता प्राप्त करें।",
     "student.support.pageTitle": "छात्र सहायता केंद्र",
