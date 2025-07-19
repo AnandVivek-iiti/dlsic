@@ -2,7 +2,7 @@ const translations = {
   en: {
     "header.home": "Home",
     "header.academic": "Academic",
-    "header.student": "Student Zone",
+    "header.student": "Student",
     "header.alumni": "Alumni",
     "header.contact": "Contact Us",
     "header.login": "Sign Up",
