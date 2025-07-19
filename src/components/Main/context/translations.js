@@ -898,13 +898,13 @@ const translations = {
     "header.academic": "अकादमिक",
     "header.student": "छात्र ",
     "header.alumni": "पूर्व छात्र",
-    "header.contact": "हमसे संपर्क करें",
-    "header.login": "साइन अप करें",
+    "header.contact": "संपर्क",
+    "header.login": "साइन अप",
     "header.logout": "लॉग आउट",
     "header.profile": "प्रोफ़ाइल",
     "header.toggleLang": "English",
-    "header.mobileLogin": "साइन अप करें",
-    "header.mobileProfile": "प्रोफ़ाइल देखें",
+    "header.mobileLogin": "साइन अप",
+    "header.mobileProfile": "प्रोफ़ाइल",
     "header.mobileLogout": "लॉग आउट",
 
     // Footer

@@ -10,6 +10,7 @@ import LanguageSwitcher from '../LanguageSwitcher'
 import NotificationBell from "../NotificationBell";
 import { useLanguage } from '../Main/context/Languagecontext';
 
+
 export default function NavBar({
   changestatus,
   setissignup,
@@ -108,7 +109,7 @@ export default function NavBar({
                   {isuserinfoopen && (
                     <div className="absolute top-16 right-0 z-50 w-80 bg-white rounded-md border shadow-lg p-4">
                       <div className="text-center mb-3">
-                        <p className="font-semibold">{personinfo?.name || "No name"}</p>
+                        <p className="font-semibold">{user?.username }</p>
                         <p className="text-sm">{personinfo?.email}</p>
                         <p className="text-sm">{user?.phone}</p>
                       </div>
@@ -207,7 +208,7 @@ export default function NavBar({
                 </div>
 
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Notifications</span>
+                  <span className="text-sm text-gray-600">Notifications </span>
                   <NotificationBell />
                 </div>
               </div>
