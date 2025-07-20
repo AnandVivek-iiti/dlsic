@@ -6,7 +6,19 @@ import { LanguageProvider } from "./components/Main/context/Languagecontext.jsx"
 import { ThemeProvider } from "./components/Main/context/ThemeContext.jsx";
 import "./index.css";
 import App from "./App.jsx";
+import { registerSW } from 'virtual:pwa-register';
+const updateSW = registerSW({
+  onNeedRefresh() {
+    if (confirm('New version available. Refresh now?')) {
+      updateSW(true);
+    }
+  },
+  onOfflineReady() {
+    console.log('App ready to work offline');
+  }
+});
 createRoot(document.getElementById("root")).render(
+
     <StrictMode>
     <HashRouter>
       <LanguageProvider>
