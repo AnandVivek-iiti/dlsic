@@ -1,46 +1,48 @@
+// src/components/install.jsx
 import React, { useEffect, useState } from "react";
 
 const InstallPWA = () => {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [isInstallable, setIsInstallable] = useState(false);
+  const [showInstall, setShowInstall] = useState(false);
 
   useEffect(() => {
-    const handleBeforeInstallPrompt = (e) => {
-      e.preventDefault(); // default prompt ko rok lo
-      setDeferredPrompt(e); // event ko save kar lo
-      setIsInstallable(true); // show install button
+    const handler = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstall(true);
     };
 
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("beforeinstallprompt", handler);
 
-    return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-    };
+    return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
   const handleInstallClick = () => {
     if (deferredPrompt) {
-      deferredPrompt.prompt(); // install prompt dikhao
+      deferredPrompt.prompt();
       deferredPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === "accepted") {
-          console.log("PWA installation accepted ✅");
+          console.log("User accepted the install prompt ✅");
         } else {
-          console.log("PWA installation dismissed ❌");
+          console.log("User dismissed the install prompt ❌");
         }
         setDeferredPrompt(null);
+        setShowInstall(false);
       });
     }
   };
 
   return (
     <>
-      {isInstallable && (
-        <button
-          onClick={handleInstallClick}
-          className="p-2 px-4 bg-blue-600 text-white rounded-xl shadow-md mt-4"
-        >
-          Install App
-        </button>
+      {showInstall && (
+        <div className="fixed bottom-4 right-4 z-50">
+          <button
+            className="bg-blue-600 text-white p-3 rounded-xl shadow-lg"
+            onClick={handleInstallClick}
+          >
+            Install App
+          </button>
+        </div>
       )}
     </>
   );

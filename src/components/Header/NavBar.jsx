@@ -243,7 +243,7 @@ export default function NavBar({
                       }}
                       className="w-full bg-red-100 text-red-600 py-2 rounded-md font-semibold hover:bg-red-200 transition"
                     >
-                      🔓 {t("header.mobilelogout")}
+                      🔓Logout
                     </button>
                   </div>
                 </div>

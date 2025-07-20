@@ -75,6 +75,7 @@ function App() {
     <div className="w-full overflow-x-hidden">
       <div className="min-h-screen flex flex-col bg-white text-black dark:bg-[#01011b] dark:text-white transition-colors duration-300">
         {/* Header Title */}
+        <InstallPWA/>
         <div
           className={`${
             darkMode ? "bg-white-300 text-black" : "bg-[#020f2d] text-white"
@@ -128,7 +129,7 @@ function App() {
             isOpen={isOpen}
           />
         )}
-        <InstallPWA/>
+
 
         {/* Main Routing */}
         <div
