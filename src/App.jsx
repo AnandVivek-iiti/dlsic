@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate, Navigate } from "react-router-dom";
-import { useAuth } from "./components/Main/context/AuthContext"; 
+import { useAuth } from "./components/Main/context/AuthContext";
 import axios from "axios";
 import { Toaster } from "react-hot-toast";
 // Components
@@ -30,6 +30,7 @@ import GrievancePage from "./components/Main/student/GrievancePage";
 import MentorshipPage from "./components/Main/student/MentorshipPage";
 import HelplinePage from "./components/Main/student/helplinePage";
 import LoadingSpinner from "./components/Loading";
+import InstallPWA from "./components/install";
 function App() {
   <Toaster position="top-right" />;
   const [isOpen, setIsOpen] = useState(false);
@@ -127,6 +128,7 @@ function App() {
             isOpen={isOpen}
           />
         )}
+        <InstallPWA/>
 
         {/* Main Routing */}
         <div
