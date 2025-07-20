@@ -1,21 +1,16 @@
 // import router from "../profile";
 import express from "express";
+import { Grievance } from "../models/Griev.js";
 const router = express.Router();
-// POST /api/grievances
-router.post("/grievances", async (req, res) => {
+
+router.post("/", async (req, res) => {
   try {
-    const { grievanceType, description, isAnonymous, name, class: studentClass } = req.body;
-    await GrievanceModel.create({
-      grievanceType,
-      description,
-      isAnonymous,
-      name: isAnonymous ? undefined : name,
-      class: isAnonymous ? undefined : studentClass,
-      createdAt: new Date(),
-    });
-    res.status(200).json({ message: "Grievance submitted" });
-  } catch (err) {
-    res.status(500).json({ error: "Failed to submit grievance" });
+    const grievance = new Grievance(req.body);
+    await grievance.save();
+    res.status(201).json({ message: "Grievance submitted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Submission failed", error: error.message });
   }
 });
+
 export default router ;

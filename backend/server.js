@@ -53,7 +53,7 @@ app.use("/api/notes", uploadNotesRoutes);
 app.use("/upload", express.static("upload"));
 app.use("/api/counselling",counselling);
 app.use("/api/Feedback",Feedback);
-app.use("/api/student/support/grievances",grievances);
+app.use("/api/grievances",grievances);
 app.use("/api/notifications", notificationRoutes);
 
 // Home route
