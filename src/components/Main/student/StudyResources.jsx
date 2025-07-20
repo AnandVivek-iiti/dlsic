@@ -425,7 +425,7 @@ export default function StudyResources() {
     formData.append("class", selectedClass);
     formData.append("subject", selectedSubject);
 
-    const res = await fetch("/api/Notes/upload", {
+    const res = await fetch("/api/notes/upload", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

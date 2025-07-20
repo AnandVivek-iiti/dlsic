@@ -1,12 +1,12 @@
 import express from "express";
 import { verifyToken } from "./middlewares/authMiddleware.js";
 import { User } from "../models/UserSchema.js";
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 
 const router = express.Router();
 
-router.get("/profile", verifyToken, async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   const userId = req.user.userId;
   try {
     const user = await User.findById(userId).select("-password");
@@ -29,7 +29,7 @@ router.get("/profile", verifyToken, async (req, res) => {
   }
 });
 // UPDATE STUDENT PROFILE
-router.put("/profile", verifyToken, async (req, res) => {
+router.put("/", verifyToken, async (req, res) => {
   try {
     const {
       name,

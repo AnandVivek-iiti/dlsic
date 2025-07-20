@@ -31,6 +31,10 @@ import MentorshipPage from "./components/Main/student/MentorshipPage";
 import HelplinePage from "./components/Main/student/helplinePage";
 import LoadingSpinner from "./components/Loading";
 import InstallPWA from "./components/install";
+import Createevent from "./components/admin/Createevent";
+import Announce from "./components/admin/Announce";
+import Notification from "./components/admin/Notification.jsx";
+
 function App() {
   <Toaster position="top-right" />;
   const [isOpen, setIsOpen] = useState(false);
@@ -105,7 +109,7 @@ function App() {
         </div>
 
         {/* Navbar */}
-        <InstallPWA/>
+        <InstallPWA />
         <Header1
           changestatus={changestatus}
           setissignup={setissignup}
@@ -131,7 +135,6 @@ function App() {
           />
         )}
 
-
         {/* Main Routing */}
         <div
           className={`flex-1 px-4 py-6 ${
@@ -151,6 +154,7 @@ function App() {
                 />
               }
             />
+
             <Route
               path="/login"
               element={
@@ -173,6 +177,11 @@ function App() {
                 // {/* </PrivateRoute> */}
               }
             />
+            <Route path="/createevent" element={<Createevent />} />
+
+            <Route path="/announce" element={<Announce />} />
+            <Route path="/notification" element={<Notification />} />
+
             <Route
               path="/Alumni"
               element={<Alumni darkMode={darkMode} setDarkMode={setDarkMode} />}
