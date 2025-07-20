@@ -1,4 +1,6 @@
 import express from "express";
+import CounsellingModel from "../../models/couenselling.js";
+
 const router = express.Router();
 router.post('/counselling', async (req, res) => {
   try {
