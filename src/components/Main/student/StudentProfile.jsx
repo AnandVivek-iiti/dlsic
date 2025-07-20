@@ -72,7 +72,7 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
 
         const data = await res.json();
 
-        console.log("Fetched profile:", data); // 👈 optional for debugging
+        console.log("Fetched profile:", data); 
 
         if (res.ok) {
           setProfile(data);
@@ -197,7 +197,7 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
       toast.error("Upload failed");
     }
   };
-  if (loading) return <LoadingSpinner />;
+  // if (loading) return <LoadingSpinner />;
   // if (loading)
   //   return (
   //     <div className="animate-pulse text-center p-8 text-gray-400">
