@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
+const subjectSchema = new mongoose.Schema({
+  name: String,
+  marks: String,
+});
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -42,7 +46,9 @@ const userSchema = new mongoose.Schema({
     enum: ['student', 'teacher', 'alumni'],
     default: 'student',
   },
-
+ bio: String,
+  subjects: [subjectSchema],
+  extraCurriculars: [String],
   profileImage: String,
   // imageBase64: String,
 

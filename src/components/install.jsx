@@ -1,5 +1,5 @@
 // src/components/install.jsx
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 
 const InstallPWA = () => {
   const [deferredPrompt, setDeferredPrompt] = useState(null);

@@ -99,57 +99,45 @@ export default function Register(props) {
 
     setPreview(base64String);
   };
+const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      <LoadingSpinner />;
+  if (formData.password !== formData.confirmPassword) {
+    toast.error("Passwords do not match!");
+    return;
+  }
 
-      toast.error("Passwords do not match!");
-      return;
+  setLoading(true);
+  try {
+    const { confirmPassword, ...payload } = formData;
+    const res = await axios.post(`${backendURL}/api/auth/signup`, payload, {
+      withCredentials: true,
+    });
+
+    const data = res.data;
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("personinfo", JSON.stringify(data.user));
+      props.setpersoninfo(data.user);
+      props.setissignup(true);
+      toast.success("Signup successful!");
+      navigate("/");
     }
-
-    try {
-      const { confirmPassword, ...payload } = formData;
-
-      // const res = await axios.post(`/api/auth/signup`, {  ///api/signup`
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(payload),
-      //   credentials: "include",
-      // });
-      const res = await axios.post(`${backendURL}/api/auth/signup`, payload, {
-        withCredentials: true,
-      });
-
-      const data = res.data; //res.json()
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("personinfo", JSON.stringify(data.user));
-        props.setpersoninfo(data.user);
-        props.setissignup(true);
-        toast.dismiss();
-        <LoadingSpinner />;
-
-        toast.success("Signup successful!");
-        navigate("/");
-      }
-    } catch (err) {
-      if (err.response?.status === 409) {
-        <LoadingSpinner />;
-
-        toast.error("User already exists");
-      } else {
-        <LoadingSpinner />;
-
-        console.error("Signup error:", err.response?.data || err.message);
-        toast.error(err.response?.data?.message || "Signup failed");
-      }
+  } catch (err) {
+    if (err.response?.status === 409) {
+      toast.error("User already exists");
+    } else {
+      console.error("Signup error:", err.response?.data || err.message);
+      toast.error(err.response?.data?.message || "Signup failed");
     }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
+{loading && <LoadingSpinner />}
+
   const roles = [
     { name: "student", icon: AcademicCapIcon },
     { name: "teacher", icon: UserGroupIcon },

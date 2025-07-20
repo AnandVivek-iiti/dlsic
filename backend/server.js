@@ -22,7 +22,7 @@ import { checkRole } from "./utils/checkRoles.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT ;
 
 // CORS setup
 app.use(

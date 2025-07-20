@@ -10,7 +10,7 @@ import LanguageSwitcher from '../LanguageSwitcher'
 import NotificationBell from "../NotificationBell";
 import { useLanguage } from '../Main/context/Languagecontext';
 
-
+import InstallPWA from "../install";
 export default function NavBar({
   changestatus,
   setissignup,
@@ -141,7 +141,7 @@ export default function NavBar({
                 </div>
               )}
             </nav>
-
+<InstallPWA/>
             {/* Mobile Toggle Button */}
             <div className="md:hidden">
               <button

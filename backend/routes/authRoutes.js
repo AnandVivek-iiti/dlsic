@@ -118,36 +118,36 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// AUTH MIDDLEWARE
-const authMiddleware = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader)
-    return res.status(401).json({ message: "No token provided" });
+// // AUTH MIDDLEWARE
+// const authMiddleware = (req, res, next) => {
+//   const authHeader = req.headers.authorization;
+//   if (!authHeader)
+//     return res.status(401).json({ message: "No token provided" });
 
-  const token = authHeader.split(" ")[1];
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    if (err) return res.status(401).json({ message: "Invalid token" });
-    req.userId = decoded.id;
-    next();
-  });
-};
+//   const token = authHeader.split(" ")[1];
+//   jwt.verify(token, JWT_SECRET, (err, decoded) => {
+//     if (err) return res.status(401).json({ message: "Invalid token" });
+//     req.userId = decoded.id;
+//     next();
+//   });
+// };
 
-// PROFILE GET
-router.get("/profile", authMiddleware, async (req, res) => {
-  const user = await User.findById(req.userId).select("-password");
-  if (!user) return res.status(404).json({ message: "User not found" });
-  res.json(user);
-});
+// // PROFILE GET
+// router.get("/profile", authMiddleware, async (req, res) => {
+//   const user = await User.findById(req.userId).select("-password");
+//   if (!user) return res.status(404).json({ message: "User not found" });
+//   res.json(user);
+// });
 
-// PROFILE UPDATE
-router.put("/profile", authMiddleware, async (req, res) => {
-  const { username, phone, email, profileImage } = req.body;
-  const updated = await User.findByIdAndUpdate(
-    req.userId,
-    { username, phone, email, profileImage },
-    { new: true }
-  ).select("-password");
+// // PROFILE UPDATE
+// router.put("/profile", authMiddleware, async (req, res) => {
+//   const { username, phone, email, profileImage } = req.body;
+//   const updated = await User.findByIdAndUpdate(
+//     req.userId,
+//     { username, phone, email, profileImage },
+//     { new: true }
+//   ).select("-password");
 
-  res.json({ message: "Profile updated", user: updated });
-});
+//   res.json({ message: "Profile updated", user: updated });
+// });
 export default router;
