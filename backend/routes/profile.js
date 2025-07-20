@@ -12,15 +12,10 @@ router.get("/profile", verifyToken, async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
-    //  Allow only 'student' role to access profile editing
-    if (user.role !== "student") {
-      return res
-        .status(403)
-        .json({
-          message: "Access denied. Only students can edit their profile.",
-        });
+   if (user.role !== "student") {
+      return res.status(403).json({ message: "Access denied. Only students can access profile." });
     }
+
 
     res.json({
       username: user.username,
@@ -61,6 +56,14 @@ router.put("/profile", verifyToken, async (req, res) => {
       { new: true }
     ).select("-password");
 
+    //  Allow only 'student' role to access profile editing
+    if (updatedUser.role !== "student") {
+      return res
+        .status(403)
+        .json({
+          message: "Access denied. Only students can edit their profile.",
+        });
+    }
     if (!updatedUser)
       return res.status(404).json({ message: "User not found" });
 
