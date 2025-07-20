@@ -72,7 +72,7 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
 
         const data = await res.json();
 
-        console.log("Fetched profile:", data); 
+        console.log("Fetched profile:", data);
 
         if (res.ok) {
           setProfile(data);
@@ -198,13 +198,7 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
     }
   };
   // if (loading) return <LoadingSpinner />;
-  // if (loading)
-  //   return (
-  //     <div className="animate-pulse text-center p-8 text-gray-400">
-  //       Loading profile...
-  //     </div>
-  //   );
-
+ 
   if (isGuestView) {
     return (
       <section className="bg-gradient-to-br from-blue-50 via-slate-100 to-purple-50 py-10 rounded-xl shadow-inner">
