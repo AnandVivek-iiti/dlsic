@@ -126,8 +126,9 @@ const handleSubmit = async (e) => {
       navigate("/");
     }
   } catch (err) {
-    if (err.response?.status === 409) {
-      toast.error("User already exists");
+  if (err.response?.status === 409) {
+  toast.error(err.response?.data?.message || "User already exists");
+
     } else {
       console.error("Signup error:", err.response?.data || err.message);
       toast.error(err.response?.data?.message || "Signup failed");
@@ -136,7 +137,8 @@ const handleSubmit = async (e) => {
     setLoading(false);
   }
 };
-{loading && <LoadingSpinner />}
+if (loading) return <LoadingSpinner />;
+
 
   const roles = [
     { name: "student", icon: AcademicCapIcon },
@@ -436,7 +438,10 @@ const handleSubmit = async (e) => {
 
           <button
             type="submit"
+            disabled={loading}
             className="w-full bg-indigo-500 text-white font-semibold py-2 rounded-md hover:bg-indigo-600 transition"
+
+             {...loading ? "Registering..." : "Register"}
           >
             Register
           </button>

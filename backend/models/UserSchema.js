@@ -34,13 +34,13 @@ const userSchema = new mongoose.Schema({
       message: props => `${props.value} is not a valid 10-digit phone number!`
     }
   },
-  password: {
-    type: String,
-    required: true,
-    // minlength: [6, 'Password must be at least 6 characters long'],
-    // maxlength: [12, 'Password must be at most 12 characters long']
-  },
-
+password: {
+  type: String,
+  required: true,
+  minlength: [6, 'Password must be at least 6 characters long'],
+  maxlength: [30, 'Password must be at most 30 characters long']
+}
+,
   role: {
     type: String,
     enum: ['student', 'teacher', 'alumni'],
@@ -48,12 +48,21 @@ const userSchema = new mongoose.Schema({
   },
  bio: String,
   subjects: [subjectSchema],
-  extraCurriculars: [String],
-  profileImage: String,
+  extraCurriculars: {
+  type: [String],
+  default: []
+}
+,
+ profileImage: {
+  type: String,
+  default: "/src/components/assets/user.png"
+}
+,
   // imageBase64: String,
 
   // Student fields
-  class: String,
+  classLabel: String,
+
   stream: String,
 
   // Teacher fields
@@ -64,16 +73,19 @@ const userSchema = new mongoose.Schema({
   // Alumni fields
   passingYear: String,
   currentCompany: String,
-  skills: String
+  skills: {
+  type: [String],
+  default: []
+}
 
-}, );
-// { timestamps: true }
+
+}, { timestamps: true });
 // ✅ Custom Role-based Validation
 userSchema.pre("validate", function (next) {
   const errors = [];
 
   if (this.role === "student") {
-    if (!this.class) errors.push("Class is required for students");
+    if (!this.classLabel) errors.push("Class is required for students");
     if (!this.stream) errors.push("Stream is required for students");
   }
 
