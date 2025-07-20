@@ -61,7 +61,7 @@ password: {
   // imageBase64: String,
 
   // Student fields
-  classLabel: String,
+  class: String,
 
   stream: String,
 
@@ -85,7 +85,7 @@ userSchema.pre("validate", function (next) {
   const errors = [];
 
   if (this.role === "student") {
-    if (!this.classLabel) errors.push("Class is required for students");
+    if (!this.class) errors.push("Class is required for students");
     if (!this.stream) errors.push("Stream is required for students");
   }
 
