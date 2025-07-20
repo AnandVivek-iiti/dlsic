@@ -52,7 +52,7 @@ app.use("/api/upload", uploadRoute);
 app.use("/api/notes", uploadNotesRoutes);
 app.use("/upload", express.static("upload"));
 app.use("/api/counselling",counselling);
-app.use("/api/Feedback",Feedback);
+app.use("/api/feedback",Feedback);
 app.use("/api/grievances",grievances);
 app.use("/api/notifications", notificationRoutes);
 

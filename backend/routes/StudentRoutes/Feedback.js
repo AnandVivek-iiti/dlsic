@@ -1,6 +1,9 @@
 // routes/feedback.js
 import express from "express";
+import FeedbackModel from "../../models/feedback.js";
+
 const router = express.Router();
+
 router.post("/feedback", async (req, res) => {
   try {
     const { name, class: studentClass, subject, description, feedbackType, isAnonymous } = req.body;
@@ -21,4 +24,5 @@ router.post("/feedback", async (req, res) => {
     res.status(500).json({ error: "Submission failed" });
   }
 });
-export default router ;
+
+export default router;

@@ -1,6 +1,6 @@
 // import router from "../profile";
 import express from "express";
-import { Grievance } from "../models/Griev.js";
+import { Grievance } from "../../models/Griev.js";
 const router = express.Router();
 
 router.post("/", async (req, res) => {
