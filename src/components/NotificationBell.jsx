@@ -38,7 +38,7 @@ const NotificationBell = () => {
 
   const deleteNotif = async (id) => {
     try {
-      await fetch(`/api/notifications/${id}`, { method: "DELETE" });
+      await fetch(`${backendURL}/api/notifications/${id}`, { method: "DELETE" });
       setNotifications((prev) => prev.filter((n) => n._id !== id));
       toast.success("🗑 Notification deleted");
     } catch (error) {
