@@ -108,7 +108,7 @@ const AcademicSection = () => {
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
           <button
             onClick={() => setCurrentView(null)}
-            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+            className="flex items-center gap-1 text-indigo-600 font-4xl hover:underline hover:-translate-x-1 transition-transform duration-200"
           >
             🔙
           </button>
@@ -122,7 +122,7 @@ const AcademicSection = () => {
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
           <button
             onClick={() => setCurrentView(null)}
-            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+            className="flex items-center gap-1 text-indigo-600 font-4xl hover:underline hover:-translate-x-1 transition-transform duration-200"
           >
             🔙
           </button>
@@ -136,7 +136,7 @@ const AcademicSection = () => {
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
           <button
             onClick={() => setCurrentView(null)}
-            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+            className="flex items-center gap-1 text-indigo-600 font-2xl hover:underline hover:-translate-x-1 transition-transform duration-200"
           >
             🔙
           </button>
@@ -150,7 +150,7 @@ const AcademicSection = () => {
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
           <button
             onClick={() => setCurrentView(null)}
-            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+            className="flex items-center gap-1 text-indigo-600 font-2xl hover:underline hover:-translate-x-1 transition-transform duration-200"
           >
             🔙
           </button>
