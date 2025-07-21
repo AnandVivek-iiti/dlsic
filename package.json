@@ -61,6 +61,7 @@
     "react-toastify": "^11.0.5",
     "react-tsparticles": "^2.12.2",
     "timeago.js": "^4.0.2",
+    "toast": "^0.5.4",
     "tsparticles": "^3.8.1",
     "vanilla-tilt": "^1.8.1",
     "zod": "^4.0.5"

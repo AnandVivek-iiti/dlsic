@@ -1,8 +1,22 @@
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaTelegram, FaInstagram } from 'react-icons/fa';
-import { motion } from 'framer-motion';
-import { Typewriter } from 'react-simple-typewriter';
+import {
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaWhatsapp,
+  FaTelegram,
+  FaInstagram,
+} from "react-icons/fa";
+import { useEffect } from "react";
+import { motion } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
+import { useLanguage } from "../Main/context/Languagecontext";
 
 const ContactSection = () => {
+  const { language, toggleLanguage, t } = useLanguage();
+  useEffect(() => {
+    localStorage.setItem("lang", language);
+  }, [language]);
+
   return (
     <div className="relative bg-[#0e0e1c] text-white py-16 px-6 overflow-hidden">
       {/* Typewriter Heading */}
@@ -14,7 +28,15 @@ const ContactSection = () => {
         className="text-4xl font-extrabold text-center mb-12 glow"
       >
         <Typewriter
-          words={['Get in Touch', 'We\'re Here to Help', 'Contact DLS Inter College']}
+          words={[
+            language === "EN" ? "Get in Touch" : "संपर्क करें",
+            language === "EN"
+              ? "We're Here to Help"
+              : "हम आपकी मदद के लिए यहां हैं",
+            language === "EN"
+              ? "Contact DLS Inter College"
+              : "DLS इंटर कॉलेज से संपर्क करें",
+          ]}
           loop={true}
           cursor
           cursorStyle="_"
@@ -34,19 +56,42 @@ const ContactSection = () => {
       >
         {/* Info Card */}
         <div className="space-y-4 text-sm md:text-base">
-          <h3 className="text-2xl font-bold text-cyan-400 glow">📍 Contact Info</h3>
-          <p className="flex items-center gap-3"><FaPhoneAlt className="text-cyan-300" /> +91 9876543210</p>
-          <p className="flex items-center gap-3"><FaEnvelope className="text-pink-400" /> info@dlsintercollege.ac.in</p>
-          <p className="flex items-center gap-3"><FaMapMarkerAlt className="text-yellow-300" /> Rithora, Bareilly, UP</p>
+          <h3 className="text-2xl font-bold text-cyan-400 glow">
+            📍 {language === "EN" ? "Contact Info" : "संपर्क सूचना"}
+          </h3>
+          <p className="flex items-center gap-3">
+            <FaPhoneAlt className="text-cyan-300" /> +91 9876543210
+          </p>
+          <p className="flex items-center gap-3">
+            <FaEnvelope className="text-pink-400" /> info@dlsintercollege.ac.in
+          </p>
+          <p className="flex items-center gap-3">
+            <FaMapMarkerAlt className="text-yellow-300" />{" "}
+            {language === "EN"
+              ? "Rithora, Bareilly, UP"
+              : "रिठोरा, बरेली, उत्तर प्रदेश"}
+          </p>
         </div>
 
         {/* Contact Form */}
         <form className="space-y-4">
-          <input type="text" placeholder="Your Name" className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:ring-2 focus:ring-cyan-400" />
-          <input type="email" placeholder="Your Email" className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:ring-2 focus:ring-cyan-400" />
-          <textarea rows="3" placeholder="Your Message" className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:ring-2 focus:ring-cyan-400"></textarea>
+          <input
+            type="text"
+            placeholder= {language === "EN" ? "Full Name" : "पूरा नाम"}
+            className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:ring-2 focus:ring-cyan-400"
+          />
+          <input
+            type="email"
+            placeholder={language === "EN" ? "Your Email" : "आपका ईमेल"}
+            className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:ring-2 focus:ring-cyan-400"
+          />
+          <textarea
+            rows="3"
+            placeholder={language === "EN" ? "Your Message" : "आपका संदेश"}
+            className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:ring-2 focus:ring-cyan-400"
+          ></textarea>
           <button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold px-4 py-2 rounded-lg neon-glow">
-            🚀 Send Message
+            🚀 {language === "EN" ? "Send Message" : "मेसेज भेजें"}
           </button>
         </form>
 

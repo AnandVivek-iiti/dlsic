@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import StudentResources from "./StudyResources";
+import { useNavigate } from "react-router";
 import DoubtSolver from "./StudentSupport";
 // import DoubtSolver from './Doubtform';
 // import Doubtlist from './DoubtList';
@@ -10,7 +11,8 @@ import "vanilla-tilt";
 import CareerGuidance from "./CareerGuidance";
 import NoticeLinks from "./NoticeLinks";
 import { useLanguage } from "../context/Languagecontext";
-export default function Student({ darkMode, setDarkMode }, props) {
+
+export default function Student(props) {
   const [currentView, setCurrentView] = useState(null);
   const { language, toggleLanguage, t } = useLanguage();
   useEffect(() => {
@@ -21,81 +23,104 @@ export default function Student({ darkMode, setDarkMode }, props) {
     const last = localStorage.getItem("student_last_section");
     if (last) setCurrentView(last);
   }, []);
-
+  const Navigate = useNavigate();
+  const handleBack = () => {
+    Navigate(-1);
+  };
   const studentCards = [
     {
       icon: "🗓",
-      title: "Class Timetable",
+      title: language === "EN" ? "Class Timetable" : "कक्षा समय-सारणी",
       items: [
-        "Daily schedule for all streams",
-        "Updated exam calendar",
-        "Lab & activity slots",
+        language === "EN"
+          ? "Daily schedule for all streams"
+          : "सभी स्ट्रीम्स की दैनिक समय-सारणी",
+        language === "EN" ? "Updated exam calendar" : "अपडेटेड परीक्षा कैलेंडर",
+        language === "EN"
+          ? "Lab & activity slots"
+          : "प्रयोगशाला और गतिविधि स्लॉट्स",
       ],
-      btn: "View Timetable",
+      btn: language === "EN" ? "View Timetable" : "समय-सारणी देखें",
       action: "TimeTable",
       cardColor:
         "from-yellow-100 to-yellow-50 border-yellow-300 text-yellow-700",
     },
     {
       icon: "📚",
-      title: "Study Material",
+      title: language === "EN" ? "Study Material" : "अध्ययन सामग्री",
       items: [
-        "PDF notes & assignments",
-        "Recorded video lectures",
-        "Previous year question papers",
+        language === "EN"
+          ? "PDF notes & assignments"
+          : "PDF नोट्स और असाइनमेंट्स",
+        language === "EN"
+          ? "Recorded video lectures"
+          : "रिकॉर्डेड वीडियो लेक्चर",
+        language === "EN"
+          ? "Previous year question papers"
+          : "पिछले वर्षों के प्रश्न पत्र",
       ],
-      btn: "Access Materials",
+      btn: language === "EN" ? "Access Materials" : "सामग्री प्राप्त करें",
       action: "material",
       cardColor: "from-pink-200 to-orange-100 border-red-400 text-red-600",
     },
     {
       icon: "📈",
-      title: "Progress Report",
+      title: language === "EN" ? "Progress Report" : "प्रगति रिपोर्ट",
       items: [
-        "Marks & attendance",
-        "Term-wise performance",
-        "Parent-teacher comments",
+        language === "EN" ? "Marks & attendance" : "अंक और उपस्थिति",
+        language === "EN" ? "Term-wise performance" : "टर्म अनुसार प्रदर्शन",
+        language === "EN"
+          ? "Parent-teacher comments"
+          : "अभिभावक-शिक्षक टिप्पणियाँ",
       ],
-      btn: "Check Progress",
+      btn: language === "EN" ? "Check Progress" : "प्रगति देखें",
       action: "profile",
       cardColor: "from-gray-200 to-blue-50 border-blue-300 text-blue-700",
     },
     {
       icon: "🧠",
-      title: "Student Support",
+      title: language === "EN" ? "Student Support" : "छात्र सहायता",
       items: [
-        "Mentor & counselor help",
-        "Feedback & concerns",
-        "Wellbeing sessions",
+        language === "EN"
+          ? "Mentor & counselor help"
+          : "मेंटोर और काउंसलर सहायता",
+        language === "EN" ? "Feedback & concerns" : "प्रतिक्रिया और चिंताएं",
+        language === "EN" ? "Wellbeing sessions" : "कल्याण सत्र",
       ],
-      btn: "Get Support",
+      btn: language === "EN" ? "Get Support" : "सहायता प्राप्त करें",
       action: "doubts",
       cardColor: "from-green-100 to-green-50 border-green-300 text-green-700",
     },
     {
       icon: "💡",
-      title: "Career Guidance",
+      title: language === "EN" ? "Career Guidance" : "करियर मार्गदर्शन",
       items: [
-        "Workshops & webinars",
-        "Competitive exam prep",
-        "Counselor sessions",
+        language === "EN" ? "Workshops & webinars" : "कार्यशालाएं और वेबिनार",
+        language === "EN"
+          ? "Competitive exam prep"
+          : "प्रतियोगी परीक्षा की तैयारी",
+        language === "EN" ? "Counselor sessions" : "काउंसलर सत्र",
       ],
-      btn: "Explore Careers",
+      btn: language === "EN" ? "Explore Careers" : "करियर जानें",
       action: "CareerGuidance",
       cardColor: "from-blue-100 to-blue-50 border-blue-300 text-blue-700",
     },
     {
       icon: "📌",
-      title: "Notices & Links",
+      title: language === "EN" ? "Notices & Links" : "सूचनाएं और लिंक",
       items: [
-        "Latest announcements",
-        "Download forms & circulars",
-        "School calendar & policies",
+        language === "EN" ? "Latest announcements" : "नवीनतम घोषणाएं",
+        language === "EN"
+          ? "Download forms & circulars"
+          : "फॉर्म और परिपत्र डाउनलोड करें",
+        language === "EN"
+          ? "School calendar & policies"
+          : "विद्यालय कैलेंडर और नीतियाँ",
       ],
-      btn: "View Notices",
+      btn: language === "EN" ? "View Notices" : "सूचनाएं देखें",
       action: "NoticeLinks",
       cardColor: "from-pink-100 to-pink-50 border-pink-300 text-pink-700",
-      btnColor: "from-pink-300 to-pink-200 border-pink-500 ",
+      btnColor: "from-pink-300 to-pink-200 border-pink-500",
     },
   ];
 
@@ -109,11 +134,17 @@ export default function Student({ darkMode, setDarkMode }, props) {
     return (
       <section className="py-2 px-1">
         <div
-          className={`${
-            darkMode ? "bg-gray-300 text-black" : "bg-gray-400 text-black"
-          } max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6`}
+          className={
+            "bg-gray-300 text-black max-w-5xl mx-auto  rounded-xl shadow-lg p-6"
+          }
         >
-          {/* <button  className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-2xl hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+
           <StudentResources />
         </div>
       </section>
@@ -124,7 +155,13 @@ export default function Student({ darkMode, setDarkMode }, props) {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-2xl hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+
           <DoubtSolver />
         </div>
       </section>
@@ -135,7 +172,13 @@ export default function Student({ darkMode, setDarkMode }, props) {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-2xl hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+
           <StudentProfile />
         </div>
       </section>
@@ -146,7 +189,13 @@ export default function Student({ darkMode, setDarkMode }, props) {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-2xl hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+
           <TimeTable />
         </div>
       </section>
@@ -157,7 +206,13 @@ export default function Student({ darkMode, setDarkMode }, props) {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-2xl hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+
           <CareerGuidance />
         </div>
       </section>
@@ -168,7 +223,13 @@ export default function Student({ darkMode, setDarkMode }, props) {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-2xl hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+
           <NoticeLinks />
         </div>
       </section>
@@ -182,8 +243,9 @@ export default function Student({ darkMode, setDarkMode }, props) {
           🎓{t("student.pageTitle")}
         </h2>
         <p className="text-center text-gray-600 text-lg max-w-xl mx-auto mb-12">
-                  Everything a DLS student needs in one place — from timetables and learning materials to support and progress tracking.
-
+          {language === "EN"
+            ? "Everything a DLS student needs in one place — from timetables and learning materials to support and progress tracking."
+            : "डीएलएस छात्र को जो कुछ भी चाहिए वह सब एक ही स्थान पर - समय-सारिणी और शिक्षण सामग्री से लेकर सहायता और प्रगति ट्रैकिंग तक।"}
         </p>
 
         <div className="flex flex-wrap justify-center gap-8">
