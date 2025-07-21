@@ -54,7 +54,7 @@ app.use("/upload", express.static("upload"));
 app.use("/api/counselling",counselling);
 app.use("/api/feedback",Feedback);
 app.use("/api/grievances",grievances);
-// app.use("/api/notifications", notificationRoutes);
+// app.use("/api/notifications",);
 
 
 // Announcement routes
