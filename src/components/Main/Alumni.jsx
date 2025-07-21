@@ -70,8 +70,8 @@ const alumniData = [
     },
     achievements: ['Scored 530 in NEET', 'Top 19k AIR'],
     image: AS,
-    cardColor: 'from-green-500 to-indigo-500',
-    popupColor: 'bg-gradient-to-br from-green-800 to-indigo-700',
+    cardColor: 'from-indigo-300 to-blue-500',
+    popupColor: 'bg-gradient-to-br from-indigo-800 to-blue-500',
   },
   {
     name: { en: 'Vikas Yadav', hi: 'विकास यादव' },
@@ -96,8 +96,8 @@ const alumniData = [
     },
     achievements: ['IIT Techfest Organizer', 'Coding Club President'],
     image: AV,
-    cardColor: 'from-indigo-300 to-blue-500',
-    popupColor: 'bg-gradient-to-br from-indigo-800 to-blue-500',
+    cardColor: 'from-green-500 to-indigo-500',
+    popupColor: 'bg-gradient-to-br from-green-800 to-indigo-700'
   },
   {
     name:  language === "EN" ? 'Mohit' : 'मोहित' ,
