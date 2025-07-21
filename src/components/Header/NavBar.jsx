@@ -44,7 +44,7 @@ export default function NavBar({
     { name: t("header.contact"), path: "/Contact" },
     ...(!issignup ? [{ name: t("header.login"), path: "/signup" }] : []),
   ];
-
+ 
   return (
     <div className="Nav-container sticky top-0 z-50">
       <header className="bg-gradient-to-br from-indigo-200 to-slate-200 text-black shadow-md">
