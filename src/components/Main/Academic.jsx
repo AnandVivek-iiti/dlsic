@@ -102,10 +102,62 @@ const AcademicSection = () => {
   };
 
   // Conditional Rendering
-  if (currentView === "academic") return <AcademicDetail />;
-  if (currentView === "faculty") return <Faculty />;
-  if (currentView === "lab") return <Lab />;
-  if (currentView === "Streams") return <Streams />;
+  if (currentView === "academic")
+    return (
+      <section className="py-0 px-0">
+        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+          <AcademicDetail />
+        </div>
+      </section>
+    );
+  if (currentView === "faculty")
+    return (
+      <section className="py-0 px-0">
+        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+          <Faculty />
+        </div>
+      </section>
+    );
+  if (currentView === "lab")
+    return (
+      <section className="py-0 px-0">
+        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+          <Lab />
+        </div>
+      </section>
+    );
+  if (currentView === "Streams")
+    return (
+      <section className="py-0 px-0">
+        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+          <Streams />
+        </div>
+      </section>
+    );
 
   return (
     <div className="shadow-lg overflow-hidden bordershadow-md border-[1px] border-orange-500 border-t-[4px] rounded-xl">
@@ -146,7 +198,9 @@ const AcademicSection = () => {
                     to={item.link}
                     className="relative inline-block bg-gradient-to-r from-blue-800 to-blue-400 text-white font-semibold text-sm px-6 py-2 rounded-full shadow-md transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:rotate-[-1deg] overflow-hidden"
                   >
-                    <span className="relative z-10">{ language === "EN" ? "See More" : "और देखें"}</span>
+                    <span className="relative z-10">
+                      {language === "EN" ? "See More" : "और देखें"}
+                    </span>
                     <span className="absolute inset-0 w-[60%] skew-x-[-25deg] bg-white/20 left-[-60%] transition-all duration-500 hover:left-[110%]" />
                   </Link>
                 ) : (
@@ -154,7 +208,7 @@ const AcademicSection = () => {
                     onClick={() => handleCardClick(item.action)}
                     className={`cursor-pointer bg-gradient-to-br ${item.cardColor} border-2 border-solid hover:border-3 hover:border-solid   hover:bg-indigo-500 hover:shadow-3xl hover:scale-105 text-sm font-semibold px-6 py-2 rounded-full transition-all duration-300 shadow-md`}
                   >
-                   { language === "EN" ? "See More" : "और देखें"}
+                    {language === "EN" ? "See More" : "और देखें"}
                   </button>
                 )}
               </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import StudentResources from "./StudyResources";
+import { useNavigate } from "react-router";
 import DoubtSolver from "./StudentSupport";
 // import DoubtSolver from './Doubtform';
 // import Doubtlist from './DoubtList';
@@ -22,7 +23,10 @@ export default function Student(props) {
     const last = localStorage.getItem("student_last_section");
     if (last) setCurrentView(last);
   }, []);
-
+  const Navigate = useNavigate();
+  const handleBack = () => {
+    Navigate(-1);
+  };
   const studentCards = [
     {
       icon: "🗓",
@@ -134,7 +138,13 @@ export default function Student(props) {
             "bg-gray-300 text-black max-w-5xl mx-auto  rounded-xl shadow-lg p-6"
           }
         >
-          {/* <button  className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+
           <StudentResources />
         </div>
       </section>
@@ -145,7 +155,13 @@ export default function Student(props) {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+
           <DoubtSolver />
         </div>
       </section>
@@ -156,7 +172,13 @@ export default function Student(props) {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+
           <StudentProfile />
         </div>
       </section>
@@ -167,7 +189,13 @@ export default function Student(props) {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+
           <TimeTable />
         </div>
       </section>
@@ -178,7 +206,13 @@ export default function Student(props) {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+
           <CareerGuidance />
         </div>
       </section>
@@ -189,7 +223,13 @@ export default function Student(props) {
     return (
       <section className="py-0 px-0">
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
-          {/* <button onClick={handleBack} className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
+          <button
+            onClick={() => setCurrentView(null)}
+            className="flex items-center gap-1 text-indigo-600 font-medium hover:underline hover:-translate-x-1 transition-transform duration-200"
+          >
+            🔙
+          </button>
+
           <NoticeLinks />
         </div>
       </section>
@@ -203,7 +243,9 @@ export default function Student(props) {
           🎓{t("student.pageTitle")}
         </h2>
         <p className="text-center text-gray-600 text-lg max-w-xl mx-auto mb-12">
-          {language === "EN" ? "Everything a DLS student needs in one place — from timetables and learning materials to support and progress tracking." : "डीएलएस छात्र को जो कुछ भी चाहिए वह सब एक ही स्थान पर - समय-सारिणी और शिक्षण सामग्री से लेकर सहायता और प्रगति ट्रैकिंग तक।"}
+          {language === "EN"
+            ? "Everything a DLS student needs in one place — from timetables and learning materials to support and progress tracking."
+            : "डीएलएस छात्र को जो कुछ भी चाहिए वह सब एक ही स्थान पर - समय-सारिणी और शिक्षण सामग्री से लेकर सहायता और प्रगति ट्रैकिंग तक।"}
         </p>
 
         <div className="flex flex-wrap justify-center gap-8">
