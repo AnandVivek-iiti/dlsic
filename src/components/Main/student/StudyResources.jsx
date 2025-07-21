@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, DownloadCloud, UploadCloud } from "lucide-react";
 import axios from "axios";
-const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const backendURL = import.meta.env.VITE_BACKEND_URL;
 const subjectColors = {
   English: "bg-purple-100",
   Hindi: "bg-orange-100",
@@ -425,7 +425,7 @@ export default function StudyResources() {
     formData.append("class", selectedClass);
     formData.append("subject", selectedSubject);
 
-    const res = await fetch("/api/Notes/upload", {
+    const res = await fetch("/api/notes/upload", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

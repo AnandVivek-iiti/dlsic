@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../Main/context/AuthContext.jsx";
 import LoadingSpinner from "../Loading.jsx";
-const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const backendURL = import.meta.env.VITE_BACKEND_URL ;
 
 export default function Login(props) {
   const { login } = useAuth();
   const navigate = useNavigate();
   const { darkMode, setDarkMode } = props;
+  const [loading, setLoading] = useState(false);
+
   // const [identifier, setIdentifier] = useState("");
   const [loginInfo, setLoginInfo] = useState({
     // email: "",
@@ -26,42 +28,40 @@ export default function Login(props) {
   };
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(`${backendURL}/api/auth/login`, loginInfo, {
-        //(`${backendURL}/api/login`, loginInfo
-        withCredentials: true,
-      });
+  e.preventDefault();
+  setLoading(true); // show spinner
+  try {
+    const res = await axios.post(`${backendURL}/api/auth/login`, loginInfo, {
+      withCredentials: true,
+    });
 
-      const data = res.data;
+    const data = res.data;
 
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("personinfo", JSON.stringify(data.user));
-        localStorage.setItem("role", data.user.role);
-        props.setpersoninfo(data.user);
-        props.setissignup(true);
-        setLoginInfo({ identifier: "", password: "" });
-        toast.dismiss();
-        <LoadingSpinner />;
-        toast.success("Login successful!");
-        // After successful login
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        localStorage.setItem("token", res.data.token);
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("personinfo", JSON.stringify(data.user));
+      localStorage.setItem("role", data.user.role);
+      props.setpersoninfo(data.user);
+      props.setissignup(true);
+      setLoginInfo({ identifier: "", password: "" });
 
+      toast.success("Login successful!");
+
+      setTimeout(() => {
         navigate("/");
-      } else {
-        <LoadingSpinner />;
-
-        toast.error(data.message || "Login failed with err");
-      }
-    } catch (err) {
-      <LoadingSpinner />;
-
-      console.error("Login error:", err.res?.data || err.message);
-      toast.error(err.res?.data?.message || "Login failed");
+      }, 1200); // Delay redirect to show toast
+    } else {
+      toast.error(data.message || "Login failed");
     }
-  };
+  } catch (err) {
+    console.error("Login error:", err.response?.data || err.message);
+    toast.error(err.response?.data?.message || "Login failed");
+  } finally {
+    setLoading(false); // hide spinner
+  }
+};
+if (loading) return <LoadingSpinner />;
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-400 to-purple-400 px-4 py-10">

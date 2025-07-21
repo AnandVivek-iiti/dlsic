@@ -8,7 +8,8 @@ import U from "../../assets/user.png";
 import ThemeToggle from "../ThemeSwitcher";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
-const backendURL = import.meta.env.VITE_BACKEND_URL||"http://localhost:5000";
+import LoadingSpinner from "../../Loading";
+const backendURL = import.meta.env.VITE_BACKEND_URL;
 const StudentProfile = ({ darkMode, setDarkMode }) => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
@@ -67,13 +68,11 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        })
-          .then((res) => res.json())
-          .then((data) => console.log(data))
-          .catch((err) => console.error(err));
-        console.log("Token:", token);
+        });
 
         const data = await res.json();
+
+        console.log("Fetched profile:", data);
 
         if (res.ok) {
           setProfile(data);
@@ -84,13 +83,13 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
           toast.error(data.message || "Session expired.");
           localStorage.removeItem("token");
           setIsGuestView(true);
-          setLoading(false); // ✅ Add this
+          setLoading(false);
         }
       } catch (err) {
         console.error("Fetch error:", err);
         toast.error("Server error.");
         setIsGuestView(true);
-        setLoading(false); // ✅ Add this
+        setLoading(false);
       }
     };
 
@@ -198,13 +197,8 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
       toast.error("Upload failed");
     }
   };
-  // if (loading)
-  //   return (
-  //     <div className="animate-pulse text-center p-8 text-gray-400">
-  //       Loading profile...
-  //     </div>
-  //   );
-
+  // if (loading) return <LoadingSpinner />;
+ 
   if (isGuestView) {
     return (
       <section className="bg-gradient-to-br from-blue-50 via-slate-100 to-purple-50 py-10 rounded-xl shadow-inner">
@@ -374,11 +368,13 @@ const StudentProfile = ({ darkMode, setDarkMode }) => {
                   className={`bg-gradient-to-br border rounded-xl p-6 shadow-md hover:shadow-lg transition`}
                 >
                   <h3 className="text-lg font-semibold mb-1">
-                    {subject.name?.subjectName||"subject"}
+                    {subject.name?.subjectName || "subject"}
                   </h3>
                   <p className="text-sm">
                     Marks:{" "}
-                    <span className="font-bold">{subject.marks?.marks||"marks"}</span>
+                    <span className="font-bold">
+                      {subject.marks?.marks || "marks"}
+                    </span>
                   </p>
                 </div>
               ))}

@@ -11,6 +11,7 @@ const isEmail = (str) => /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(str);
 // SIGNUP
 router.post("/signup", async (req, res) => {
   console.log("welcome to signup");
+
   try {
     const {
       username,
@@ -29,9 +30,7 @@ router.post("/signup", async (req, res) => {
       skills,
     } = req.body;
 
-    // Required field check
     if (!username || !phone || !email || !password) {
-      // || !role
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -63,23 +62,17 @@ router.post("/signup", async (req, res) => {
     console.log("Signup request received:", req.body);
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
-    console.log("Signup Payload:", req.body);
     res.status(201).json({ message: "Signup successful!", token, user });
   } catch (error) {
     if (error.code === 11000) {
-      // Duplicate key error
-      const duplicateField = Object.keys(error.keyPattern)[0]; // e.g., 'phone'
+      const duplicateField = Object.keys(error.keyPattern)[0];
       return res.status(409).json({
         message: `${duplicateField} already exists`,
         field: duplicateField,
       });
-    } else if (err.response?.status === 409) {
-      alert(err.response.data.message); // e.g., "phone already exists"
-    } else {
-      alert("Signup failed. Try again.");
-      console.error("Signup error:", err.response?.data || err.message);
     }
-    // Generic server error
+
+    console.error("Signup error:", error.message);
     res.status(500).json({
       message: "Server error during signup",
       error: error.message,
@@ -118,36 +111,36 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// AUTH MIDDLEWARE
-const authMiddleware = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader)
-    return res.status(401).json({ message: "No token provided" });
+// // AUTH MIDDLEWARE
+// const authMiddleware = (req, res, next) => {
+//   const authHeader = req.headers.authorization;
+//   if (!authHeader)
+//     return res.status(401).json({ message: "No token provided" });
 
-  const token = authHeader.split(" ")[1];
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    if (err) return res.status(401).json({ message: "Invalid token" });
-    req.userId = decoded.id;
-    next();
-  });
-};
+//   const token = authHeader.split(" ")[1];
+//   jwt.verify(token, JWT_SECRET, (err, decoded) => {
+//     if (err) return res.status(401).json({ message: "Invalid token" });
+//     req.userId = decoded.id;
+//     next();
+//   });
+// };
 
-// PROFILE GET
-router.get("/profile", authMiddleware, async (req, res) => {
-  const user = await User.findById(req.userId).select("-password");
-  if (!user) return res.status(404).json({ message: "User not found" });
-  res.json(user);
-});
+// // PROFILE GET
+// router.get("/profile", authMiddleware, async (req, res) => {
+//   const user = await User.findById(req.userId).select("-password");
+//   if (!user) return res.status(404).json({ message: "User not found" });
+//   res.json(user);
+// });
 
-// PROFILE UPDATE
-router.put("/profile", authMiddleware, async (req, res) => {
-  const { username, phone, email, profileImage } = req.body;
-  const updated = await User.findByIdAndUpdate(
-    req.userId,
-    { username, phone, email, profileImage },
-    { new: true }
-  ).select("-password");
+// // PROFILE UPDATE
+// router.put("/profile", authMiddleware, async (req, res) => {
+//   const { username, phone, email, profileImage } = req.body;
+//   const updated = await User.findByIdAndUpdate(
+//     req.userId,
+//     { username, phone, email, profileImage },
+//     { new: true }
+//   ).select("-password");
 
-  res.json({ message: "Profile updated", user: updated });
-});
+//   res.json({ message: "Profile updated", user: updated });
+// });
 export default router;

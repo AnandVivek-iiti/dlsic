@@ -4,7 +4,7 @@ import {Notification} from "../models/Notification.js";
 const router = express.Router();
 
 // Get all notifications
-router.get("/", async (req, res) => {
+router.get("/notifications", async (req, res) => {
   try {
     const notifs = await Notification.find().sort({ timestamp: -1 });
     res.status(200).json(notifs);
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 // Add notification
-router.post("/", async (req, res) => {
+router.post("/notifications", async (req, res) => {
   const { title, message } = req.body;
   try {
     const newNotif = new Notification({ title, message });

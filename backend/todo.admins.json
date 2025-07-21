@@ -1,0 +1,23 @@
+[{
+  "_id": {
+    "$oid": "687231d2af958f474c0c79b7"
+  },
+  "email": "me240003006@iiti.ac.in",
+  "phone" : "8791962760"
+},
+{
+  "_id": {
+    "$oid": "687ce82685230da33b637d67"
+  },
+  "email": "anand1234.vivek@gmail.com",
+  "phone" : "9675109428"
+},
+{
+  "_id": {
+    "$oid": "687231d2af958f474c0c79b7"
+  },
+  "email": "Sovran689@gmail.com",
+  "phone" : "9193477564"
+}
+
+]

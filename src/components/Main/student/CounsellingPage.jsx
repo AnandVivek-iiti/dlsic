@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { HeartHandshake, CheckCircle2, ShieldCheck, Loader2, Send } from "lucide-react";
+const backendURL = import.meta.env.VITE_BACKEND_URL ;
 
 const formSchema = z.object({
   name: z.string().min(2, "Name is required."),
@@ -24,7 +25,7 @@ const CounsellingPage = () => {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch("http://localhost:5000/api/counselling", {
+      const response = await fetch(`${backendURL}/api/counselling`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

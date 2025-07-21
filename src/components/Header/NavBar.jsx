@@ -1,16 +1,16 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import saraswatiLogo from "../assets/Saraswati.png";
-import U from "../assets/Saraswati.png";
-import ThemeToggle  from "../Main/ThemeSwitcher";
+import U from "../assets/user.png";
+import ThemeToggle from "../Main/ThemeSwitcher";
 import { useTheme } from "../Main/context/ThemeContext";
-import LanguageSwitcher from '../LanguageSwitcher'
+import LanguageSwitcher from "../LanguageSwitcher";
 import NotificationBell from "../NotificationBell";
-import { useLanguage } from '../Main/context/Languagecontext';
+import { useLanguage } from "../Main/context/Languagecontext";
 
-
+import InstallPWA from "../install";
 export default function NavBar({
   changestatus,
   setissignup,
@@ -28,9 +28,8 @@ export default function NavBar({
   });
   const { language, toggleLanguage, t } = useLanguage();
   useEffect(() => {
-    localStorage.setItem('lang', language);
+    localStorage.setItem("lang", language);
   }, [language]);
-
 
   const navigate = useNavigate();
   const [isuserinfoopen, setisuserinfoopen] = useState(false);
@@ -95,13 +94,13 @@ export default function NavBar({
               {/* Notification, Language, Theme */}
               <NotificationBell />
               <LanguageSwitcher className="bg-gray-600 text-white hover:bg-gray-700" />
-              <ThemeToggle  />
+              <ThemeToggle />
 
               {/* User Profile */}
               {issignup && (
                 <div className="relative">
                   <img
-                    src={U}
+                    src={user.profileimage || U}
                     alt="User"
                     className="w-11 h-11 cursor-pointer hover:opacity-80"
                     onClick={() => setisuserinfoopen(!isuserinfoopen)}
@@ -109,7 +108,7 @@ export default function NavBar({
                   {isuserinfoopen && (
                     <div className="absolute top-16 right-0 z-50 w-80 bg-white rounded-md border shadow-lg p-4">
                       <div className="text-center mb-3">
-                        <p className="font-semibold">{user?.username }</p>
+                        <p className="font-semibold">{user?.username}</p>
                         <p className="text-sm">{personinfo?.email}</p>
                         <p className="text-sm">{user?.phone}</p>
                       </div>
@@ -166,8 +165,14 @@ export default function NavBar({
             >
               <div className="flex items-center justify-between px-4 py-4 border-b">
                 <div className="flex items-center gap-2">
-                  <img src={U} alt="Logo" className="w-12 h-12 border-2 border-indigo-300 rounded-full" />
-                  <h1 className="text-lg font-bold text-blue-700">DLS Inter College</h1>
+                  <img
+                    src={U}
+                    alt="Logo"
+                    className="w-12 h-12 border-2 border-indigo-300 rounded-full"
+                  />
+                  <h1 className="text-lg font-bold text-blue-700">
+                    DLS Inter College
+                  </h1>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
@@ -217,7 +222,7 @@ export default function NavBar({
               {issignup && (
                 <div className="px-4 pt-4 border-t border-gray-200">
                   <div className="mb-2 text-gray-700">
-                    <div className="font-semibold">{personinfo?.name }</div>
+                    <div className="font-semibold">{personinfo?.username}</div>
                     <div className="text-sm">{personinfo?.email}</div>
                     <div className="text-sm">{user?.phone}</div>
                   </div>
@@ -243,7 +248,7 @@ export default function NavBar({
                       }}
                       className="w-full bg-red-100 text-red-600 py-2 rounded-md font-semibold hover:bg-red-200 transition"
                     >
-                      🔓 {t("header.mobilelogout")}
+                      🔓Logout
                     </button>
                   </div>
                 </div>

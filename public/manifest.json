@@ -1,0 +1,29 @@
+{
+  "name": "Darbari Lal Sharma Inter College",
+  "short_name": "DLSIC",
+  "start_url": "/",
+   "theme_color": "#080f31",
+  "background_color": "#09073d",
+  "id": "DLS_AVSR",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "description": "Everything a DLS student needs in one place – from timetables and learning materials to support and progress tracking.",
+  "icons": [
+    {
+      "src": "/icons/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

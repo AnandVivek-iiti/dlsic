@@ -1,19 +1,17 @@
 const translations = {
   en: {
-
-  "header.home": "Home",
-  "header.academic": "Academic",
-  "header.student": "Student",
-  "header.alumni": "Alumni",
-  "header.contact": "Contact Us",
-  "header.login": "Sign Up",
-  "header.logout": "Log out",
-  "header.profile": "Profile",
-  "header.toggleLang": "हिन्दी",   // Or "English" in Hindi file
-  "header.mobileLogin": "Sign Up",
-  "header.mobileProfile": "View Profile",
-  "header.mobileLogout": "Logout",
-
+    "header.home": "Home",
+    "header.academic": "Academic",
+    "header.student": "Student Zone",
+    "header.alumni": "Alumni",
+    "header.contact": "Contact Us",
+    "header.login": "Sign Up",
+    "header.logout": "Log out",
+    "header.profile": "Profile",
+    "header.toggleLang": "हिन्दी",
+    "header.mobileLogin": "Sign Up",
+    "header.mobileProfile": "View Profile",
+    "header.mobileLogout": "Logout",
 
     // Footer
     "footer.collegeName": "DLS Inter College",
@@ -304,7 +302,9 @@ const translations = {
     "profile.editDialog.save": "Save changes",
 
     // Student Zone
-    "student.pageTitle": "Student Zone",
+    "student.pageTitle": "Student ",
+
+    "student.des" :" Everything a DLS student needs in one place — from timetables and learning materials to support and progress tracking.",
     "student.pageSubtitle":
       "Your central hub for all academic resources and support.",
     "student.exploreMore": "Explore More",
@@ -898,18 +898,18 @@ const translations = {
   },
   HI: {
     // Header
-   "header.home": "होम",
-  "header.academic": "शैक्षणिक",
-  "header.student": "छात्र",
-  "header.alumni": "पूर्व छात्र",
-  "header.contact": "संपर्क करें",
-  "header.login": "साइन अप ",
-  "header.logout": "लॉग आउट",
-  "header.profile": "प्रोफ़ाइल",
-  "header.toggleLang": "English",
-  "header.mobileLogin": "साइन अप",
-  "header.mobileProfile": "प्रोफ़ाइल ",
-  "header.mobileLogout": "लॉग आउट",
+    "header.home": "होम",
+    "header.academic": "अकादमिक",
+    "header.student": "छात्र क्षेत्र",
+    "header.alumni": "पूर्व छात्र",
+    "header.contact": " संपर्क",
+    "header.login": "साइन अप ",
+    "header.logout": "लॉग आउट",
+    "header.profile": "प्रोफ़ाइल",
+    "header.toggleLang": "English",
+    "header.mobileLogin": "साइन अप",
+    "header.mobileProfile": "प्रोफ़ाइल देखें",
+    "header.mobileLogout": "लॉग आउट",
 
     // Footer
     "footer.collegeName": "डीएलएस इंटर कॉलेज",
@@ -1196,6 +1196,7 @@ const translations = {
 
     // Student Zone
     "student.pageTitle": "छात्र ज़ोन",
+    "student.des" :"समय सारणी, अध्ययन सामग्री, सहायता तथा प्रगति मूल्यांकन सहित, डी.एल.एस. छात्र की सभी आवश्यकताएँ एक ही स्थान पर।",
     "student.pageSubtitle":
       "आपके सभी शैक्षणिक संसाधनों और सहायता के लिए केंद्रीय केंद्र।",
     "student.exploreMore": "और अन्वेषण करें",

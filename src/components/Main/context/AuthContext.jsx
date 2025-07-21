@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
- 
+
   useEffect(() => {
     const interceptor = axios.interceptors.response.use(
       (response) => response,
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         try {
-          const res = await axios.get("/api/auth/profile"); // ⏳ Secure profile fetch
+          const res = await axios.get("/api/profile"); // ⏳ Secure profile fetch
           setUser(res.data.user); // Or `res.data` based on your backend
         } catch (err) {
           console.error("Profile fetch failed:", err);

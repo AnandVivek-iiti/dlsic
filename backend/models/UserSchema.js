@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
+const subjectSchema = new mongoose.Schema({
+  name: String,
+  marks: String,
+});
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -21,7 +25,7 @@ const userSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    unique: true,
+    // unique: true,
     required: true,
     validate: {
       validator: function (v) {
@@ -30,24 +34,35 @@ const userSchema = new mongoose.Schema({
       message: props => `${props.value} is not a valid 10-digit phone number!`
     }
   },
-  password: {
-    type: String,
-    required: true,
-    // minlength: [6, 'Password must be at least 6 characters long'],
-    // maxlength: [12, 'Password must be at most 12 characters long']
-  },
-
+password: {
+  type: String,
+  required: true,
+  // minlength: [6, 'Password must be at least 6 characters long'],
+  // maxlength: [30, 'Password must be at most 30 characters long']
+}
+,
   role: {
     type: String,
     enum: ['student', 'teacher', 'alumni'],
     default: 'student',
   },
-
-  profileImage: String,
+ bio: String,
+  subjects: [subjectSchema],
+  extraCurriculars: {
+  type: [String],
+  default: []
+}
+,
+ profileImage: {
+  type: String,
+  default: "/src/components/assets/user.png"
+}
+,
   // imageBase64: String,
 
   // Student fields
   class: String,
+
   stream: String,
 
   // Teacher fields
@@ -58,10 +73,13 @@ const userSchema = new mongoose.Schema({
   // Alumni fields
   passingYear: String,
   currentCompany: String,
-  skills: String
+  skills: {
+  type: [String],
+  default: []
+}
 
-}, );
-// { timestamps: true }
+
+}, { timestamps: true });
 // ✅ Custom Role-based Validation
 userSchema.pre("validate", function (next) {
   const errors = [];

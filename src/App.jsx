@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate, Navigate } from "react-router-dom";
-import { useAuth } from "./components/Main/context/AuthContext"; 
+import { useAuth } from "./components/Main/context/AuthContext";
 import axios from "axios";
 import { Toaster } from "react-hot-toast";
 // Components
@@ -30,6 +30,11 @@ import GrievancePage from "./components/Main/student/GrievancePage";
 import MentorshipPage from "./components/Main/student/MentorshipPage";
 import HelplinePage from "./components/Main/student/helplinePage";
 import LoadingSpinner from "./components/Loading";
+import InstallPWA from "./components/install";
+import Createevent from "./components/admin/Createevent";
+import Announce from "./components/admin/Announce";
+import Notification from "./components/admin/Notification.jsx";
+
 function App() {
   <Toaster position="top-right" />;
   const [isOpen, setIsOpen] = useState(false);
@@ -74,6 +79,7 @@ function App() {
     <div className="w-full overflow-x-hidden">
       <div className="min-h-screen flex flex-col bg-white text-black dark:bg-[#01011b] dark:text-white transition-colors duration-300">
         {/* Header Title */}
+
         <div
           className={`${
             darkMode ? "bg-white-300 text-black" : "bg-[#020f2d] text-white"
@@ -103,6 +109,7 @@ function App() {
         </div>
 
         {/* Navbar */}
+        <InstallPWA />
         <Header1
           changestatus={changestatus}
           setissignup={setissignup}
@@ -147,6 +154,7 @@ function App() {
                 />
               }
             />
+
             <Route
               path="/login"
               element={
@@ -169,6 +177,11 @@ function App() {
                 // {/* </PrivateRoute> */}
               }
             />
+            <Route path="/createevent" element={<Createevent />} />
+
+            <Route path="/announce" element={<Announce />} />
+            <Route path="/notification" element={<Notification />} />
+
             <Route
               path="/Alumni"
               element={<Alumni darkMode={darkMode} setDarkMode={setDarkMode} />}

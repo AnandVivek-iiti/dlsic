@@ -1,5 +1,5 @@
 "use client";
-const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const backendURL = import.meta.env.VITE_BACKEND_URL;
 
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
