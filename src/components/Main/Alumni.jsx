@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLanguage } from "../Main/context/Languagecontext";
+
 
 import AV from '../assets/AV.png';
 import SR from '../assets/SR.png';
@@ -12,13 +12,10 @@ import M from '../assets/M.png';
 
 export default function AlumniSection() {
   const [selectedAlumni, setSelectedAlumni] = useState(null);
-  // const [language, setLanguage] = useState('en');
-  const { language, t } = useLanguage();
+  const [language, setLanguage] = useState('en');
+  
 
 
-  useEffect(() => {
-    localStorage.setItem("lang", language);
-  }, [language]);
 
 const alumniData = [
   {
@@ -124,12 +121,12 @@ const alumniData = [
       <div className="relative z-10 max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-4xl font-bold text-indigo-300 drop-shadow-xl">🎓 DLS Alumni</h2>
-          {/* <button
+         <button
             onClick={() => setLanguage(language === 'en' ? 'hi' : 'en')}
             className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-full shadow"
           >
             {language === 'en' ? 'हिन्दी' : 'English'}
-          </button> */}
+          </button> 
         </div>
 
         <p className="text-center text-gray-300 max-w-xl mx-auto text-lg mb-12">
