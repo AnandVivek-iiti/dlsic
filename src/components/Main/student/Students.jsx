@@ -10,12 +10,8 @@ import "vanilla-tilt";
 import CareerGuidance from "./CareerGuidance";
 import NoticeLinks from "./NoticeLinks";
 import { useLanguage } from "../context/Languagecontext";
-<<<<<<< HEAD
 
 export default function Student(props) {
-=======
-export default function Student({ darkMode, setDarkMode }, props) {
->>>>>>> 40b984eb237236049d68b81d47ad5dccb0fd4643
   const [currentView, setCurrentView] = useState(null);
   const { language, toggleLanguage, t } = useLanguage();
   useEffect(() => {
@@ -30,7 +26,6 @@ export default function Student({ darkMode, setDarkMode }, props) {
   const studentCards = [
     {
       icon: "🗓",
-<<<<<<< HEAD
       title: language === "EN" ? "Class Timetable" : "कक्षा समय-सारणी",
       items: [
         language === "EN"
@@ -42,22 +37,12 @@ export default function Student({ darkMode, setDarkMode }, props) {
           : "प्रयोगशाला और गतिविधि स्लॉट्स",
       ],
       btn: language === "EN" ? "View Timetable" : "समय-सारणी देखें",
-=======
-      title: "Class Timetable",
-      items: [
-        "Daily schedule for all streams",
-        "Updated exam calendar",
-        "Lab & activity slots",
-      ],
-      btn: "View Timetable",
->>>>>>> 40b984eb237236049d68b81d47ad5dccb0fd4643
       action: "TimeTable",
       cardColor:
         "from-yellow-100 to-yellow-50 border-yellow-300 text-yellow-700",
     },
     {
       icon: "📚",
-<<<<<<< HEAD
       title: language === "EN" ? "Study Material" : "अध्ययन सामग्री",
       items: [
         language === "EN"
@@ -71,21 +56,11 @@ export default function Student({ darkMode, setDarkMode }, props) {
           : "पिछले वर्षों के प्रश्न पत्र",
       ],
       btn: language === "EN" ? "Access Materials" : "सामग्री प्राप्त करें",
-=======
-      title: "Study Material",
-      items: [
-        "PDF notes & assignments",
-        "Recorded video lectures",
-        "Previous year question papers",
-      ],
-      btn: "Access Materials",
->>>>>>> 40b984eb237236049d68b81d47ad5dccb0fd4643
       action: "material",
       cardColor: "from-pink-200 to-orange-100 border-red-400 text-red-600",
     },
     {
       icon: "📈",
-<<<<<<< HEAD
       title: language === "EN" ? "Progress Report" : "प्रगति रिपोर्ट",
       items: [
         language === "EN" ? "Marks & attendance" : "अंक और उपस्थिति",
@@ -95,21 +70,11 @@ export default function Student({ darkMode, setDarkMode }, props) {
           : "अभिभावक-शिक्षक टिप्पणियाँ",
       ],
       btn: language === "EN" ? "Check Progress" : "प्रगति देखें",
-=======
-      title: "Progress Report",
-      items: [
-        "Marks & attendance",
-        "Term-wise performance",
-        "Parent-teacher comments",
-      ],
-      btn: "Check Progress",
->>>>>>> 40b984eb237236049d68b81d47ad5dccb0fd4643
       action: "profile",
       cardColor: "from-gray-200 to-blue-50 border-blue-300 text-blue-700",
     },
     {
       icon: "🧠",
-<<<<<<< HEAD
       title: language === "EN" ? "Student Support" : "छात्र सहायता",
       items: [
         language === "EN"
@@ -119,21 +84,11 @@ export default function Student({ darkMode, setDarkMode }, props) {
         language === "EN" ? "Wellbeing sessions" : "कल्याण सत्र",
       ],
       btn: language === "EN" ? "Get Support" : "सहायता प्राप्त करें",
-=======
-      title: "Student Support",
-      items: [
-        "Mentor & counselor help",
-        "Feedback & concerns",
-        "Wellbeing sessions",
-      ],
-      btn: "Get Support",
->>>>>>> 40b984eb237236049d68b81d47ad5dccb0fd4643
       action: "doubts",
       cardColor: "from-green-100 to-green-50 border-green-300 text-green-700",
     },
     {
       icon: "💡",
-<<<<<<< HEAD
       title: language === "EN" ? "Career Guidance" : "करियर मार्गदर्शन",
       items: [
         language === "EN" ? "Workshops & webinars" : "कार्यशालाएं और वेबिनार",
@@ -143,21 +98,11 @@ export default function Student({ darkMode, setDarkMode }, props) {
         language === "EN" ? "Counselor sessions" : "काउंसलर सत्र",
       ],
       btn: language === "EN" ? "Explore Careers" : "करियर जानें",
-=======
-      title: "Career Guidance",
-      items: [
-        "Workshops & webinars",
-        "Competitive exam prep",
-        "Counselor sessions",
-      ],
-      btn: "Explore Careers",
->>>>>>> 40b984eb237236049d68b81d47ad5dccb0fd4643
       action: "CareerGuidance",
       cardColor: "from-blue-100 to-blue-50 border-blue-300 text-blue-700",
     },
     {
       icon: "📌",
-<<<<<<< HEAD
       title: language === "EN" ? "Notices & Links" : "सूचनाएं और लिंक",
       items: [
         language === "EN" ? "Latest announcements" : "नवीनतम घोषणाएं",
@@ -172,18 +117,6 @@ export default function Student({ darkMode, setDarkMode }, props) {
       action: "NoticeLinks",
       cardColor: "from-pink-100 to-pink-50 border-pink-300 text-pink-700",
       btnColor: "from-pink-300 to-pink-200 border-pink-500",
-=======
-      title: "Notices & Links",
-      items: [
-        "Latest announcements",
-        "Download forms & circulars",
-        "School calendar & policies",
-      ],
-      btn: "View Notices",
-      action: "NoticeLinks",
-      cardColor: "from-pink-100 to-pink-50 border-pink-300 text-pink-700",
-      btnColor: "from-pink-300 to-pink-200 border-pink-500 ",
->>>>>>> 40b984eb237236049d68b81d47ad5dccb0fd4643
     },
   ];
 
@@ -197,15 +130,9 @@ export default function Student({ darkMode, setDarkMode }, props) {
     return (
       <section className="py-2 px-1">
         <div
-<<<<<<< HEAD
           className={
             "bg-gray-300 text-black max-w-5xl mx-auto  rounded-xl shadow-lg p-6"
           }
-=======
-          className={`${
-            darkMode ? "bg-gray-300 text-black" : "bg-gray-400 text-black"
-          } max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6`}
->>>>>>> 40b984eb237236049d68b81d47ad5dccb0fd4643
         >
           {/* <button  className="text-indigo-600 font-medium underline mb-4">← Back to Dashboard</button> */}
           <StudentResources />
@@ -276,7 +203,6 @@ export default function Student({ darkMode, setDarkMode }, props) {
           🎓{t("student.pageTitle")}
         </h2>
         <p className="text-center text-gray-600 text-lg max-w-xl mx-auto mb-12">
-<<<<<<< HEAD
           {language === "EN" ? "Everything a DLS student needs in one place — from timetables and learning materials to support and progress tracking." : "डीएलएस छात्र को जो कुछ भी चाहिए वह सब एक ही स्थान पर - समय-सारिणी और शिक्षण सामग्री से लेकर सहायता और प्रगति ट्रैकिंग तक।"}
         </p>
 
@@ -301,33 +227,6 @@ export default function Student({ darkMode, setDarkMode }, props) {
                 ))}
               </ul>
 
-=======
-                  Everything a DLS student needs in one place — from timetables and learning materials to support and progress tracking.
-
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-8">
-          {studentCards.map((item, index) => (
-            <div
-              key={index}
-              className={`cursor-pointer bg-gradient-to-br ${item.cardColor}} border-2 border-solid hover:border-3 border-solid w-[320px] min-h-[360px] p-8 rounded-[22px] shadow-xl flex flex-col transform transition-transform duration-300 hover:scale-[1.04] hover:-translate-y-2 hover:z-10 relative`}
-            >
-              <div className="w-full flex flex-col items-center text-center">
-                <span className="text-4xl text-indigo-800 drop-shadow-md mb-2">
-                  {item.icon}
-                </span>
-                <h3 className="text-xl font-semibold text-indigo-800 mb-3">
-                  {item.title}
-                </h3>
-              </div>
-
-              <ul className="list-disc pl-5 text-gray-700 mb-6 space-y-1  text-left">
-                {item.items.map((point, i) => (
-                  <li key={i}>{point}</li>
-                ))}
-              </ul>
-
->>>>>>> 40b984eb237236049d68b81d47ad5dccb0fd4643
               <div className="w-full flex justify-center mt-auto">
                 <button
                   onClick={() => handleCardClick(item.action)}
