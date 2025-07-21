@@ -3,7 +3,7 @@ const translations = {
 
   "header.home": "Home",
   "header.academic": "Academic",
-  "header.student": "Student Zone",
+  "header.student": "Student",
   "header.alumni": "Alumni",
   "header.contact": "Contact Us",
   "header.login": "Sign Up",
@@ -124,11 +124,13 @@ const translations = {
     "breadcrumb.curriculum": "Curriculum & Examinations",
     "breadcrumb.faculty": "Faculty Directory",
     "breadcrumb.labs": "Labs & Library",
-    "breadcrumb.student": "Student Zone",
+    "breadcrumb.student": "Student ",
     "breadcrumb.alumni": "Alumni",
     "breadcrumb.excellence": "Academic Excellence",
 
     // Academics Page
+    // Already exists — keeping this intact
+    
     "academics.pageTitle": "Academics at DLS",
     "academics.streams.title": "Streams Offered",
     "academics.streams.description":
@@ -1022,22 +1024,22 @@ const translations = {
     "breadcrumb.excellence": "अकादमिक उत्कृष्टता",
 
     // Academics Page
-    "academics.pageTitle": "डीएलएस में अकादमिक",
-    "academics.streams.title": "प्रस्तावित धाराएँ",
+    "academics.pageTitle": "DLS में शैक्षणिक अनुभाग",
+    "academics.streams.title": "प्रस्तावित स्ट्रीम्स",
     "academics.streams.description":
-      "छात्रों के लिए उनके जुनून को आगे बढ़ाने के लिए उपलब्ध विविध अकादमिक धाराओं का अन्वेषण करें।",
-    "academics.curriculum.title": "पाठ्यचर्या और परीक्षाएँ",
+      "छात्रों को उनकी रुचियों के अनुसार स्ट्रीम चुनने के लिए विविध शैक्षणिक विकल्प उपलब्ध हैं।",
+    "academics.curriculum.title": "पाठ्यक्रम और परीक्षाएं",
     "academics.curriculum.description":
-      "हमारे यूपी बोर्ड पाठ्यक्रम और परीक्षा संरचना के बारे में विस्तृत जानकारी।",
-    "academics.faculty.title": "संकाय निर्देशिका",
+      "हमारे यूपी बोर्ड पाठ्यक्रम और परीक्षा संरचना की विस्तृत जानकारी।",
+    "academics.faculty.title": "शिक्षक निर्देशिका",
     "academics.faculty.description":
-      "हमारे समर्पित और अनुभवी शिक्षकों से मिलें जो हमारे संस्थान की रीढ़ हैं।",
-    "academics.labs.title": "लैब और पुस्तकालय",
+      "हमारे समर्पित और अनुभवी शिक्षकों से मिलिए, जो हमारे संस्थान की रीढ़ हैं।",
+    "academics.labs.title": "प्रयोगशालाएं और पुस्तकालय",
     "academics.labs.description":
-      "हमारे सुसज्जित प्रयोगशालाओं और व्यापक पुस्तकालय की खोज करें जो छात्र सीखने का समर्थन करते हैं।",
-    "academics.excellence.title": "अकादमिक उत्कृष्टता",
+      "छात्रों की शिक्षा को समर्थन देने के लिए हमारी अच्छी तरह से सुसज्जित प्रयोगशालाएं और पुस्तकालय खोजें।",
+    "academics.excellence.title": "शैक्षणिक उत्कृष्टता",
     "academics.excellence.description":
-      "हमारे छात्रों की उत्कृष्ट उपलब्धियों और अकादमिक रिकॉर्ड का जश्न।",
+      "हमारे छात्रों की शानदार उपलब्धियों और शैक्षणिक रिकॉर्ड का उत्सव।",
     "academics.learnMore": "और जानें",
 
     // Excellence Page

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from "../Main/context/Languagecontext";
 
 import AV from '../assets/AV.png';
 import SR from '../assets/SR.png';
@@ -8,6 +9,16 @@ import AS from '../assets/AS.png';
 import IMG from '../assets/image.png';
 import M from '../assets/M.png';
 // import TG from '../assets/TG.png';
+
+export default function AlumniSection() {
+  const [selectedAlumni, setSelectedAlumni] = useState(null);
+  // const [language, setLanguage] = useState('en');
+  const { language, t } = useLanguage();
+
+
+  useEffect(() => {
+    localStorage.setItem("lang", language);
+  }, [language]);
 
 const alumniData = [
   {
@@ -89,7 +100,7 @@ const alumniData = [
     popupColor: 'bg-gradient-to-br from-indigo-800 to-blue-500',
   },
   {
-    name: { en: 'Mohit', hi: 'मोहित' },
+    name:  language === "EN" ? 'Mohit' : 'मोहित' ,
     batch: { en: 'Batch of 2024', hi: '2024 बैच' },
     role: {
       en: 'Student at SLIET Punjab, and preparing for DRDO.',
@@ -106,10 +117,6 @@ const alumniData = [
   },
 ];
 
-export default function AlumniSection() {
-  const [selectedAlumni, setSelectedAlumni] = useState(null);
-  const [language, setLanguage] = useState('en');
-
   return (
     <section className="relative py-20 bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] text-white overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-indigo-500/20 via-indigo-300/10 to-transparent opacity-50 z-0" />
@@ -117,12 +124,12 @@ export default function AlumniSection() {
       <div className="relative z-10 max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-4xl font-bold text-indigo-300 drop-shadow-xl">🎓 DLS Alumni</h2>
-          <button
+          {/* <button
             onClick={() => setLanguage(language === 'en' ? 'hi' : 'en')}
             className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-full shadow"
           >
             {language === 'en' ? 'हिन्दी' : 'English'}
-          </button>
+          </button> */}
         </div>
 
         <p className="text-center text-gray-300 max-w-xl mx-auto text-lg mb-12">

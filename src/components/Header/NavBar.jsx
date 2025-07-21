@@ -120,7 +120,7 @@ export default function NavBar({
                         }}
                         className="w-full py-2 text-left hover:bg-gray-100 rounded px-2"
                       >
-                        📄 View Profile
+                        📄 {language === "EN" ? "View Profile" : "प्रोफ़ाइल देखें"}
                       </button>
                       <button
                         onClick={() => {
@@ -134,7 +134,7 @@ export default function NavBar({
                         }}
                         className="w-full py-2 text-left text-red-600 hover:bg-gray-100 rounded px-2"
                       >
-                        🔓 Logout
+                        🔓 {language === "EN" ? "Logout" : "लॉग आउट"}
                       </button>
                     </div>
                   )}
@@ -208,7 +208,7 @@ export default function NavBar({
                 </div>
 
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Notifications </span>
+                  <span className="text-sm text-gray-600">Notifications/सूचनाएं </span>
                   <NotificationBell />
                 </div>
               </div>
