@@ -166,7 +166,7 @@ export default function NavBar({
               <div className="flex items-center justify-between px-4 py-4 border-b">
                 <div className="flex items-center gap-2">
                   <img
-                    src={U}
+                    src={saraswatiLogo}
                     alt="Logo"
                     className="w-12 h-12 border-2 border-indigo-300 rounded-full"
                   />
