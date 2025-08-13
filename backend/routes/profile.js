@@ -31,6 +31,18 @@ router.get("/", verifyToken, async (req, res) => {
 // UPDATE STUDENT PROFILE
 router.put("/", verifyToken, async (req, res) => {
   try {
+    const user = await User.findById(req.user.userId).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Allow only 'student' role to access profile editing
+    if (user.role !== "student") {
+      return res
+        .status(403)
+        .json({ message: "Access denied. Only students can edit their profile." });
+    }
+
     const {
       name,
       email,
@@ -57,22 +69,12 @@ router.put("/", verifyToken, async (req, res) => {
       { new: true }
     ).select("-password");
 
-    //  Allow only 'student' role to access profile editing
-    if (updatedUser.role !== "student") {
-      return res
-        .status(403)
-        .json({
-          message: "Access denied. Only students can edit their profile.",
-        });
-    }
-    if (!updatedUser)
-      return res.status(404).json({ message: "User not found" });
-
     res.json({ message: "Profile updated!", user: updatedUser });
   } catch (err) {
     console.error("Profile update error:", err);
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 export default router;
