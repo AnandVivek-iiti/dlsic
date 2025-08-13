@@ -47,7 +47,7 @@ mongoose
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/profile", checkRole("student"), profileRoutes);
+app.use("/api/profile", verifyToken, checkRole("student"), profileRoutes);
 app.use("/api", roleRoutes);
 app.use("/api/upload",Uploads);
 app.use("/api/notes", uploadNotesRoutes);
@@ -85,7 +85,7 @@ app.post('/announce', async (req, res) => {
     }
 });
 
-app.get('/api/notification', async (req, res) => {
+app.get('/api/notifications', async (req, res) => {
     try {
         const Events = await Announce_.find();
         res.status(200).json(Events);
