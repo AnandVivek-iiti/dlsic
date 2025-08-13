@@ -19,7 +19,7 @@ import { Announce_ } from "./models/Admin/Announce.js";
 import { event_ } from "./models/Admin/Event.js";
 import { Admin_ } from "./models/Admin/Admins.js";
 import Uploads from "./routes/Admin/Upload.js"
-// import notificationRoutes from "./routes/notificationRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT ||5000;
@@ -58,7 +58,7 @@ app.use("/api/upload", verifyToken, checkRole("admin"), uploadRoute);
 app.use("/api/counselling",counselling);
 app.use("/api/feedback",Feedback);
 app.use("/api/grievances",grievances);
-// app.use("/api/notifications",);
+app.use("/api/notifications",notificationRoutes);
 
 
 // Announcement routes
