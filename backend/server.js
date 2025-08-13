@@ -46,11 +46,14 @@ mongoose
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/profile", profileRoutes);
+app.use("/api/profile", checkRole("student"), profileRoutes);
 app.use("/api", roleRoutes);
 app.use("/api/upload",Uploads);
 app.use("/api/notes", uploadNotesRoutes);
-app.use("/upload", express.static("upload"));
+// app.use("/upload",uploadRoute);
+// Middleware to verify token and check role
+
+app.use("/api/upload", verifyToken, checkRole("admin"), uploadRoute);
 app.use("/api/counselling",counselling);
 app.use("/api/feedback",Feedback);
 app.use("/api/grievances",grievances);
@@ -81,7 +84,7 @@ app.post('/announce', async (req, res) => {
     }
 });
 
-app.get('/notification', async (req, res) => {
+app.get('/api/notification', async (req, res) => {
     try {
         const Events = await Announce_.find();
         res.status(200).json(Events);

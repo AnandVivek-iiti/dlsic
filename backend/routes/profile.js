@@ -6,7 +6,7 @@ const { JWT_SECRET } = process.env;
 
 const router = express.Router();
 
-router.get("/", verifyToken, async (req, res) => {
+router.get("/profile", verifyToken, async (req, res) => {
   const userId = req.user.userId;
   try {
     const user = await User.findById(userId).select("-password");
@@ -29,7 +29,7 @@ router.get("/", verifyToken, async (req, res) => {
   }
 });
 // UPDATE STUDENT PROFILE
-router.put("/", verifyToken, async (req, res) => {
+router.put("/profile", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.user.userId).select("-password");
     if (!user) {
